@@ -158,18 +158,6 @@
             <version>5.1.35</version>
         </dependency>
 
-        <!-- jstl -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-
         <!-- freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
