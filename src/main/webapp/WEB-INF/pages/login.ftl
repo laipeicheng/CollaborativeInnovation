@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>登录</title>
-    <link rel="stylesheet" href="assets/layui/css/layui.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
+    <link rel="stylesheet" href="${base}/assets/css/style.css">
 </head>
 <body class="login-body body">
 
@@ -24,11 +24,11 @@
             <button type="submit" class="layui-btn layui-btn-normal">登录</button>
         </div>
         <hr/>
-        <p><a href="register.html" class="fl">还没有账号？注册</a>
+        <p><a href="register" class="fl">还没有账号？注册</a>
     </form>
 </div>
 
-<script type="text/javascript" src="assets/layui/layui.js"></script>
+<script type="text/javascript" src="${base}/assets/layui/layui.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer'], function () {
 

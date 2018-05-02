@@ -44,7 +44,7 @@ public class IndexAction extends ActionSupport {
         return SUCCESS;
     }
 
-    @Action(value = "login",results = {@Result(name = "success",type = "redirect",location = "/index")})
+    @Action(value = "userlogin",results = {@Result(name = "success",type = "redirect",location = "/index")})
     public String login(){
         System.out.println(user);
         return index();

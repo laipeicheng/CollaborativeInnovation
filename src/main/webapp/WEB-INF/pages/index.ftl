@@ -46,7 +46,7 @@
             <div class="layui-tab-content" style="padding: 0px 0;margin-top: 35px">
                 <div class="layui-tab-item layui-show">
                 <@shiro.guest>
-                    <form class="layui-form" method="post" action="${base}/login">
+                    <form class="layui-form" method="post" action="${base}/userlogin">
                         <div class="layui-form-pane">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">用户名</label>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item" style="float: right;">
-                            <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/register.html">注册</a>
+                            <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/register">注册</a>
                             <input type="submit" class="layui-btn layui-btn-small layui-btn-normal" lay-filter="*"
                                    lay-submit value="登录"/>
                         </div>
