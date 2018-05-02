@@ -18,7 +18,6 @@
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <ul class="layui-tab-title" id="LAY_mine">
                     <li class="layui-this" lay-id="info">个人资料</li>
-                    <li lay-id="avatar">头像</li>
                     <li lay-id="pass">密码</li>
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
@@ -58,21 +57,6 @@
                     </div>
 
                     <div class="layui-form layui-form-pane layui-tab-item">
-                        <div class="layui-form-item">
-                            <div class="avatar-add">
-                                <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过30KB</p>
-                                <div class="upload-img">
-                                    <button type="button" class="layui-btn layui-bg-blue" id="upload_head">
-                                        <i class="layui-icon"></i>上传头像
-                                    </button>
-                                </div>
-                                <img src="http://tp4.sinaimg.cn/1345566427/180/5730976522/0">
-                                <span class="loading"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="layui-form layui-form-pane layui-tab-item">
                         <form class="layui-form" method="post" action="#">
                             <div class="layui-form-item">
                                 <label for="L_nowpass" class="layui-form-label">当前密码</label>
@@ -96,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <button class="layui-btn" lay-filter="*" lay-submit>确认修改</button>
+                                <button class="layui-btn layui-btn-normal" lay-filter="*" lay-submit>确认修改</button>
                             </div>
                         </form>
                     </div>

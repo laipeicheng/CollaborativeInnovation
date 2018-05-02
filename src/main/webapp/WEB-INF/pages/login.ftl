@@ -13,7 +13,7 @@
 
 <div class="login-main">
     <header class="layui-elip">协同创新-登录</header>
-    <form class="layui-form" action="login" method="post">
+    <form class="layui-form" action="${base}/user/login" method="post">
         <div class="layui-input-inline">
             <input type="text" name="username" required  lay-verify="username" placeholder="用户名" autocomplete="off" class="layui-input">
         </div>

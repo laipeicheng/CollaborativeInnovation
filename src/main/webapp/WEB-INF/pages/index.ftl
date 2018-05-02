@@ -37,8 +37,27 @@
                 </div>
             </#list>
             </div>
-            <!--分页-->
+            <#--<!--分页&ndash;&gt;
             <div id="page"></div>
+            <script>
+                //分页模块
+                layui.use(['laypage', 'layer'], function () {
+                    var laypage = layui.laypage
+                            , layer = layui.layer;
+                    //只显示上一页、下一页
+                    laypage.render({
+                        elem: 'page'
+                        , count: 10
+                        //['count', 'prev', 'page', 'next', 'limit', 'skip']
+                        , layout: ['prev', 'page', 'next']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                layer.msg('第 ' + obj.curr + ' 页');
+                            }
+                        }
+                    });
+                });
+            </script>-->
         </div>
         <div class="layui-col-md4" style="margin-top: 50px; margin-bottom: 50px">
             <!-- 登录框 -->
@@ -46,7 +65,7 @@
             <div class="layui-tab-content" style="padding: 0px 0;margin-top: 35px">
                 <div class="layui-tab-item layui-show">
                 <@shiro.guest>
-                    <form class="layui-form" method="post" action="${base}/userlogin">
+                    <form class="layui-form" method="post" action="${base}/user/login">
                         <div class="layui-form-pane">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">用户名</label>
@@ -75,13 +94,13 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">当前用户</label>
                         <div class="layui-input-inline">
-                            <input type="text"  class="layui-input" disabled value="">
+                            <input type="text" class="layui-input" disabled value="">
                         </div>
                     </div>
                 </div>
                     <div class="layui-form-item" style="float: right;">
                         <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/usercenter">个人中心</a>
-                        <a class="layui-btn layui-btn-small layui-btn-danger" href="${base}/logout" >注销</a>
+                        <a class="layui-btn layui-btn-small layui-btn-danger" href="${base}/logout">注销</a>
                     </div>
                 </@shiro.user>
                 </div>
@@ -98,12 +117,12 @@
             <div class="ms-main" id="ms-main">
                 <div style="display: block;" class="bd bd-news">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>${(pageviewArticleList[0].title)!}</li>
+                        <li>${(pageviewArticleList[1].title)!}</li>
+                        <li>${(pageviewArticleList[2].title)!}</li>
+                        <li>${(pageviewArticleList[3].title)!}</li>
+                        <li>${(pageviewArticleList[4].title)!}</li>
+                        <li>${(pageviewArticleList[5].title)!}</li>
                     </ul>
                 </div>
             </div>

@@ -42,16 +42,16 @@
                 <a href="${base}/index">首页</a>
             </li>
             <li class="layui-nav-item">
-                <a href="${base}/articlelist">资源共享</a>
+                <a href="${base}/articlelist">知识库</a>
             </li>
             <li class="layui-nav-item">
-                <a href="#">信息咨讯</a>
+                <a href="${base}/information">信息咨讯</a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;" onclick="addFavorite(location.href, document.title)">加入收藏</a>
             </li>
             <li class="layui-nav-item">
-                <a href="#">关于我们</a>
+                <a href="${base}/about">关于我们</a>
             </li>
         </ul>
     </div>
@@ -98,7 +98,7 @@
                             cLi.innerHTML = "<a href='${base}/article?articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a>";
                         });
                     }
-                })
+                });
             }
         }
     });

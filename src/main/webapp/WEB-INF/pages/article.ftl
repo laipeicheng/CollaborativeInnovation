@@ -18,16 +18,16 @@
                 <a href="index">首页</a>
                 <a href="articlelist">资源共享</a>
                 <a href="#">分类</a>
-                <a><cite>${article.title}</cite></a>
+                <a><cite>${(article.title)!}</cite></a>
     	    </span>
                 <hr class="layui-bg-gray">
                 <div class="content" id="photos">
-                    <h2 class="c_titile">${article.title}</h2>
+                    <h2 class="c_titile">${(article.title)!}</h2>
                     <p class="box_c"><span
-                            class="d_time">发布时间：${article.publishtime}</span><span>编辑：author</span><span>浏览（${article.pageview}）</span>
+                            class="d_time">发布时间：${(article.publishtime)!}</span><span>编辑：author</span><span>浏览（${(article.pageview)!}）</span>
                     </p>
                     <div class="detail-body">
-                    ${article.content}
+                    ${(article.content)!}
                     </div>
 
                     <fieldset class="layui-elem-field layui-field-title" style="margin: 0px 0px; text-align: center;">
@@ -61,16 +61,35 @@
                                     </div>
                                 </div>
                             </li>
-                            <#--<li class="fly-none">没有任何回答</li>-->
+                        <#--<li class="fly-none">没有任何回答</li>-->
                         </ul>
                         <!--分页-->
                         <div id="page_reply"></div>
-                        <form action="reply?reply.articleid=${article.articleid}" method="post">
+                        <script>
+                            layui.use(['layer', 'laypage'], function () {
+                                var layer = layui.layer
+                                        , laypage = layui.laypage;
+
+                                //只显示上一页、下一页
+                                laypage.render({
+                                    elem: 'page_reply'
+                                    , count: 10
+                                    //['count', 'prev', 'page', 'next', 'limit', 'skip']
+                                    , layout: ['prev', 'page', 'next']
+                                    , jump: function (obj, first) {
+                                        if (!first) {
+                                            layer.msg('第 ' + obj.curr + ' 页');
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <form action="reply?reply.articleid=${(article.articleid)!}" method="post">
                             <div class="layui-form layui-form-pane">
                                 <div class="layui-form-item layui-form-text">
                                     <div class="layui-input-block">
                                         <textarea id="reply" name="reply.replycontent" lay-verify="required"
-                                                  class="layui-textarea fly-editor"></textarea>
+                                                  class="layui-textarea"></textarea>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">

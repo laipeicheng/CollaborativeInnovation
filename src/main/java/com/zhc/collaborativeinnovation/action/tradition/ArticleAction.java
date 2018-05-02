@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Namespace("/")
+@Namespace("/article")
 @ParentPackage("struts-default")
 @Controller
 public class ArticleAction extends ActionSupport {
@@ -45,7 +45,7 @@ public class ArticleAction extends ActionSupport {
         replyList.add(reply);
         return SUCCESS;
     }
-    @Action(value = "articlelist",results = {@Result(name = "success",type = "freemarker",location = "article/articlelist.ftl")})
+    @Action(value = "articlelist",results = {@Result(name = "success",type = "freemarker",location = "articlelist.ftl")})
     public String articlelist(){
         return SUCCESS;
     }

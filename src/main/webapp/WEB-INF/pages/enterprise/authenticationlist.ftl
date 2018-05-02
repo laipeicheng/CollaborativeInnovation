@@ -16,34 +16,23 @@
 
         <div class="fly-panel fly-panel-user">
             <fieldset class="layui-elem-field layui-field-title">
-                <legend>企业管理</legend>
+                <legend>申请认证的企业</legend>
             </fieldset>
-
-            <button class="layui-btn layui-btn-small layui-btn-normal">添加用户</button>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
-                    <col width="100">
-                    <col width="100">
-                    <col width="100">
-                    <col width="200">
                     <col>
+                    <col width="300">
                 </colgroup>
                 <thead>
                 <tr>
-                    <th>用户名</th>
-                    <th>真实姓名</th>
-                    <th>手机号码</th>
-                    <th>邮箱</th>
+                    <th>企业名称</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>user01</td>
-                    <td>用户01</td>
-                    <td>15077774211</td>
-                    <td>admin@admin.com</td>
-                    <td><a href="#" class="layui-btn layui-btn-mini layui-btn-primary">编辑</a><a href="#" class="layui-btn layui-btn-mini layui-btn-danger">删除</a></td>
+                    <td><a href="${base}/enterprise/enterpriseinfo">企业1</a></td>
+                    <td><a href="#" class="layui-btn layui-btn-mini layui-btn-normal">认证通过</a><a href="#" class="layui-btn layui-btn-mini layui-btn-danger">认证不通过</a></td>
                 </tr>
                 </tbody>
             </table>

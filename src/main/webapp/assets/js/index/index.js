@@ -48,23 +48,7 @@ layui.use('flow', function(){
 
 });
 
-//分页模块
-layui.use(['laypage', 'layer'], function() {
-    var laypage = layui.laypage
-            , layer = layui.layer;
-			//只显示上一页、下一页
-  laypage.render({
-    elem: 'page'
-    ,count: 100
-	//['count', 'prev', 'page', 'next', 'limit', 'skip']
-    ,layout: ['prev', 'page', 'next']
-    ,jump: function(obj, first){
-      if(!first){
-        layer.msg('第 '+ obj.curr +' 页');
-      }
-    }
-  });
-});
+
 
 //搜索
 layui.use('form', function(){
