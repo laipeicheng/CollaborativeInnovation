@@ -1,6 +1,6 @@
 package com.zhc.collaborativeinnovation.service.impl;
 
-import com.zhc.collaborativeinnovation.entity.Article;
+import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.core.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;

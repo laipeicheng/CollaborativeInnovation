@@ -1,7 +1,7 @@
 package com.zhc.collaborativeinnovation.action.async;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.zhc.collaborativeinnovation.entity.Article;
+import com.zhc.collaborativeinnovation.vo.Article;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;

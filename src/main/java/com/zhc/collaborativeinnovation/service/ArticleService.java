@@ -1,6 +1,6 @@
 package com.zhc.collaborativeinnovation.service;
 
-import com.zhc.collaborativeinnovation.entity.Article;
+import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.core.service.BaseService;
 
 import java.io.Serializable;

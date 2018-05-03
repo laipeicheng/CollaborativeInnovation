@@ -1,8 +1,8 @@
 package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.zhc.collaborativeinnovation.entity.Article;
-import com.zhc.collaborativeinnovation.entity.Reply;
+import com.zhc.collaborativeinnovation.vo.Article;
+import com.zhc.collaborativeinnovation.vo.Reply;
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;

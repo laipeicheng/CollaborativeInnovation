@@ -94,7 +94,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">当前用户</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" disabled value="">
+                            <input type="text" class="layui-input" disabled value="<@shiro.principal type="com.zhc.core.realms.LoginRealm.ShiroUser" property="realname" />">
                         </div>
                     </div>
                 </div>
