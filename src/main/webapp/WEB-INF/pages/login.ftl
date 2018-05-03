@@ -15,10 +15,10 @@
     <header class="layui-elip">协同创新-登录</header>
     <form class="layui-form" action="${base}/user/login" method="post">
         <div class="layui-input-inline">
-            <input type="text" name="username" required  lay-verify="username" placeholder="用户名" autocomplete="off" class="layui-input">
+            <input type="text" name="user.username" required  lay-verify="username" placeholder="用户名" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <input type="password" name="password" required  lay-verify="password" placeholder="密码" autocomplete="off" class="layui-input">
+            <input type="password" name="user.password" required  lay-verify="password" placeholder="密码" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline login-btn">
             <button type="submit" class="layui-btn layui-btn-normal">登录</button>
