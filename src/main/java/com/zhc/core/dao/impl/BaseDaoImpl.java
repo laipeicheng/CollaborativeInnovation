@@ -18,25 +18,35 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Qualifier("hibernateTemplate")
 	public HibernateTemplate hibernateTemplate;
 
+	@Override
 	@Transactional(readOnly=true)
 	public List<T> list(Class<T> cls) {
 		String hql = "from "+cls.getSimpleName();
 		return (List<T>) hibernateTemplate.find(hql);
 	}
 
+	@Override
 	@Transactional(readOnly=false)
 	public void delete(T entity) {
 		hibernateTemplate.delete(entity);
 	}
 
+	@Override
 	@Transactional(readOnly=false)
 	public void saveOrUpdate(T entity) {
 		hibernateTemplate.saveOrUpdate(entity);
 	}
 
+	@Override
 	@Transactional(readOnly=true)
 	public T get(Class<T> cls, Serializable id) {
 		return hibernateTemplate.get(cls, id);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public T load(Class<T> cls, Serializable id) {
+		return hibernateTemplate.load(cls, id);
 	}
 
 }

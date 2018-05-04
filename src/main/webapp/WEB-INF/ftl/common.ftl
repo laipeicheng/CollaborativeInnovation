@@ -97,6 +97,9 @@
                         $("#ms-main div li").each(function (i, cLi) {
                             cLi.innerHTML = "<a href='${base}/article?articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a>";
                         });
+                    },
+                    error:function () {
+                        console.log("error");
                     }
                 });
             }

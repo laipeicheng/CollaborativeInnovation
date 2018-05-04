@@ -29,7 +29,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="password" name="user.password" lay-verify="password" placeholder="密码"
+                <input type="password" id="password" name="user.password" lay-verify="password" placeholder="密码"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -62,30 +62,45 @@
     </form>
 </div>
 
-<script type="text/javascript" src="${base}/assets/layui/layui.js"></script>
-<script type="text/javascript">
+<script src="${base}/assets/layui/layui.js"></script>
+<script src="${base}/assets/js/jquery/jquery-2.1.4.min.js"></script>
+<script>
     layui.use('form', function () {
         var form = layui.form;
 
         form.verify({
-            elem:'registerform',
+            elem: 'registerform',
             username: function (value) {
-                var flag;
+                var verifyStr = "";
                 $.ajax({
-                    url:"${base}/verify",
-                    type:"post",
-                    datatype:'json',
-                    data:{
-                        "username":value
+                    url: "${base}/verify/username",
+                    type: "post",
+                    async: false,
+                    data: {
+                        "username": value
                     },
-                    success:function (json) {
-                        return json.verifyStr;
+                    success: function (json) {
+                        verifyStr = json.verifyStr;
                     }
                 });
+                return verifyStr;
+            },
+            realname: function (value) {
+                if (value == "") {
+                    return "请输入姓名";
+                }
             },
             password: function (value) {
                 if (value == "") {
                     return "请输入密码";
+                }
+            },
+            repassword: function (value) {
+                var pass = $('#password').val();
+                console.log(pass);
+                console.log(value);
+                if (value != pass) {
+                    return "两次输入密码不一致";
                 }
             },
         });

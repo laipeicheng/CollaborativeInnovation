@@ -1,6 +1,8 @@
 import com.google.gson.Gson;
 import com.zhc.collaborativeinnovation.vo.*;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.core.service.BaseService;
+import com.zhc.core.service.impl.BaseServiceImpl;
 import com.zhc.core.util.EncryptUtil;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
@@ -18,7 +20,12 @@ public class BaseTest {
     @Qualifier("userService")
     private UserService userService;
 
-	@Test
+    @Autowired
+    @Qualifier("baseService")
+    private BaseService<Role> roleService;
+
+
+    @Test
 	public void testEntityToString(){
 		Article article = new Article();
 		System.out.println(article);
@@ -53,11 +60,31 @@ public class BaseTest {
         System.out.println(user);
     }
 
-    public UserService getUserService() {
-        return userService;
+
+    @Test
+    public void testGetRole(){
+	    Role role = roleService.get(Role.class, 2);
+        System.out.println(role);
     }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    @Test
+    public void testDeleteRole(){
+
+        /**
+         * Role role = new Role(2,"");
+         * 必须从数据库中获得一方的对象,才能级联删除对应的多方的数据
+         * 实际意义为调用一方中的多方集合的clear方法清空该集合，才能删除此集合在数据库中对应的数据
+         * 否则为将多方的外键设为null，断开关系
+         */
+        Role role = roleService.get(Role.class, 2);
+        roleService.delete(role);
     }
+
+    @Test
+    public void testDeleteUser(){
+        User user = new User();
+        user.setUsername("asdf");
+        userService.delete(user);
+    }
+
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @Namespace("/")
 @ParentPackage("json-default")
 @Controller
-public class ArticleAsyncAction extends ActionSupport {
+public class RecommendAction extends ActionSupport {
 
     private String sortKey;
 

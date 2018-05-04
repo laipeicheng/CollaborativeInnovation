@@ -30,9 +30,8 @@ public class User extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
-    @Expose
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "roleid", insertable = true,updatable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roleid", referencedColumnName = "roleid",unique = true)
     private Role role;
 
     public User() {}

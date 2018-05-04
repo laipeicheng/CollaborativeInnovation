@@ -31,4 +31,6 @@ public interface BaseDao<T> {
 	 * @return		通过主键找到的对象
 	 */
 	T get(Class<T> cls, Serializable id);
+
+	T load(Class<T> cls, Serializable id);
 }

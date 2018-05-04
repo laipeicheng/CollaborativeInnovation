@@ -3,6 +3,7 @@ package com.zhc.collaborativeinnovation.action.tradition;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.service.impl.UserServiceImpl;
+import com.zhc.collaborativeinnovation.vo.Role;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.util.EncryptUtil;
 import org.apache.shiro.SecurityUtils;
@@ -42,6 +43,7 @@ public class UserAction extends ActionSupport {
         ByteSource salt = ByteSource.Util.bytes(username);
         user.setPassword(EncryptUtil.encMD5(password, salt));
         userService.saveOrUpdate(user);
+        user.setRole(new Role(2,""));
         return SUCCESS;
     }
 

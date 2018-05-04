@@ -2,11 +2,10 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -20,6 +19,11 @@ public class Role extends BaseEntity {
     @Expose
     @Column(name = "rolename")
     private String rolename;
+
+    @Expose
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "roleid")
+    private Set<User> userSet;
 
     public Role() {
     }
@@ -45,6 +49,13 @@ public class Role extends BaseEntity {
         this.rolename = rolename;
     }
 
+    public Set<User> getUserSet() {
+        return userSet;
+    }
+
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
+    }
 }
 
 
