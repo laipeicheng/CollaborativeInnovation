@@ -14,7 +14,7 @@ public class Article extends BaseEntity {
     @Id
     @Expose
     @Column(name = "articleid")
-    private String articleid;
+    private int articleid;
 
     @Expose
     @Column(name = "title")
@@ -51,7 +51,7 @@ public class Article extends BaseEntity {
     public Article() {
     }
 
-    public Article(String articleid, String title, String summary, String content, Integer pageview, Integer favoritecount, Integer reviewcount, Timestamp publishtime, int articletypeid) {
+    public Article(int articleid, String title, String summary, String content, Integer pageview, Integer favoritecount, Integer reviewcount, Timestamp publishtime, int articletypeid) {
         this.articleid = articleid;
         this.title = title;
         this.summary = summary;
@@ -63,11 +63,11 @@ public class Article extends BaseEntity {
         this.articletypeid = articletypeid;
     }
 
-    public String getArticleid() {
+    public int getArticleid() {
         return articleid;
     }
 
-    public void setArticleid(String articleid) {
+    public void setArticleid(int articleid) {
         this.articleid = articleid;
     }
 
@@ -133,27 +133,6 @@ public class Article extends BaseEntity {
 
     public void setArticletypeid(int articletypeid) {
         this.articletypeid = articletypeid;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Article article = (Article) o;
-
-        if (articletypeid != article.articletypeid) return false;
-        if (articleid != null ? !articleid.equals(article.articleid) : article.articleid != null) return false;
-        if (title != null ? !title.equals(article.title) : article.title != null) return false;
-        if (summary != null ? !summary.equals(article.summary) : article.summary != null) return false;
-        if (content != null ? !content.equals(article.content) : article.content != null) return false;
-        if (pageview != null ? !pageview.equals(article.pageview) : article.pageview != null) return false;
-        if (favoritecount != null ? !favoritecount.equals(article.favoritecount) : article.favoritecount != null)
-            return false;
-        if (reviewcount != null ? !reviewcount.equals(article.reviewcount) : article.reviewcount != null) return false;
-        if (publishtime != null ? !publishtime.equals(article.publishtime) : article.publishtime != null) return false;
-
-        return true;
     }
 
 }

@@ -20,7 +20,7 @@
                 <h2 style="border-bottom: 4px solid gray">
                     最新文章
                 </h2>
-            <#list articleList as article>
+            <#list articleList! as article>
                 <div class="article-list">
                     <ul>
                         <h3>

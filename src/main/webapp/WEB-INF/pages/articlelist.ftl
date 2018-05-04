@@ -28,7 +28,7 @@
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <div class="article-main">
-                        <#list articleList as article>
+                        <#list articleList! as article>
                             <div class="article-list">
                                 <ul>
                                     <h3>

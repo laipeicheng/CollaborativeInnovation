@@ -11,7 +11,7 @@ public class BaseEntity implements Serializable {
 
     static{
         GsonBuilder gsonBuilder = new GsonBuilder();
-        //只将具有Exclude注解的属性进行转json
+        //只将具有Expose注解的属性进行转json
         gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         //将null值得属性也进行转json
         gsonBuilder = gsonBuilder.serializeNulls();

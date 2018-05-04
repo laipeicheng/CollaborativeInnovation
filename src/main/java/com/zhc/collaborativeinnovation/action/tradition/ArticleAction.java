@@ -35,7 +35,7 @@ public class ArticleAction extends ActionSupport {
     @Action(value = "article",results = {@Result(name = "success",type = "freemarker",location = "article.ftl")})
     public String article(){
         article = articleService.get(article.getArticleid());
-        article = new Article("123456","publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()),2);
+        article = new Article(1,"publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()),2);
         reply = new Reply(2,"replycontent",new Timestamp(new Date().getTime()),"username","123456");
         replyList = new ArrayList<Reply>();
         replyList.add(reply);

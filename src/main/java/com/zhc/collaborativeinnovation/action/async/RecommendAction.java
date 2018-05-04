@@ -25,7 +25,7 @@ public class RecommendAction extends ActionSupport {
     @Action(value = "recommend", results = {@Result(type = "json")})
     public String recommend(){
         System.out.println("---------------recommend--"+sortKey+"---------------");
-        Article article = new Article("123456","","","",0,0,0,new Timestamp(new Date().getTime()),0);
+        Article article = new Article(1,"","","",0,0,0,new Timestamp(new Date().getTime()),0);
         if("pageview".equals(sortKey)){
             article.setTitle("pageview");
         }else if("favoritecount".equals(sortKey)){

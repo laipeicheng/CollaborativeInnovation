@@ -38,15 +38,6 @@ public class IndexAction extends ActionSupport {
     public String index() {
         articleList = articleService.listSortByPublishtime();
         pageviewArticleList = articleService.listSortByPageview();
-        Article article = new Article("123456","publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()),2);
-        articleList = new ArrayList<Article>();
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        pageviewArticleList = articleList;
         return SUCCESS;
     }
 
@@ -59,27 +50,11 @@ public class IndexAction extends ActionSupport {
     @Action(value = "articlelist",results = {@Result(name = "success",type = "freemarker",location = "articlelist.ftl")})
     public String articlelist(){
         articleList = articleService.listSortByPublishtime();
-        Article article = new Article("123456","publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()),2);
-        articleList = new ArrayList<Article>();
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
         return SUCCESS;
     }
     @Action(value = "article",results = {@Result(name = "success",type = "freemarker",location = "article.ftl")})
     public String article(){
         article = articleService.get(article.getArticleid());
-        article = new Article("123456","publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()),2);
-        /*reply = new Reply(2,"replycontent",new Timestamp(new Date().getTime()),"username","123456");
-        replyList = new ArrayList<Reply>();
-        replyList.add(reply);
-        replyList.add(reply);
-        replyList.add(reply);
-        replyList.add(reply);
-        replyList.add(reply);*/
         return SUCCESS;
     }
     public List<Article> getArticleList() {
