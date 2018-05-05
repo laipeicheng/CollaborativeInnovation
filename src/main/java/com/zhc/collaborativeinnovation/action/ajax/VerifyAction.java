@@ -1,6 +1,6 @@
-package com.zhc.collaborativeinnovation.action.async;
+package com.zhc.collaborativeinnovation.action.ajax;
 
-import com.opensymphony.xwork2.ActionSupport;
+import com.zhc.core.action.BaseAction;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 @Namespace("/verify")
 @ParentPackage("json-default")
 @Controller
-public class VerifyAction extends ActionSupport {
+public class VerifyAction extends BaseAction {
 
     private String username;
 

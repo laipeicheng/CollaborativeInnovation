@@ -77,7 +77,7 @@
     $(function () {
         var oLi = $("#tab li");
         var oUl = $("#ms-main div");
-        var sortBy = ["pageview", "favoritecount", "recentReply"];
+        var sortBy = ["pageview", "recentReply"];
         for (var i = 0; i < oLi.length; i++) {
             oLi[i].index = i;
             oLi[i].onclick = function () {
@@ -91,16 +91,17 @@
                     url: '${base}/recommend',
                     type: 'post',
                     data: data,
-                    dataType:'json',
+                    dataType: 'json',
                     success: function (json) {
                         console.log(json);
                         var articleList = json.articleList;
-                        $("#ms-main div li").each(function (i, cLi) {
-                            cLi.innerHTML = "<a></a>";
-                        });
-                        $("#ms-main div li").each(function (i, cLi) {
-                            cLi.innerHTML = "<a href='${base}/article?articleid=" + articleList[i].articleid + "'>"+ articleList[i].title + "</a>";
-                        });
+                        var htmlStr = " ";
+                        $("#recommend").empty();
+                        console.log($("#recommend"));
+                        for(var i = 0; i< articleList.length ; i++){
+                            htmlStr += "<li><a href='${base}/article?articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a></li>";
+                        }
+                        $("#recommend").html(htmlStr);
                     },
                 });
             }

@@ -50,6 +50,9 @@
                 }
             },
         });
+        <#if msg??>
+            layer.msg("${(msg)!}");
+        </#if>
     });
 </script>
 </body>

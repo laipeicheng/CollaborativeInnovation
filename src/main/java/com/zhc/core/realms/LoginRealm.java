@@ -3,6 +3,7 @@ package com.zhc.core.realms;
 import com.google.gson.annotations.Expose;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.core.util.EncryptUtil;
 import com.zhc.core.vo.BaseEntity;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -55,19 +56,24 @@ public class LoginRealm extends AuthorizingRealm {
         System.out.println("----------------doGetAuthenticationInfo-------------");
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
         String username = upToken.getUsername();
+        String password = upToken.getPassword().toString();
+        AuthenticationInfo info = null;
         if (username != null && !"".equals(username)) {
             User user = userService.get(username);
             if (user != null) {
                 ByteSource salt = ByteSource.Util.bytes(username);
-                ShiroUser shiroUser = new ShiroUser(username, user.getRealname(), user.getPassword());
-                System.out.println(shiroUser);
-                AuthenticationInfo info = new SimpleAuthenticationInfo(shiroUser, user.getPassword(), salt, this.getName());
-                return info;
+                password = EncryptUtil.encMD5(password,salt);
+                if(password.equals(user.getPassword())){
+                    throw new IncorrectCredentialsException();
+                }else {
+                    ShiroUser shiroUser = new ShiroUser(username, user.getRealname(), user.getPassword());
+                    info = new SimpleAuthenticationInfo(shiroUser, user.getPassword(), salt, this.getName());
+                }
             } else {
-                throw new UnknownAccountException("没有这个用户");
+                throw new UnknownAccountException();
             }
         }
-        return null;
+        return info;
     }
 
     public class ShiroUser extends BaseEntity {

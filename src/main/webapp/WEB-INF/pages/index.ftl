@@ -20,22 +20,23 @@
                 <h2 style="border-bottom: 4px solid gray">
                     最新文章
                 </h2>
-            <#list articleList! as article>
-                <div class="article-list">
-                    <ul>
-                        <h3>
-                            <a href="${base}/article?article.articleid=${article.articleid}">${(article.title)!}</a>
-                        </h3>
-                        <p>${(article.summary)!}...</p>
-                        <p class="autor">
-                            <span class="dtime f_l">${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span>
-                            <span class="viewnum f_r">浏览（${(article.pageview)!}）</span>
-                            <span class="pingl f_r">评论（${(article.reviewcount)!}）</span>
-                            <span class="lm">收藏（${(article.favoritecount)!}）</span>
-                        </p>
-                    </ul>
-                </div>
-            </#list>
+                <#if articleList?size!=0>
+                    <#list articleList as article>
+                        <div class="article-list">
+                            <ul>
+                                <h3>
+                                    <a href="${base}/article?article.articleid=${article.articleid}">${(article.title)!}</a>
+                                </h3>
+                                <p>${(article.summary)!}...</p>
+                                <p class="autor">
+                                    <span class="dtime f_l">${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span>
+                                    <span class="viewnum f_r">浏览（${(article.pageview)!}）</span>
+                                    <span class="pingl f_r">评论（${(article.reviewcount)!}）</span>
+                                </p>
+                            </ul>
+                        </div>
+                    </#list>
+                </#if>
             </div>
             <#--<!--分页&ndash;&gt;
             <div id="page"></div>
@@ -94,7 +95,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">当前用户</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" disabled value="<@shiro.principal type="com.zhc.core.realms.LoginRealm$ShiroUser" property="realname" />">
+                            <input type="text" class="layui-input" disabled value="<@shiro.principal type="com.zhc.core.realms.LoginRealm$ShiroUser" property="realname"/>">
                         </div>
                     </div>
                 </div>
@@ -110,13 +111,12 @@
             <div class="ms-top" style="padding-top: 20px">
                 <ul class="hd" id="tab">
                     <li class="cur"><a>点击排行</a></li>
-                    <li><a>收藏排行</a></li>
                     <li><a>最新评论</a></li>
                 </ul>
             </div>
-            <div class="ms-main" id="ms-main">
+            <div class="ms-main">
                 <div style="display: block;" class="bd bd-news">
-                    <ul>
+                    <ul id="recommend">
                         <#list pageviewArticleList as article>
                             <li><a href="${base}/article?articleid=${(article.articleid)!}">${(article.title)!}</a></li>
                         </#list>

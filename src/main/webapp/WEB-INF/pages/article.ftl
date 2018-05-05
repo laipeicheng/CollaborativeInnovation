@@ -14,17 +14,20 @@
     <div class="layui-row layui-col-space20">
         <div class="layui-col-md8">
             <div>
-            <span class="layui-breadcrumb">
+            <span class="">
                 <a href="index">首页</a>
+                &nbsp;>&nbsp;
                 <a href="articlelist">资源共享</a>
-                <a href="#">分类</a>
+                &nbsp;>&nbsp;
+                <a href="${base}/articlelist?articletypeid=${(article.articletype.articletypeid)!}">${(article.articletype.articletypename)!}</a>
+                &nbsp;>&nbsp;
                 <a><cite>${(article.title)!}</cite></a>
     	    </span>
                 <hr class="layui-bg-gray">
                 <div class="content" id="photos">
                     <h2 class="c_titile">${(article.title)!}</h2>
                     <p class="box_c"><span
-                            class="d_time">发布时间：${(article.publishtime)!}</span><span>编辑：author</span><span>浏览（${(article.pageview)!}）</span>
+                            class="d_time">发布时间：${(article.publishtime)!}</span><span>编辑：${(article.author.realname)!}</span><span>浏览（${(article.pageview)!}）</span>
                     </p>
                     <div class="detail-body">
                     ${(article.content)!}
@@ -35,33 +38,34 @@
                     </fieldset>
                     <div class="detail-box">
                         <ul class="jieda" id="jieda">
-
-                            <li class="jieda-daan">
-                                <a name="item-121212121212"></a>
-                                <div class="detail-about detail-about-reply">
-                                    <a class="jie-user" href="">
-                                        <cite>
-                                            <i>纸飞机</i>
-                                            <em>(作者)</em>
-                                            <em style="color:#5FB878">(管理员)</em>
-                                            <em>3分钟前</em>
-                                        </cite>
-                                    </a>
-                                </div>
-                                <div class="detail-body jieda-body">
-                                    <p>么么哒</p>
-                                </div>
-                                <div class="jieda-reply">
-                                    <span class="jieda-zan zanok" type="zan"><i
-                                            class="iconfont icon-zan"></i><em>12</em></span>
-                                    <span type="reply"><i class="iconfont icon-svgmoban53"></i>回复</span>
-                                    <div class="jieda-admin">
-                                        <span type="edit">编辑</span>
-                                        <span type="del">删除</span>
+                            <#if article.replySet?size=0>
+                                <li class="fly-none">没有任何回答</li>
+                            <#else>
+                            <#list replyList as reply>
+                                <li class="jieda-daan">
+                                    <#--<a name="item-121212121212"></a>-->
+                                    <div class="detail-about detail-about-reply">
+                                        <a class="jie-user" href="">
+                                            <cite>
+                                                <i>${(reply.user.realname)!}</i>
+                                                <#if reply.user.username=article.author.username><em>(作者)</em></#if>
+                                                <#if ((reply.user.role.roleid)!)==0><em style="color:#5FB878">(管理员)</em></#if>
+                                                <em>${(reply.replytime)!}</em>
+                                            </cite>
+                                        </a>
                                     </div>
-                                </div>
-                            </li>
-                        <#--<li class="fly-none">没有任何回答</li>-->
+                                    <div class="detail-body jieda-body">
+                                        <p>${(reply.replycontent)!}</p>
+                                    </div>
+                                    <div class="jieda-reply">
+                                        <div class="jieda-admin">
+                                            <#if reply.user.username=(user.username)!><span type="edit">编辑</span></#if>
+                                            <#if article.author.username=(user.username)!||reply.user.username=(user.username)!><span type="del">删除</span></#if>
+                                        </div>
+                                    </div>
+                                </li>
+                            </#list>
+                            </#if>
                         </ul>
                         <!--分页-->
                         <div id="page_reply"></div>
@@ -73,12 +77,14 @@
                                 //只显示上一页、下一页
                                 laypage.render({
                                     elem: 'page_reply'
-                                    , count: 10
+                                    , count: ${(pages)!1}
+                                    , theme: '#1E9FFF'
+                                    , curr:${curPage!1}
                                     //['count', 'prev', 'page', 'next', 'limit', 'skip']
                                     , layout: ['prev', 'page', 'next']
                                     , jump: function (obj, first) {
                                         if (!first) {
-                                            layer.msg('第 ' + obj.curr + ' 页');
+                                            location.href="${base}/article?article.articleid=${article.articleid}&curPage="+obj.curr;
                                         }
                                     }
                                 });
@@ -93,7 +99,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <input type="submit" class="layui-btn" lay-filter="*" lay-submit value="回复"/>
+                                    <input type="submit" class="layui-btn layui-btn-normal" lay-filter="*" lay-submit value="回复"/>
                                 </div>
                             </div>
                         </form>
@@ -106,14 +112,12 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 38px">
                     <legend>文章分类</legend>
                 </fieldset>
-                <button class="layui-btn layui-btn-normal">分类一</button>
-                <button class="layui-btn layui-btn-primary">分类二</button>
-                <button class="layui-btn layui-btn-normal">分类三</button>
-                <br/>
-                <br/>
-                <button class="layui-btn layui-btn-primary">分类四</button>
-                <button class="layui-btn layui-btn-normal">分类五</button>
-                <button class="layui-btn layui-btn-primary">分类六</button>
+                <#if articletypeList?size!=0>
+                    <#list articletypeList as articletype>
+                    <#if articletype_index%3==0><br><br></#if>
+                        <a href="${base}/articlelist?articletypeid=${(articletype.articletypeid)!}" class="layui-btn layui-btn-primary">${(articletype.articletypename)!}</a>
+                    </#list>
+                </#if>
             </div>
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 40px">
                 <legend>文章推荐</legend>
@@ -121,19 +125,15 @@
             <div class="ms-top" style="padding-top: 20px">
                 <ul class="hd" id="tab">
                     <li class="cur"><a>点击排行</a></li>
-                    <li><a>收藏排行</a></li>
                     <li><a>最新评论</a></li>
                 </ul>
             </div>
-            <div class="ms-main" id="ms-main">
+            <div class="ms-main">
                 <div style="display: block;" class="bd bd-news">
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                    <ul id="recommend">
+                        <#list articleList as article>
+                            <li><a href="${base}/article?articleid=${(article.articleid)!}">${(article.title)!}</a></li>
+                        </#list>
                     </ul>
                 </div>
             </div>

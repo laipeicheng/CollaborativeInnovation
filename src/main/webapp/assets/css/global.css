@@ -194,7 +194,7 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .detail-about .jie-status, .detail-about .jie-status-ok{color:#fff;}
 .detail-about .fly-jing{padding:0 6px; background-color:#c00; color:#fff;}
 .detail-about .jie-user{position:relative;}
-.detail-about .jie-user cite{top: -3px; left: 56px; width: 260px; color: #4f99cf; font-size: 14px;}
+.detail-about .jie-user cite{top: -3px; left: 0px; width: 260px; color: #4f99cf; font-size: 14px;}
 .detail-about .jie-user cite em{padding-left:5px; color:#999; cursor:default; font-size:12px; font-style: normal;}
 .detail-about .jie-user img{position: relative; display: block; margin: 0; top: 0; border-radius: 2px;}
 .detail-hits{position:absolute; left: 71px; bottom: 15px; font-size: 0;}

@@ -40,12 +40,12 @@ public interface BaseDao<T> {
      */
 	T load(Class<T> cls, Serializable id);
 
-
 	/**
 	 *
 	 * @param hql
 	 * @param page
 	 * @param pageSize
+	 * @param args
 	 * @return
 	 */
 	List<T> findByPage(final String hql, final int page, final int pageSize, Object...args);

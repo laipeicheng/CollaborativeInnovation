@@ -57,7 +57,7 @@
             </div>
         </div>
         <hr/>
-        <p><a href="login" class="fl">已有账号，登录</a>
+        <p><a href="${base}/login" class="fl">已有账号，登录</a>
 
     </form>
 </div>
@@ -65,8 +65,9 @@
 <script src="${base}/assets/layui/layui.js"></script>
 <script src="${base}/assets/js/jquery/jquery-2.1.4.min.js"></script>
 <script>
-    layui.use('form', function () {
-        var form = layui.form;
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form
+                , layer = layui.layer;
 
         form.verify({
             elem: 'registerform',
@@ -104,6 +105,9 @@
                 }
             },
         });
+        <#if msg??>
+            layer.msg("${(msg)!}");
+        </#if>
     });
 </script>
 </body>

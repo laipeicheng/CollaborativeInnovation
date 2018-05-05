@@ -39,6 +39,10 @@ public class User extends BaseEntity {
     @JoinColumn(name = "username")
     private Set<Reply> replySet;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "author")
+    private Set<Article> articleSet;
+
     public User() {}
 
     public User(String username, String realname, String password, String email, String phone, Integer roleid) {
@@ -104,4 +108,13 @@ public class User extends BaseEntity {
     public void setReplySet(Set<Reply> replySet) {
         this.replySet = replySet;
     }
+
+    public Set<Article> getArticleSet() {
+        return articleSet;
+    }
+
+    public void setArticleSet(Set<Article> articleSet) {
+        this.articleSet = articleSet;
+    }
+
 }

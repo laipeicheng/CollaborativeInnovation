@@ -1,9 +1,8 @@
-package com.zhc.collaborativeinnovation.action.async;
+package com.zhc.collaborativeinnovation.action.ajax;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.zhc.collaborativeinnovation.service.ArticleService;
-import com.zhc.collaborativeinnovation.service.impl.ArticleServiceImpl;
 import com.zhc.collaborativeinnovation.vo.Article;
+import com.zhc.core.action.BaseAction;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -12,15 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Namespace("/")
 @ParentPackage("json-default")
 @Controller
-public class RecommendAction extends ActionSupport {
+public class RecommendAction extends BaseAction {
 
     private String sortKey;
 
@@ -35,8 +31,6 @@ public class RecommendAction extends ActionSupport {
         System.out.println("---------------recommend--"+sortKey+"---------------");
         if("pageview".equals(sortKey)){
             articleList = articleService.listSortByPageview();
-        }else if("favoritecount".equals(sortKey)){
-            articleList = articleService.listSortByFavoritecount();
         }else if("recentReply".equals(sortKey)){
             articleList = articleService.listSortByRecentReply();
         }

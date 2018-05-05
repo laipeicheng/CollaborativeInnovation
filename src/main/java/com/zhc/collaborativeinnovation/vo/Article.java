@@ -33,10 +33,6 @@ public class Article extends BaseEntity {
     private Integer pageview;
 
     @Expose
-    @Column(name = "favoritecount")
-    private Integer favoritecount;
-
-    @Expose
     @Column(name = "reviewcount")
     private Integer reviewcount;
 
@@ -53,16 +49,19 @@ public class Article extends BaseEntity {
     @JoinColumn(name = "articleid")
     private Set<Reply> replySet;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author")
+    private User author;
+
     public Article() {
     }
 
-    public Article(int articleid, String title, String summary, String content, Integer pageview, Integer favoritecount, Integer reviewcount, Timestamp publishtime) {
+    public Article(int articleid, String title, String summary, String content, Integer pageview, Integer reviewcount, Timestamp publishtime) {
         this.articleid = articleid;
         this.title = title;
         this.summary = summary;
         this.content = content;
         this.pageview = pageview;
-        this.favoritecount = favoritecount;
         this.reviewcount = reviewcount;
         this.publishtime = publishtime;
     }
@@ -107,14 +106,6 @@ public class Article extends BaseEntity {
         this.pageview = pageview;
     }
 
-    public Integer getFavoritecount() {
-        return favoritecount;
-    }
-
-    public void setFavoritecount(Integer favoritecount) {
-        this.favoritecount = favoritecount;
-    }
-
     public Integer getReviewcount() {
         return reviewcount;
     }
@@ -146,4 +137,13 @@ public class Article extends BaseEntity {
     public void setReplySet(Set<Reply> replySet) {
         this.replySet = replySet;
     }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
 }

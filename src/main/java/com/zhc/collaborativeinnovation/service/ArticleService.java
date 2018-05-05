@@ -12,8 +12,6 @@ public interface ArticleService extends BaseService<Article>{
 
     List<Article> listSortByPageview();
 
-    List<Article> listSortByFavoritecount();
-
     List<Article> listSortByRecentReply();
 
     List<Article> listByArticletype(int articletypeid, int page);

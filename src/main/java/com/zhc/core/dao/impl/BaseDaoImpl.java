@@ -54,16 +54,17 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 
     @Override
-    public List<T> findByPage(final String hql, final int page, final int pageSize, final Object...args){
+    public List<T> findByPage(final String hql, final int page, final int pageSize, final Object... args) {
+        System.out.println(hql);
         return (List<T>) hibernateTemplate.execute(new HibernateCallback<List<T>>() {
 
             @Override
             public List<T> doInHibernate(Session session) throws HibernateException {
                 Query<T> query = session.createQuery(hql);
-                for(int i = 0; i < args.length; i++){
+                for (int i = 0; i < args.length; i++) {
                     query.setParameter(i, args[i]);
                 }
-                query.setFirstResult(page*pageSize);
+                query.setFirstResult(page * pageSize);
                 query.setMaxResults(pageSize);
                 return query.list();
             }

@@ -12,4 +12,5 @@ public interface ArticleDao extends BaseDao<Article> {
     List<Article> orderByRecentReply();
 
     List<Article> listByArticletype(int articletypeid, int page);
+
 }

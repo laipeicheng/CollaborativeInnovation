@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ReplyDao extends BaseDao<Reply> {
 
+    List<Reply> listByPageInUser(int articleid, int curPage);
 }

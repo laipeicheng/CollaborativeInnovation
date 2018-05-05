@@ -29,4 +29,5 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
         String hql = "from Article where articletype.articletypeid=?";
         return findByPage(hql, page, 6, articletypeid);
     }
+
 }

@@ -33,12 +33,6 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     }
 
     @Override
-    public List<Article> listSortByFavoritecount() {
-        System.out.println("----------------listSortByFavoritecount--------------");
-        return articleDao.orderByCriterion("favoritecount");
-    }
-
-    @Override
     public List<Article> listSortByRecentReply() {
 
         return articleDao.orderByRecentReply();

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath*:applicationContext-*.xml" })
+@ContextConfiguration(locations = {"classpath*:applicationContext-*.xml"})
 public class BaseTest {
 
     @Autowired
@@ -38,50 +38,49 @@ public class BaseTest {
     private BaseService<Reply> replyService;
 
     @Test
-	public void testEntityToString(){
-		Article article = new Article();
-		System.out.println(article);
-		Articletype articletype = new Articletype();
-		System.out.println(articletype);
-		Reply reply =new Reply();
-		System.out.println(reply);
-		Role role = new Role();
-		System.out.println(role);
-		User user = new User();
-		System.out.println(user);
-	}
+    public void testEntityToString() {
+        Article article = new Article();
+        System.out.println(article);
+        Articletype articletype = new Articletype();
+        System.out.println(articletype);
+        Reply reply = new Reply();
+        System.out.println(reply);
+        Role role = new Role();
+        System.out.println(role);
+        User user = new User();
+        System.out.println(user);
+    }
 
-	@Test
-	public void testAddUser(){
-	    User user = new User();
-	    user.setUsername("user01");
-	    user.setRealname("用户01");
-	    user.setPhone("15077774211");
-	    user.setEmail("15077774211@163.com");
-	    String password = "123456";
+    @Test
+    public void testAddUser() {
+        User user = new User();
+        user.setUsername("user02");
+        user.setRealname("用户02");
+        user.setPhone("15077774211");
+        user.setEmail("15077774211@163.com");
+        String password = "123456";
         ByteSource salt = ByteSource.Util.bytes(user.getUsername());
         password = EncryptUtil.encMD5(password, salt);
-	    user.setPassword(password);
-	    user.setRole(new Role(2,""));
-	    userService.saveOrUpdate(user);
-	}
+        user.setPassword(password);
+        user.setRole(new Role(2, ""));
+        userService.saveOrUpdate(user);
+    }
 
-	@Test
-	public void testGetUser(){
-	    User user = userService.get("user01");
+    @Test
+    public void testGetUser() {
+        User user = userService.get("user01");
         System.out.println(user);
-
     }
 
 
     @Test
-    public void testGetRole(){
-	    Role role = roleService.get(Role.class, 0);
+    public void testGetRole() {
+        Role role = roleService.get(Role.class, 0);
         System.out.println(role);
     }
 
     @Test
-    public void testDeleteRole(){
+    public void testDeleteRole() {
 
         /**
          * Role role = new Role(2,"");
@@ -94,26 +93,26 @@ public class BaseTest {
     }
 
     @Test
-    public void testDeleteUser(){
+    public void testDeleteUser() {
         User user = new User();
         user.setUsername("asdf");
         userService.delete(user);
     }
 
     @Test
-    public void testGetArticle(){
+    public void testGetArticle() {
         List<Article> list = articleService.listSortByPageview();
         System.out.println(list);
     }
 
     @Test
-    public void testGetArticleType(){
+    public void testGetArticleType() {
         Articletype articletype = articletypeService.get(Articletype.class, 1);
         System.out.println(articletype);
     }
 
     @Test
-    public void testGetReply(){
+    public void testGetReply() {
         List<Reply> replyList = replyService.list(Reply.class);
         System.out.println(replyList);
     }
