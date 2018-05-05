@@ -13,8 +13,9 @@
     <div class="layui-row">
 
         <div class="layui-col-md12">
-            <span class="layui-breadcrumb">
+            <span class="">
                 <a href="${base}/index">首页</a>
+                &nbsp;>&nbsp;
                 <a><cite>关于我们</cite></a>
             </span>
             <h1 align="center">关于我们</h1>

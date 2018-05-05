@@ -11,10 +11,10 @@
 <@common.header />
 <div class="layui-container container" style="margin-top: 65px">
     <div class="layui-row">
-
         <div class="layui-col-md12">
-            <span class="layui-breadcrumb">
+            <span class="">
                 <a href="${base}/index">首页</a>
+                &nbsp;>&nbsp;
                 <a><cite>知识库</cite></a>
             </span>
             <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">

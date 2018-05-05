@@ -1,10 +1,7 @@
-import com.google.gson.Gson;
 import com.zhc.collaborativeinnovation.service.ArticleService;
-import com.zhc.collaborativeinnovation.service.impl.ArticleServiceImpl;
-import com.zhc.collaborativeinnovation.vo.*;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.collaborativeinnovation.vo.*;
 import com.zhc.core.service.BaseService;
-import com.zhc.core.service.impl.BaseServiceImpl;
 import com.zhc.core.util.EncryptUtil;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
@@ -66,13 +63,15 @@ public class BaseTest {
 	public void testGetUser(){
 	    User user = userService.get("admin");
         System.out.println(user);
+        System.out.println(user.getRole());
     }
 
 
     @Test
     public void testGetRole(){
-	    Role role = roleService.get(Role.class, 2);
+	    Role role = roleService.get(Role.class, 0);
         System.out.println(role);
+        System.out.println(role.getUserSet());
     }
 
     @Test

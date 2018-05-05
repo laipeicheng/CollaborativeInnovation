@@ -14,8 +14,9 @@
 
         <div class="layui-col-md12">
 
-            <span class="layui-breadcrumb">
+            <span class="">
                 <a href="${base}/index">首页</a>
+                &nbsp;>&nbsp;
                 <a><cite>信息咨讯</cite></a>
             </span>
             <hr class="layui-bg-gray">
