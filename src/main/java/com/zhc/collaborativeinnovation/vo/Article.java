@@ -2,10 +2,10 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 public class Article extends BaseEntity {
@@ -45,13 +45,18 @@ public class Article extends BaseEntity {
     private Timestamp publishtime;
 
     @Expose
-    @Column(name = "articletypeid")
-    private int articletypeid;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "articletypeid")
+    private Articletype articletype;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "articleid")
+    private Set<Reply> replySet;
 
     public Article() {
     }
 
-    public Article(int articleid, String title, String summary, String content, Integer pageview, Integer favoritecount, Integer reviewcount, Timestamp publishtime, int articletypeid) {
+    public Article(int articleid, String title, String summary, String content, Integer pageview, Integer favoritecount, Integer reviewcount, Timestamp publishtime) {
         this.articleid = articleid;
         this.title = title;
         this.summary = summary;
@@ -60,7 +65,6 @@ public class Article extends BaseEntity {
         this.favoritecount = favoritecount;
         this.reviewcount = reviewcount;
         this.publishtime = publishtime;
-        this.articletypeid = articletypeid;
     }
 
     public int getArticleid() {
@@ -127,12 +131,19 @@ public class Article extends BaseEntity {
         this.publishtime = publishtime;
     }
 
-    public int getArticletypeid() {
-        return articletypeid;
+    public Articletype getArticletype() {
+        return articletype;
     }
 
-    public void setArticletypeid(int articletypeid) {
-        this.articletypeid = articletypeid;
+    public void setArticletype(Articletype articletype) {
+        this.articletype = articletype;
     }
 
+    public Set<Reply> getReplySet() {
+        return replySet;
+    }
+
+    public void setReplySet(Set<Reply> replySet) {
+        this.replySet = replySet;
+    }
 }

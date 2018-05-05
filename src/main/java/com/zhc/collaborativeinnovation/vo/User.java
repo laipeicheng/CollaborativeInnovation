@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -30,9 +31,13 @@ public class User extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roleid", referencedColumnName = "roleid",unique = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "roleid")
     private Role role;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "username")
+    private Set<Reply> replySet;
 
     public User() {}
 
@@ -90,5 +95,13 @@ public class User extends BaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Reply> getReplySet() {
+        return replySet;
+    }
+
+    public void setReplySet(Set<Reply> replySet) {
+        this.replySet = replySet;
     }
 }

@@ -2,7 +2,6 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,8 +19,7 @@ public class Role extends BaseEntity {
     @Column(name = "rolename")
     private String rolename;
 
-    @Expose
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "roleid")
     private Set<User> userSet;
 

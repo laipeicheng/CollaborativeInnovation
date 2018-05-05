@@ -3,10 +3,7 @@ package com.zhc.collaborativeinnovation.vo;
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -16,6 +13,7 @@ public class Reply extends BaseEntity {
     @Id
     @Expose
     @Column(name = "replyid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer replyid;
 
     @Expose
@@ -26,22 +24,21 @@ public class Reply extends BaseEntity {
     @Column(name = "replytime")
     private Timestamp replytime;
 
-    @Column(name = "username")
-    private String username;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "articleid")
+    private Article article;
 
-    @Expose
-    @Column(name = "articleid")
-    private String articleid;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "username")
+    private User user;
 
     public Reply() {
     }
 
-    public Reply(Integer replyid, String replycontent, Timestamp replytime, String username, String articleid) {
+    public Reply(Integer replyid, String replycontent, Timestamp replytime) {
         this.replyid = replyid;
         this.replycontent = replycontent;
         this.replytime = replytime;
-        this.username = username;
-        this.articleid = articleid;
     }
 
     public Integer getReplyid() {
@@ -70,22 +67,19 @@ public class Reply extends BaseEntity {
         this.replytime = replytime;
     }
 
-
-    public String getUsername() {
-        return username;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-
-    public String getArticleid() {
-        return articleid;
+    public User getUser() {
+        return user;
     }
 
-    public void setArticleid(String articleid) {
-        this.articleid = articleid;
+    public void setUser(User user) {
+        this.user = user;
     }
-
 }

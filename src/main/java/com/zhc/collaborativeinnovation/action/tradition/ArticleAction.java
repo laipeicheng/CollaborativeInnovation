@@ -35,8 +35,8 @@ public class ArticleAction extends ActionSupport {
     @Action(value = "article",results = {@Result(name = "success",type = "freemarker",location = "article.ftl")})
     public String article(){
         article = articleService.get(article.getArticleid());
-        article = new Article(1,"publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()),2);
-        reply = new Reply(2,"replycontent",new Timestamp(new Date().getTime()),"username","123456");
+        article = new Article(1,"publishtime","summary","content",10,20,30,new Timestamp(new Date().getTime()));
+        reply = new Reply(2,"replycontent",new Timestamp(new Date().getTime()));
         replyList = new ArrayList<Reply>();
         replyList.add(reply);
         replyList.add(reply);
@@ -53,7 +53,6 @@ public class ArticleAction extends ActionSupport {
     @Action(value = "reply",results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.articleid}")})
     public String reply(){
         System.out.println(reply.getReplycontent());
-        System.out.println(reply.getArticleid());
         return SUCCESS;
     }
 

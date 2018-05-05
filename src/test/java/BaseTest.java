@@ -26,9 +26,16 @@ public class BaseTest {
     private BaseService<Role> roleService;
 
     @Autowired
+    @Qualifier("baseService")
+    private BaseService<Articletype> articletypeService;
+
+    @Autowired
     @Qualifier("articleService")
     private ArticleService articleService;
 
+    @Autowired
+    @Qualifier("baseService")
+    private BaseService<Reply> replyService;
 
     @Test
 	public void testEntityToString(){
@@ -47,23 +54,23 @@ public class BaseTest {
 	@Test
 	public void testAddUser(){
 	    User user = new User();
-	    user.setUsername("admin");
-	    user.setRealname("超级管理员");
+	    user.setUsername("user01");
+	    user.setRealname("用户01");
 	    user.setPhone("15077774211");
 	    user.setEmail("15077774211@163.com");
-	    String password = "admin";
+	    String password = "123456";
         ByteSource salt = ByteSource.Util.bytes(user.getUsername());
         password = EncryptUtil.encMD5(password, salt);
 	    user.setPassword(password);
+	    user.setRole(new Role(2,""));
 	    userService.saveOrUpdate(user);
-        System.out.println(user);
 	}
 
 	@Test
 	public void testGetUser(){
-	    User user = userService.get("admin");
+	    User user = userService.get("user01");
         System.out.println(user);
-        System.out.println(user.getRole());
+
     }
 
 
@@ -71,7 +78,6 @@ public class BaseTest {
     public void testGetRole(){
 	    Role role = roleService.get(Role.class, 0);
         System.out.println(role);
-        System.out.println(role.getUserSet());
     }
 
     @Test
@@ -100,4 +106,15 @@ public class BaseTest {
         System.out.println(list);
     }
 
+    @Test
+    public void testGetArticleType(){
+        Articletype articletype = articletypeService.get(Articletype.class, 1);
+        System.out.println(articletype);
+    }
+
+    @Test
+    public void testGetReply(){
+        List<Reply> replyList = replyService.list(Reply.class);
+        System.out.println(replyList);
+    }
 }

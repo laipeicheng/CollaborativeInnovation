@@ -3,10 +3,8 @@ package com.zhc.collaborativeinnovation.vo;
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "articletype")
@@ -21,6 +19,9 @@ public class Articletype extends BaseEntity {
     @Column(name = "articletypename")
     private String articletypename;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "articletypeid")
+    private Set<Article> articleSet;
 
     public int getArticletypeid() {
         return articletypeid;
@@ -30,7 +31,6 @@ public class Articletype extends BaseEntity {
         this.articletypeid = articletypeid;
     }
 
-
     public String getArticletypename() {
         return articletypename;
     }
@@ -39,4 +39,11 @@ public class Articletype extends BaseEntity {
         this.articletypename = articletypename;
     }
 
+    public Set<Article> getArticleSet() {
+        return articleSet;
+    }
+
+    public void setArticleSet(Set<Article> articleSet) {
+        this.articleSet = articleSet;
+    }
 }
