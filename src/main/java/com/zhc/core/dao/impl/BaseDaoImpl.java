@@ -1,14 +1,8 @@
 package com.zhc.core.dao.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
-import com.zhc.core.vo.BaseEntity;
+import com.zhc.core.dao.BaseDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +11,8 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zhc.core.dao.BaseDao;
+import java.io.Serializable;
+import java.util.List;
 
 @Repository("baseDao")
 public class BaseDaoImpl<T> implements BaseDao<T> {
@@ -57,19 +52,21 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return hibernateTemplate.load(cls, id);
     }
 
+
     @Override
-    public List<T> queryWithSql(final String sql, final String...args) {
-        return hibernateTemplate.executeWithNativeSession(new HibernateCallback<List<T>>() {
+    public List<T> findByPage(final String hql, final int page, final int pageSize, final Object...args){
+        return (List<T>) hibernateTemplate.execute(new HibernateCallback<List<T>>() {
+
             @Override
             public List<T> doInHibernate(Session session) throws HibernateException {
-                Query query = session.createQuery(sql);
-                for (int i = 0; i<args.length;i++) {
+                Query<T> query = session.createQuery(hql);
+                for(int i = 0; i < args.length; i++){
                     query.setParameter(i, args[i]);
                 }
-                List<T> list = query.list();
-                return list;
+                query.setFirstResult(page*pageSize);
+                query.setMaxResults(pageSize);
+                return query.list();
             }
         });
     }
-
 }

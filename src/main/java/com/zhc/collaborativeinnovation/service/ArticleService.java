@@ -16,5 +16,7 @@ public interface ArticleService extends BaseService<Article>{
 
     List<Article> listSortByRecentReply();
 
+    List<Article> listByArticletype(int articletypeid, int page);
+
     Article get(Serializable id);
 }

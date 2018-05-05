@@ -19,11 +19,9 @@
             </span>
             <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                 <ul class="layui-tab-title">
-                    <li class="layui-this"><a href="#">分类一</a></li>
-                    <li><a href="#">分类二</a></li>
-                    <li><a href="#">分类三</a></li>
-                    <li><a href="#">分类四</a></li>
-                    <li><a href="#">分类五</a></li>
+                    <#list articletypeList as articletype>
+                    <li class="<#if articletypeid=articletype.articletypeid>layui-this</#if>"><a href="${base}/articlelist?articletypeid=${(articletype.articletypeid)!}">${(articletype.articletypename)!}</a></li>
+                    </#list>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">

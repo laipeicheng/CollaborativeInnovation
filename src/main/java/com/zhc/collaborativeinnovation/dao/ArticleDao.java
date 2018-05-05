@@ -10,4 +10,6 @@ public interface ArticleDao extends BaseDao<Article> {
     List<Article> orderByCriterion(String oderBy);
 
     List<Article> orderByRecentReply();
+
+    List<Article> listByArticletype(int articletypeid, int page);
 }

@@ -19,7 +19,7 @@ public class Role extends BaseEntity {
     @Column(name = "rolename")
     private String rolename;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "roleid")
     private Set<User> userSet;
 

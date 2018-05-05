@@ -20,8 +20,13 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 
     @Override
     public List<Article> orderByRecentReply() {
-        String sql = "select * from article where articleid in(" +
-                "select distinct articleid from reply order by replytime desc) limit 0, 6";
-        return queryWithSql(sql);
+        String hql = "from Article where articleid in(select reply.article.articleid from Reply reply order by replytime desc)";
+        return findByPage(hql, 0, 6);
+    }
+
+    @Override
+    public List<Article> listByArticletype(int articletypeid, int page) {
+        String hql = "from Article where articletype.articletypeid=?";
+        return findByPage(hql, page, 6, articletypeid);
     }
 }

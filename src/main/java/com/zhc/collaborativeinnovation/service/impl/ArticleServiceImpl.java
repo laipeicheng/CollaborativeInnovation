@@ -45,6 +45,11 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     }
 
     @Override
+    public List<Article> listByArticletype(int articletypeid, int page) {
+        return articleDao.listByArticletype(articletypeid, page);
+    }
+
+    @Override
     public Article get(Serializable id) {
         return this.get(Article.class,id);
     }

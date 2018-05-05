@@ -2,8 +2,8 @@
 //注意：导航 依赖 element 模块，否则无法进行功能性操作
 layui.use('element', function(){
     //导航的hover效果、二级菜单等功能，需要依赖element模块
-    var element = layui.element();
-    element.init();
+    var element = layui.element;
+    element.init()
 });
 
 //图片轮播

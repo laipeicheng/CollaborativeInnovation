@@ -2,8 +2,10 @@ package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.zhc.collaborativeinnovation.vo.Article;
+import com.zhc.collaborativeinnovation.vo.Articletype;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.service.ArticleService;
+import com.zhc.core.service.BaseService;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -28,7 +30,15 @@ public class IndexAction extends ActionSupport {
     @Qualifier("articleService")
     private ArticleService articleService;
 
+    @Autowired
+    @Qualifier("baseService")
+    private BaseService<Articletype> articletypeService;
+
+    private int articletypeid = 1;
+
     private List<Article> articleList;
+
+    private List<Articletype> articletypeList;
 
     private List<Article> pageviewArticleList;
 
@@ -49,7 +59,8 @@ public class IndexAction extends ActionSupport {
 
     @Action(value = "articlelist",results = {@Result(name = "success",type = "freemarker",location = "articlelist.ftl")})
     public String articlelist(){
-        articleList = articleService.listSortByPublishtime();
+        articleList = articleService.listByArticletype(articletypeid,0);
+        articletypeList = articletypeService.list(Articletype.class);
         return SUCCESS;
     }
     @Action(value = "article",results = {@Result(name = "success",type = "freemarker",location = "article.ftl")})
@@ -57,6 +68,7 @@ public class IndexAction extends ActionSupport {
         article = articleService.get(article.getArticleid());
         return SUCCESS;
     }
+
     public List<Article> getArticleList() {
         return articleList;
     }
@@ -87,5 +99,21 @@ public class IndexAction extends ActionSupport {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public List<Articletype> getArticletypeList() {
+        return articletypeList;
+    }
+
+    public void setArticletypeList(List<Articletype> articletypeList) {
+        this.articletypeList = articletypeList;
+    }
+
+    public int getArticletypeid() {
+        return articletypeid;
+    }
+
+    public void setArticletypeid(int articletypeid) {
+        this.articletypeid = articletypeid;
     }
 }
