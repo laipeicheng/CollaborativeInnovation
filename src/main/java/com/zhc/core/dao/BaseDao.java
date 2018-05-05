@@ -25,12 +25,20 @@ public interface BaseDao<T> {
 	void saveOrUpdate(T entity);
 
 	/**
-	 *
+	 * get方式获取对象
 	 * @param cls	实体类
 	 * @param id	实体类对应的表的主键
 	 * @return		通过主键找到的对象
 	 */
 	T get(Class<T> cls, Serializable id);
 
+    /**
+     * load方式获取对象
+     * @param cls   实体类
+     * @param id    主键
+     * @return      实体对象
+     */
 	T load(Class<T> cls, Serializable id);
+
+    List<T> queryWithSql(final String sql, final String...args);
 }

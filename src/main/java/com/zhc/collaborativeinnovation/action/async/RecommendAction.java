@@ -1,11 +1,15 @@
 package com.zhc.collaborativeinnovation.action.async;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.zhc.collaborativeinnovation.service.ArticleService;
+import com.zhc.collaborativeinnovation.service.impl.ArticleServiceImpl;
 import com.zhc.collaborativeinnovation.vo.Article;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import java.sql.Timestamp;
@@ -22,24 +26,21 @@ public class RecommendAction extends ActionSupport {
 
     private List<Article> articleList;
 
+    @Autowired
+    @Qualifier("articleService")
+    private ArticleService articleService;
+
     @Action(value = "recommend", results = {@Result(type = "json")})
     public String recommend(){
         System.out.println("---------------recommend--"+sortKey+"---------------");
-        Article article = new Article(1,"","","",0,0,0,new Timestamp(new Date().getTime()),0);
         if("pageview".equals(sortKey)){
-            article.setTitle("pageview");
+            articleList = articleService.listSortByPageview();
         }else if("favoritecount".equals(sortKey)){
-            article.setTitle("favoritecount");
+            articleList = articleService.listSortByFavoritecount();
         }else if("recentReply".equals(sortKey)){
-            article.setTitle("recentReply");
+            articleList = articleService.listSortByRecentReply();
         }
-        articleList = new ArrayList<Article>();
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
-        articleList.add(article);
+        System.out.println(articleList);
         return SUCCESS;
     }
 

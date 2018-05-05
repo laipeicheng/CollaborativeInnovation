@@ -117,12 +117,9 @@
             <div class="ms-main" id="ms-main">
                 <div style="display: block;" class="bd bd-news">
                     <ul>
-                        <li>${(pageviewArticleList[0].title)!}</li>
-                        <li>${(pageviewArticleList[1].title)!}</li>
-                        <li>${(pageviewArticleList[2].title)!}</li>
-                        <li>${(pageviewArticleList[3].title)!}</li>
-                        <li>${(pageviewArticleList[4].title)!}</li>
-                        <li>${(pageviewArticleList[5].title)!}</li>
+                        <#list pageviewArticleList as article>
+                            <li><a href="${base}/article?articleid=${(article.articleid)!}">${(article.title)!}</a></li>
+                        </#list>
                     </ul>
                 </div>
             </div>

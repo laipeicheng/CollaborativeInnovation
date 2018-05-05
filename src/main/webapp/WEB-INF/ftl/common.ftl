@@ -88,19 +88,20 @@
                     "sortKey": sortBy[this.index]
                 };
                 $.ajax({
-                    url: "${base}/recommend",
-                    type: "post",
+                    url: '${base}/recommend',
+                    type: 'post',
                     data: data,
+                    dataType:'json',
                     success: function (json) {
                         console.log(json);
                         var articleList = json.articleList;
                         $("#ms-main div li").each(function (i, cLi) {
-                            cLi.innerHTML = "<a href='${base}/article?articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a>";
+                            cLi.innerHTML = "<a></a>";
+                        });
+                        $("#ms-main div li").each(function (i, cLi) {
+                            cLi.innerHTML = "<a href='${base}/article?articleid=" + articleList[i].articleid + "'>"+ articleList[i].title + "</a>";
                         });
                     },
-                    error:function () {
-                        console.log("error");
-                    }
                 });
             }
         }

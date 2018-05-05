@@ -1,4 +1,6 @@
 import com.google.gson.Gson;
+import com.zhc.collaborativeinnovation.service.ArticleService;
+import com.zhc.collaborativeinnovation.service.impl.ArticleServiceImpl;
 import com.zhc.collaborativeinnovation.vo.*;
 import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.core.service.BaseService;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:applicationContext-*.xml" })
 public class BaseTest {
@@ -23,6 +27,10 @@ public class BaseTest {
     @Autowired
     @Qualifier("baseService")
     private BaseService<Role> roleService;
+
+    @Autowired
+    @Qualifier("articleService")
+    private ArticleService articleService;
 
 
     @Test
@@ -85,6 +93,12 @@ public class BaseTest {
         User user = new User();
         user.setUsername("asdf");
         userService.delete(user);
+    }
+
+    @Test
+    public void testGetArticle(){
+        List<Article> list = articleService.listSortByPageview();
+        System.out.println(list);
     }
 
 }

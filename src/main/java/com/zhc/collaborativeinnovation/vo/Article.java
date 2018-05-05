@@ -2,10 +2,9 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -14,6 +13,7 @@ public class Article extends BaseEntity {
     @Id
     @Expose
     @Column(name = "articleid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int articleid;
 
     @Expose
