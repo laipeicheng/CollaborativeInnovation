@@ -85,6 +85,11 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "update",results = {@Result(name = "success", type = "redirect",location = "/usercenter")})
+    public String update(){
+        return SUCCESS;
+    }
+
     public User getUser() {
         return user;
     }

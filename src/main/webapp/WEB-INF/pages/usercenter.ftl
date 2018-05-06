@@ -26,22 +26,29 @@
                             <div class="layui-form-item">
                                 <label for="username" class="layui-form-label">用户名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="username" name="email" disabled autocomplete="off"
-                                           class="layui-input">
+                                    <input type="text" id="username" name="user.username" disabled autocomplete="off"
+                                           class="layui-input" value="${(user.username)!}">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="realname" class="layui-form-label">姓名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="realname" lay-verify="required" autocomplete="off" value=""
+                                    <input type="text" name="user.realname" lay-verify="required" autocomplete="off" value="${(user.realname)!}"
                                            class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="L_city" class="layui-form-label">邮件</label>
+                                <label for="phone" class="layui-form-label">手机</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="L_city" name="city" lay-verify="required" autocomplete="off"
-                                           value="" class="layui-input">
+                                    <input type="text" id="phone" name="user.phone" lay-verify="required" autocomplete="off"
+                                           value="${(user.phone)!}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="email" class="layui-form-label">邮件</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="email" name="user.email" lay-verify="required" autocomplete="off"
+                                           value="${(user.email)!}" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">

@@ -2,6 +2,7 @@ package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.service.ReplyService;
+import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.vo.Articletype;
 import com.zhc.collaborativeinnovation.vo.Reply;
@@ -40,6 +41,10 @@ public class IndexAction extends BaseAction {
     @Qualifier("replyService")
     private ReplyService replyService;
 
+    @Autowired
+    @Qualifier("userService")
+    private UserService userService;
+
     private User user;
 
     private Reply reply;
@@ -59,13 +64,18 @@ public class IndexAction extends BaseAction {
     @Action(value = "index", results = {@Result(name = "success", type = "freemarker", location = "index.ftl")})
     public String index() {
         articleList = articleService.listSortByPublishtime();
+        System.out.println(articleList);
         pageviewArticleList = articleService.listSortByPageview();
         return SUCCESS;
     }
 
     @Action(value = "usercenter", results = {@Result(name = "success", type = "freemarker", location = "usercenter.ftl")})
     public String userCenter() {
-
+        Subject subject = SecurityUtils.getSubject();
+        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+        String username = shiroUser.getUsername();
+        user = userService.get(username);
+        System.out.println(user);
         return SUCCESS;
     }
 
@@ -79,14 +89,14 @@ public class IndexAction extends BaseAction {
 
     @Action(value = "article", results = {
             @Result(name = "success", type = "freemarker", location = "article.ftl")
-            ,@Result(name = "error", type = "redirect", location = "articlelist")})
+            , @Result(name = "error", type = "redirect", location = "articlelist")})
     public String article() {
         if (article == null) {
-            msg="该文章已不存在";
+            msg = "该文章已不存在";
             return ERROR;
         } else {
             article = articleService.get(article.getArticleid());
-            article.setPageview(article.getPageview()+1);
+            article.setPageview(article.getPageview() + 1);
             article.setReviewcount(article.getReplySet().size());
             articleService.saveOrUpdate(article);
             replyList = replyService.listByPageInUser(article.getArticleid(), curPage);
@@ -99,12 +109,12 @@ public class IndexAction extends BaseAction {
 
     @Action(value = "reply", results = {
             @Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.article.articleid}")
-            ,@Result(name = "error", type = "redirect", location = "/login")})
-    public String reply(){
+            , @Result(name = "error", type = "redirect", location = "/login")})
+    public String reply() {
         Timestamp replytime = new Timestamp(new Date().getTime());
         Subject subject = SecurityUtils.getSubject();
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        if(shiroUser == null){
+        if (shiroUser == null) {
             return ERROR;
         }
         user = new User();
@@ -114,6 +124,24 @@ public class IndexAction extends BaseAction {
         System.out.println(reply);
         replyService.saveOrUpdate(reply);
         return SUCCESS;
+    }
+
+    @Action(value = "delReply", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.article.articleid}")})
+    public String delReply() {
+        Subject subject = SecurityUtils.getSubject();
+        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+        if (shiroUser == null) {
+            return ERROR;
+        }
+        String username = shiroUser.getUsername();
+        reply = replyService.get(reply.getReplyid());
+        User user = reply.getArticle().getAuthor();
+        if (!username.equals(user.getUsername())) {
+            return ERROR;
+        } else {
+            replyService.delete(reply);
+            return SUCCESS;
+        }
     }
 
     public List<Article> getArticleList() {

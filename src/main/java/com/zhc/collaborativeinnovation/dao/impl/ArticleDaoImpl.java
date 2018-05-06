@@ -8,6 +8,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("articleDao")
@@ -17,7 +18,17 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
         DetachedCriteria criterion = DetachedCriteria.forClass(Article.class);
         criterion.addOrder(Order.desc(oderBy));
         criterion.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        return (List<Article>) hibernateTemplate.findByCriteria(criterion, 0, 6);
+        List<Article> articleList = (List<Article>) hibernateTemplate.findByCriteria(criterion);
+        List<Article> tempList = new ArrayList<>();
+        for (int i = 0; i < articleList.size(); i++) {
+            if(i>=6){
+                break;
+            }
+            if (!tempList.contains(articleList.get(i))) {
+                tempList.add(articleList.get(i));
+            }
+        }
+        return articleList;
     }
 
     @Override
@@ -29,7 +40,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
     @Override
     public List<Article> listByArticletype(int articletypeid, int page) {
         String hql = "from Article where articletype.articletypeid=?";
-        return findByPage(hql, page-1, 6, articletypeid);
+        return findByPage(hql, page - 1, 6, articletypeid);
     }
 
 }

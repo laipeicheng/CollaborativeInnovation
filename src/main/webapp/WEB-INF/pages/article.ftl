@@ -59,10 +59,10 @@
                                         <p>${(reply.replycontent)!}</p>
                                     </div>
                                     <div class="jieda-reply">
+                                        <a>&nbsp;</a>
                                         <div class="jieda-admin">
-                                            <#if reply.user.username=(user.username)!><span type="edit">编辑</span></#if>
-                                            <#if article.author.username=(user.username)!||reply.user.username=(user.username)!>
-                                                <span type="del">删除</span></#if>
+                                            <#if article.author.username=(user.username)!||reply.user.username=(user.username)!||"admin"=(user.username)!>
+                                                <span type="del"><a href="${base}/delReply?reply.replyid=${reply.replyid}">删除</a></span></#if>
                                         </div>
                                     </div>
                                 </li>
