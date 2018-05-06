@@ -49,4 +49,13 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	List<T> findByPage(final String hql, final int page, final int pageSize, Object...args);
+
+	/**
+	 *
+	 * @param cls
+	 * @return
+	 */
+	int getPages(Class<T> cls);
+
+
 }

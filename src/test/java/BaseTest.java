@@ -1,6 +1,8 @@
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.vo.*;
+import com.zhc.core.dao.BaseDao;
+import com.zhc.core.dao.impl.BaseDaoImpl;
 import com.zhc.core.service.BaseService;
 import com.zhc.core.util.EncryptUtil;
 import org.apache.shiro.util.ByteSource;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -115,5 +119,28 @@ public class BaseTest {
     public void testGetReply() {
         List<Reply> replyList = replyService.list(Reply.class);
         System.out.println(replyList);
+    }
+
+    @Autowired
+    private BaseDao<Article> articleDao;
+
+    @Test
+    public void testPages() {
+        int pages = articleDao.getPages(Article.class);
+        System.out.println(pages);
+    }
+
+    @Test
+    public void testAddReply(){
+        Reply reply = new Reply();
+        User user = new User();
+        user.setUsername("user03");
+        reply.setUser(user);
+        reply.setReplycontent("回复内容2");
+        Article article = new Article();
+        article.setArticleid(1);
+        reply.setArticle(article);
+        reply.setReplytime(new Timestamp(new Date().getTime()));
+        replyService.saveOrUpdate(reply);
     }
 }

@@ -48,4 +48,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
         return this.get(Article.class,id);
     }
 
+    @Override
+    public int getPages() {
+        return super.getPages(Article.class);
+    }
 }

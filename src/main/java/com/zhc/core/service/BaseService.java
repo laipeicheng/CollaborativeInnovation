@@ -8,4 +8,5 @@ public interface BaseService<T> {
 	void delete(T entity);
 	void saveOrUpdate(T entity);
 	T get(Class<T> cls, Serializable id);
+	int getPages(Class<T> cls);
 }

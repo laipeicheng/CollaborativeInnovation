@@ -41,15 +41,16 @@
                             <#if article.replySet?size=0>
                                 <li class="fly-none">没有任何回答</li>
                             <#else>
-                            <#list replyList as reply>
+                                <#list replyList as reply>
                                 <li class="jieda-daan">
-                                    <#--<a name="item-121212121212"></a>-->
+                                <#--<a name="item-121212121212"></a>-->
                                     <div class="detail-about detail-about-reply">
                                         <a class="jie-user" href="">
                                             <cite>
                                                 <i>${(reply.user.realname)!}</i>
                                                 <#if reply.user.username=article.author.username><em>(作者)</em></#if>
-                                                <#if ((reply.user.role.roleid)!)==0><em style="color:#5FB878">(管理员)</em></#if>
+                                                <#if ((reply.user.role.roleid)!)==0><em
+                                                        style="color:#5FB878">(管理员)</em></#if>
                                                 <em>${(reply.replytime)!}</em>
                                             </cite>
                                         </a>
@@ -60,11 +61,12 @@
                                     <div class="jieda-reply">
                                         <div class="jieda-admin">
                                             <#if reply.user.username=(user.username)!><span type="edit">编辑</span></#if>
-                                            <#if article.author.username=(user.username)!||reply.user.username=(user.username)!><span type="del">删除</span></#if>
+                                            <#if article.author.username=(user.username)!||reply.user.username=(user.username)!>
+                                                <span type="del">删除</span></#if>
                                         </div>
                                     </div>
                                 </li>
-                            </#list>
+                                </#list>
                             </#if>
                         </ul>
                         <!--分页-->
@@ -77,20 +79,20 @@
                                 //只显示上一页、下一页
                                 laypage.render({
                                     elem: 'page_reply'
-                                    , count: ${(pages)!1}
+                                    , count: ${(pages*10)!}
                                     , theme: '#1E9FFF'
                                     , curr:${curPage!1}
                                     //['count', 'prev', 'page', 'next', 'limit', 'skip']
                                     , layout: ['prev', 'page', 'next']
                                     , jump: function (obj, first) {
                                         if (!first) {
-                                            location.href="${base}/article?article.articleid=${article.articleid}&curPage="+obj.curr;
+                                            location.href = "${base}/article?article.articleid=${article.articleid}&curPage=" + obj.curr;
                                         }
                                     }
                                 });
                             });
                         </script>
-                        <form action="reply?reply.articleid=${(article.articleid)!}" method="post">
+                        <form action="reply?reply.article.articleid=${(article.articleid)!}" method="post">
                             <div class="layui-form layui-form-pane">
                                 <div class="layui-form-item layui-form-text">
                                     <div class="layui-input-block">
@@ -99,7 +101,8 @@
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <input type="submit" class="layui-btn layui-btn-normal" lay-filter="*" lay-submit value="回复"/>
+                                    <input type="submit" class="layui-btn layui-btn-normal" lay-filter="*" lay-submit
+                                           value="回复"/>
                                 </div>
                             </div>
                         </form>
@@ -114,8 +117,9 @@
                 </fieldset>
                 <#if articletypeList?size!=0>
                     <#list articletypeList as articletype>
-                    <#if articletype_index%3==0><br><br></#if>
-                        <a href="${base}/articlelist?articletypeid=${(articletype.articletypeid)!}" class="layui-btn layui-btn-primary">${(articletype.articletypename)!}</a>
+                        <#if articletype_index%3==0><br><br></#if>
+                        <a href="${base}/articlelist?articletypeid=${(articletype.articletypeid)!}"
+                           class="layui-btn layui-btn-primary">${(articletype.articletypename)!}</a>
                     </#list>
                 </#if>
             </div>

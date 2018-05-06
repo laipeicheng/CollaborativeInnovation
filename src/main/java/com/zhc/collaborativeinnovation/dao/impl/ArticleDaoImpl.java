@@ -3,6 +3,7 @@ package com.zhc.collaborativeinnovation.dao.impl;
 import com.zhc.collaborativeinnovation.dao.ArticleDao;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.core.dao.impl.BaseDaoImpl;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,8 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
     public List<Article> orderByCriterion(String oderBy) {
         DetachedCriteria criterion = DetachedCriteria.forClass(Article.class);
         criterion.addOrder(Order.desc(oderBy));
-        return (List<Article>) hibernateTemplate.findByCriteria(criterion);
+        criterion.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return (List<Article>) hibernateTemplate.findByCriteria(criterion, 0, 6);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
     @Override
     public List<Article> listByArticletype(int articletypeid, int page) {
         String hql = "from Article where articletype.articletypeid=?";
-        return findByPage(hql, page, 6, articletypeid);
+        return findByPage(hql, page-1, 6, articletypeid);
     }
 
 }

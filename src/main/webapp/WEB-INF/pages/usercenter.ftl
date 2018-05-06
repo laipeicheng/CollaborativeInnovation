@@ -36,12 +36,6 @@
                                     <input type="text" name="realname" lay-verify="required" autocomplete="off" value=""
                                            class="layui-input">
                                 </div>
-                                <div class="layui-inline">
-                                    <div class="layui-input-inline">
-                                        <input type="radio" name="sex" value="0" checked title="男">
-                                        <input type="radio" name="sex" value="1" title="女">
-                                    </div>
-                                </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="L_city" class="layui-form-label">邮件</label>

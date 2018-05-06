@@ -33,4 +33,9 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		return baseDao.get(cls, id);
 	}
 
+	@Override
+	public int getPages(Class<T> cls) {
+		return baseDao.getPages(cls);
+	}
+
 }

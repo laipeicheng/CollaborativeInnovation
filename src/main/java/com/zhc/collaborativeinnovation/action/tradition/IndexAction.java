@@ -7,7 +7,10 @@ import com.zhc.collaborativeinnovation.vo.Articletype;
 import com.zhc.collaborativeinnovation.vo.Reply;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
+import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.service.BaseService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -16,15 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Namespace("/")
 @ParentPackage("struts-default")
 @Controller
 public class IndexAction extends BaseAction {
-
-    private User user;
 
     @Autowired
     @Qualifier("articleService")
@@ -37,6 +39,10 @@ public class IndexAction extends BaseAction {
     @Autowired
     @Qualifier("replyService")
     private ReplyService replyService;
+
+    private User user;
+
+    private Reply reply;
 
     private int articletypeid = 1;
 
@@ -65,8 +71,9 @@ public class IndexAction extends BaseAction {
 
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
-        articleList = articleService.listByArticletype(articletypeid, 0);
+        articleList = articleService.listByArticletype(articletypeid, curPage);
         articletypeList = articletypeService.list(Articletype.class);
+        pages = articleService.getPages();
         return SUCCESS;
     }
 
@@ -79,16 +86,34 @@ public class IndexAction extends BaseAction {
             return ERROR;
         } else {
             article = articleService.get(article.getArticleid());
-            int count = article.getReplySet().size();
+            article.setPageview(article.getPageview()+1);
+            article.setReviewcount(article.getReplySet().size());
+            articleService.saveOrUpdate(article);
             replyList = replyService.listByPageInUser(article.getArticleid(), curPage);
-            pages = count / 6;
-            if (count % 6 != 0) {
-                pages++;
-            }
+            pages = replyService.getPages(article.getArticleid());
             articleList = articleService.listSortByPageview();
             articletypeList = articletypeService.list(Articletype.class);
             return SUCCESS;
         }
+    }
+
+    @Action(value = "reply", results = {
+            @Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.article.articleid}")
+            ,@Result(name = "error", type = "redirect", location = "/login")})
+    public String reply(){
+        Timestamp replytime = new Timestamp(new Date().getTime());
+        Subject subject = SecurityUtils.getSubject();
+        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+        if(shiroUser == null){
+            return ERROR;
+        }
+        user = new User();
+        user.setUsername(shiroUser.getUsername());
+        reply.setUser(user);
+        reply.setReplytime(replytime);
+        System.out.println(reply);
+        replyService.saveOrUpdate(reply);
+        return SUCCESS;
     }
 
     public List<Article> getArticleList() {
@@ -145,5 +170,13 @@ public class IndexAction extends BaseAction {
 
     public void setReplyList(List<Reply> replyList) {
         this.replyList = replyList;
+    }
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
     }
 }

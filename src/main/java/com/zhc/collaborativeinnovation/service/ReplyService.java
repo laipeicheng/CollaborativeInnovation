@@ -11,4 +11,6 @@ public interface ReplyService extends BaseService<Reply> {
     Reply get(Serializable id);
 
     List<Reply> listByPageInUser(int articleid, int curPage);
+
+    int getPages(int articleid);
 }

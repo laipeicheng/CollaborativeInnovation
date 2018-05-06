@@ -13,7 +13,7 @@ public class Reply extends BaseEntity {
     @Id
     @Expose
     @Column(name = "replyid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer replyid;
 
     @Expose

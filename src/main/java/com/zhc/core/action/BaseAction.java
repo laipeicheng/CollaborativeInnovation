@@ -17,7 +17,7 @@ public class BaseAction extends ActionSupport {
 
 	private HttpSession session;
 
-	public int pages;
+	public int pages = 1;
 
 	public int curPage = 1;
 

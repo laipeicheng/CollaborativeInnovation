@@ -13,7 +13,7 @@ public class Article extends BaseEntity {
     @Id
     @Expose
     @Column(name = "articleid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int articleid;
 
     @Expose

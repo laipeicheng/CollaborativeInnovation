@@ -27,4 +27,9 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements ReplySer
     public List<Reply> listByPageInUser(int articleid, int curPage) {
         return replyDao.listByPageInUser(articleid, curPage);
     }
+
+    @Override
+    public int getPages(int articleid) {
+        return replyDao.getPages(articleid);
+    }
 }

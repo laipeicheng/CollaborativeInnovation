@@ -47,6 +47,7 @@
                                     </div>
                                 </#list>
                             </#if>
+                            <div id="page" />
                         </div>
                     </div>
                 </div>
@@ -55,5 +56,22 @@
     </div>
 </div>
 <@common.footer />
+<script>
+    layui.use(['laypage'], function () {
+        var laypage = layui.laypage;
+        laypage.render({
+           elem:'page',
+            count: ${(pages*10)!},
+            theme: '#1E9FFF',
+            curr: ${curPage!1},
+            layout: ['prev', 'page', 'next'],
+            jump:function (obj, first) {
+                if(!first){
+                    location.href = "${base}/articlelist?articletypeid=${articletypeid}$curPage"+obj.curr;
+                }
+            }
+        });
+    })
+</script>
 </body>
 </html>
