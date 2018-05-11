@@ -22,7 +22,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" name="user.realname" required lay-verify="realname" placeholder="姓名"
+                <input type="text" name="user.realname" lay-verify="realname" placeholder="姓名"
                        autocomplete="off"
                        class="layui-input">
             </div>
@@ -98,8 +98,6 @@
             },
             repassword: function (value) {
                 var pass = $('#password').val();
-                console.log(pass);
-                console.log(value);
                 if (value != pass) {
                     return "两次输入密码不一致";
                 }

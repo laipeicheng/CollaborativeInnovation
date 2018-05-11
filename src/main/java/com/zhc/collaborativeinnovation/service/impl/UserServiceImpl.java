@@ -14,4 +14,5 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     public User get(Serializable id) {
         return super.get(User.class, id);
     }
+
 }

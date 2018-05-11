@@ -4,6 +4,7 @@ import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.vo.Role;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
+import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.util.EncryptUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -11,7 +12,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ByteSource;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -26,6 +26,8 @@ import org.springframework.stereotype.Controller;
 public class UserAction extends BaseAction {
 
     private User user;
+
+    private String newpass;
 
     @Autowired
     @Qualifier("userService")
@@ -44,8 +46,7 @@ public class UserAction extends BaseAction {
         String username = user.getUsername();
         if (userService.get(username) == null) {
             String password = user.getPassword();
-            ByteSource salt = ByteSource.Util.bytes(username);
-            user.setPassword(EncryptUtil.encMD5(password, salt));
+            user.setPassword(EncryptUtil.encMD5(password, username));
             user.setRole(new Role(2, ""));
             userService.saveOrUpdate(user);
             msg = "注册成功";
@@ -85,8 +86,28 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "update",results = {@Result(name = "success", type = "redirect",location = "/usercenter")})
-    public String update(){
+    @Action(value = "updateinfo",results = {@Result(name = "success", type = "redirect",location = "/usercenter")})
+    public String updateInfo(){
+        User user = userService.get(this.user.getUsername());
+        user.setEmail(this.user.getEmail());
+        user.setRealname(this.user.getRealname());
+        user.setPhone(this.user.getPhone());
+        userService.saveOrUpdate(user);
+        return SUCCESS;
+    }
+
+    @Action(value = "updatepwd",results = {@Result(name = "success", type = "redirect",location = "/usercenter")})
+    public String updatePwd(){
+        Subject subject = SecurityUtils.getSubject();
+        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+        String currPwd = shiroUser.getPassword();
+        String username = shiroUser.getUsername();
+        String password = EncryptUtil.encMD5(newpass, username);
+        user = userService.get(username);
+        if(!password.equals(currPwd)){
+            user.setPassword(password);
+        }
+        userService.saveOrUpdate(user);
         return SUCCESS;
     }
 
@@ -96,5 +117,13 @@ public class UserAction extends BaseAction {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getNewpass() {
+        return newpass;
+    }
+
+    public void setNewpass(String newpass) {
+        this.newpass = newpass;
     }
 }

@@ -46,11 +46,3 @@ layui.use('flow', function(){
   flow.lazyimg(); 
 
 });
-
-
-
-//搜索
-layui.use('form', function(){
-	var form = layui.form
-  	,layer = layui.layer
-});

@@ -24,7 +24,7 @@
             <button type="submit" class="layui-btn layui-btn-normal">登录</button>
         </div>
         <hr/>
-        <p><a href="register" class="fl">还没有账号？注册</a>
+        <p><a href="${base}/register" class="fl">还没有账号？注册</a>
     </form>
 </div>
 

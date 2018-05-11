@@ -75,7 +75,6 @@ public class IndexAction extends BaseAction {
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
         String username = shiroUser.getUsername();
         user = userService.get(username);
-        System.out.println(user);
         return SUCCESS;
     }
 
@@ -121,7 +120,6 @@ public class IndexAction extends BaseAction {
         user.setUsername(shiroUser.getUsername());
         reply.setUser(user);
         reply.setReplytime(replytime);
-        System.out.println(reply);
         replyService.saveOrUpdate(reply);
         return SUCCESS;
     }

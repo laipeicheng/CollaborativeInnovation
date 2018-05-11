@@ -136,7 +136,7 @@
                 <div style="display: block;" class="bd bd-news">
                     <ul id="recommend">
                         <#list articleList as article>
-                            <li><a href="${base}/article?articleid=${(article.articleid)!}">${(article.title)!}</a></li>
+                            <li><a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a></li>
                         </#list>
                     </ul>
                 </div>

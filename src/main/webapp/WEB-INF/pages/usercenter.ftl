@@ -22,66 +22,69 @@
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form class="layui-form" method="post" action="#">
+                        <form class="layui-form" lay-filter="upwd" method="post" action="${base}/user/updateinfo">
                             <div class="layui-form-item">
                                 <label for="username" class="layui-form-label">用户名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="username" name="user.username" disabled autocomplete="off"
+                                    <input type="text" id="username" name="user.username" autocomplete="off"
                                            class="layui-input" value="${(user.username)!}">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="realname" class="layui-form-label">姓名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="user.realname" lay-verify="required" autocomplete="off" value="${(user.realname)!}"
-                                           class="layui-input">
+                                    <input type="text" name="user.realname" lay-verify="realname" autocomplete="off"
+                                           value="${(user.realname)!}" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="phone" class="layui-form-label">手机</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="phone" name="user.phone" lay-verify="required" autocomplete="off"
+                                    <input type="text" id="phone" name="user.phone" lay-verify="phone"
+                                           autocomplete="off"
                                            value="${(user.phone)!}" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label for="email" class="layui-form-label">邮件</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="email" name="user.email" lay-verify="required" autocomplete="off"
+                                    <input type="text" id="email" name="user.email" lay-verify="email"
+                                           autocomplete="off"
                                            value="${(user.email)!}" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <button class="layui-btn layui-btn-normal" lay-filter="*" lay-submit>确认修改</button>
+                                <input type="submit" class="layui-btn layui-btn-normal" lay-filter="*" value="修改"/>
                             </div>
                         </form>
                     </div>
 
-                    <div class="layui-form layui-form-pane layui-tab-item">
-                        <form class="layui-form" method="post" action="#">
+                    <div class="layui-tab-item">
+                        <form id="upwd" class="layui-form layui-form-pane" method="post"
+                              action="${base}/user/updatepwd">
                             <div class="layui-form-item">
-                                <label for="L_nowpass" class="layui-form-label">当前密码</label>
+                                <label for="password" class="layui-form-label">当前密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" id="L_nowpass" name="nowpass" lay-verify="required"
+                                    <input type="password" id="password" name="user.password" lay-verify="password"
+                                           autocomplete="off" class="layui-input"/>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="newpass" class="layui-form-label">新密码</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" id="newpass" name="newpass" lay-verify="newpass"
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="L_pass" class="layui-form-label">新密码</label>
+                                <label for="repass" class="layui-form-label">确认密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" id="L_pass" name="pass" lay-verify="required"
+                                    <input type="password" id="repass" name="repass" lay-verify="repass"
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="L_repass" class="layui-form-label">确认密码</label>
-                                <div class="layui-input-inline">
-                                    <input type="password" id="L_repass" name="repass" lay-verify="required"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <button class="layui-btn layui-btn-normal" lay-filter="*" lay-submit>确认修改</button>
+                                <input type="submit" lay-submit class="layui-btn layui-btn-normal" value="修改"/>
                             </div>
                         </form>
                     </div>
@@ -90,6 +93,41 @@
         </div>
     </div>
 </div>
+<script>
+    layui.use(['form','layer'], function () {
+        var form = layui.form
+                , layer = layui.layer;
+
+        form.verify({
+            password: function (value) {
+                var verifyStr = "";
+                $.ajax({
+                    url: "${base}/verify/password",
+                    type: "post",
+                    async: false,
+                    data: {
+                        "password": value
+                    },
+                    success: function (json) {
+                        verifyStr = json.verifyStr;
+                    }
+                });
+                return verifyStr;
+            },
+            newpass: function (value) {
+                if (value == "") {
+                    return "请输入新密码"
+                }
+            },
+            repass: function (value) {
+                var pass = $('#newpass').val();
+                if (value != pass) {
+                    return "两次输入密码不一致";
+                }
+            },
+        });
+    });
+</script>
 <@common.footer />
 </body>
 </html>

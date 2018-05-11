@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 
 /*
  * 加密工具类
@@ -25,7 +26,8 @@ public class EncryptUtil {
 	 * @return 加密后的字符串
 	 */
 	public static String encMD5(Object source, Object salt) {
-		String encMD5Str = new SimpleHash(ALGORITHMNAME, source, salt,
+		ByteSource salts = ByteSource.Util.bytes(salt);
+		String encMD5Str = new SimpleHash(ALGORITHMNAME, source, salts,
 				HASHITERATIONS).toHex();
 		return encMD5Str;
 	}
