@@ -58,15 +58,15 @@ public class BaseTest {
     @Test
     public void testAddUser() {
         User user = new User();
-        user.setUsername("user02");
-        user.setRealname("用户02");
+        user.setUsername("admin");
+        user.setRealname("管理员");
         user.setPhone("15077774211");
         user.setEmail("15077774211@163.com");
-        String password = "123456";
+        String password = "admin";
         ByteSource salt = ByteSource.Util.bytes(user.getUsername());
         password = EncryptUtil.encMD5(password, salt);
         user.setPassword(password);
-        user.setRole(new Role(2, ""));
+        user.setRole(new Role(0, ""));
         userService.saveOrUpdate(user);
     }
 

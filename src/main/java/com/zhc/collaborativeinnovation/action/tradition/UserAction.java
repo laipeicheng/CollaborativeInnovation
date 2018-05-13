@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Namespace("/user")
 @ParentPackage("struts-default")
 @Controller
@@ -29,6 +31,8 @@ public class UserAction extends BaseAction {
 
     private String newpass;
 
+    private List<User> userList;
+
     @Autowired
     @Qualifier("userService")
     private UserService userService;
@@ -36,6 +40,8 @@ public class UserAction extends BaseAction {
 
     @Action(value = "userlist", results = {@Result(name = "success", type = "freemarker", location = "userlist.ftl")})
     public String userlist() {
+        userList = userService.findByPage(curPage);
+        pages = userService.getPages(User.class);
         return SUCCESS;
     }
 
@@ -86,8 +92,8 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "updateinfo",results = {@Result(name = "success", type = "redirect",location = "/usercenter")})
-    public String updateInfo(){
+    @Action(value = "updateinfo", results = {@Result(name = "success", type = "redirect", location = "/usercenter")})
+    public String updateInfo() {
         User user = userService.get(this.user.getUsername());
         user.setEmail(this.user.getEmail());
         user.setRealname(this.user.getRealname());
@@ -96,18 +102,31 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "updatepwd",results = {@Result(name = "success", type = "redirect",location = "/usercenter")})
-    public String updatePwd(){
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String currPwd = shiroUser.getPassword();
-        String username = shiroUser.getUsername();
-        String password = EncryptUtil.encMD5(newpass, username);
+    @Action(value = "updatepwd", results = {@Result(name = "success", type = "redirect", location = "/usercenter")})
+    public String updatePwd() {
+        String username;
+        String password;
+        String currPwd;
+        if (user == null || "".equals(user.getUsername())) {
+            Subject subject = SecurityUtils.getSubject();
+            user = (User) subject.getSession().getAttribute("user");
+        }
+        username = user.getUsername();
         user = userService.get(username);
-        if(!password.equals(currPwd)){
+        System.out.println(user);
+        currPwd = user.getPassword();
+        password = EncryptUtil.encMD5(newpass, username);
+        if (!password.equals(currPwd)) {
             user.setPassword(password);
         }
         userService.saveOrUpdate(user);
+        return SUCCESS;
+    }
+
+    @Action(value = "deluser",results = {@Result(name = "success", type = "redirect", location = "/user/userlist")})
+    public String deluser(){
+        user = userService.get(user.getUsername());
+        userService.delete(user);
         return SUCCESS;
     }
 
@@ -125,5 +144,13 @@ public class UserAction extends BaseAction {
 
     public void setNewpass(String newpass) {
         this.newpass = newpass;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

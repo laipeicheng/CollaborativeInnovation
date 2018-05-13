@@ -1,12 +1,12 @@
-package com.zhc.collaborativeinnovation.service;
+package com.zhc.collaborativeinnovation.dao;
 
 import com.zhc.collaborativeinnovation.vo.User;
-import com.zhc.core.service.BaseService;
+import com.zhc.core.dao.BaseDao;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface UserService extends BaseService<User> {
+public interface UserDao extends BaseDao<User> {
 
     User get(Serializable id);
 

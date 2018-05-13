@@ -63,6 +63,7 @@
                         <form id="upwd" class="layui-form layui-form-pane" method="post"
                               action="${base}/user/updatepwd">
                             <div class="layui-form-item">
+                                <input type="hidden" name="user.username" value="${(user.username)!}">
                                 <label for="password" class="layui-form-label">当前密码</label>
                                 <div class="layui-input-inline">
                                     <input type="password" id="password" name="user.password" lay-verify="password"
@@ -94,7 +95,7 @@
     </div>
 </div>
 <script>
-    layui.use(['form','layer'], function () {
+    layui.use(['form', 'layer'], function () {
         var form = layui.form
                 , layer = layui.layer;
 
@@ -106,6 +107,7 @@
                     type: "post",
                     async: false,
                     data: {
+                        "username": "${(user.username)!}",
                         "password": value
                     },
                     success: function (json) {

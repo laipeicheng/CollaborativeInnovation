@@ -71,9 +71,14 @@ public class IndexAction extends BaseAction {
 
     @Action(value = "usercenter", results = {@Result(name = "success", type = "freemarker", location = "usercenter.ftl")})
     public String userCenter() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+        String username;
+        if (user == null || "".equals(user.getUsername())) {
+            Subject subject = SecurityUtils.getSubject();
+            LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+            username = shiroUser.getUsername();
+        } else {
+            username = user.getUsername();
+        }
         user = userService.get(username);
         return SUCCESS;
     }

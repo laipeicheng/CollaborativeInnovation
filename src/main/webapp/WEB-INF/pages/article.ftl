@@ -17,7 +17,7 @@
             <span class="">
                 <a href="index">首页</a>
                 &nbsp;>&nbsp;
-                <a href="articlelist">资源共享</a>
+                <a href="articlelist">知识库</a>
                 &nbsp;>&nbsp;
                 <a href="${base}/articlelist?articletypeid=${(article.articletype.articletypeid)!}">${(article.articletype.articletypename)!}</a>
                 &nbsp;>&nbsp;
