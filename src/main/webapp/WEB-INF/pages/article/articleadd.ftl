@@ -17,42 +17,44 @@
         <div class="fly-panel fly-panel-user">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <ul class="layui-tab-title" id="LAY_mine">
-                    <li class="layui-this" lay-id="info">企业认证</li>
+                    <li class="layui-this" lay-id="info">发表文章</li>
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
                         <form class="layui-form" method="post" action="#" enctype="multipart/form-data">
                             <div class="layui-form-item">
-                                <label for="name" class="layui-form-label">企业名称</label>
+                                <label for="name" class="layui-form-label">标题</label>
                                 <div class="layui-input-inline">
                                     <input type="text" id="name" name="enterprise.name" autocomplete="off"
-                                           class="layui-input">
+                                           class="layui-input" />
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="summary" class="layui-form-label">简介</label>
+                                <label for="" class="layui-form-label">分类</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="sex" value="0" checked title="男">
+                                    <input type="radio" name="sex" value="1" title="女">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="summary" class="layui-form-label">摘要</label>
                                 <div class="layui-input-block">
                                         <textarea id="summary" name="enterprise.summary" lay-verify="required"
                                                   class="layui-textarea" ></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="address" class="layui-form-label">地址</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="address" name="enterprise.address" autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="license" class="layui-form-label">营业执照</label>
+                                <label for="summary" class="layui-form-label">正文</label>
                                 <div class="layui-input-block">
-                                    <input type="file" name="license" id="license"
-                                       class="layui-btn layui-btn-primary" onchange="preview(this);"/>
+                                        <textarea id="summary" name="enterprise.summary" lay-verify="required"
+                                                  class="layui-textarea" ></textarea>
                                 </div>
                             </div>
+
+
                             <div class="layui-form-item">
                                 <input type="submit" id="submit" class="layui-btn layui-btn-normal" lay-submit
-                                       value="请求认证" />
+                                       value="发表" />
                             </div>
                         </form>
                     </div>

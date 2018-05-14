@@ -112,7 +112,7 @@
 
 <#macro left>
 <ul class="layui-nav layui-nav-tree layui-bg-blue layui-inline" lay-filter="demo">
-    <li class="layui-nav-item"><a href="${base}/usercenter">个人资料</a></li>
+    <li class="layui-nav-item"><a href="${base}/usercenter">账号</a></li>
     <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
     <li class="layui-nav-item"><a href="${base}/enterprise/enterpriseinfo">企业资料</a></li>
     <li class="layui-nav-item"><a href="${base}/enterprise/authentication">企业认证</a></li>

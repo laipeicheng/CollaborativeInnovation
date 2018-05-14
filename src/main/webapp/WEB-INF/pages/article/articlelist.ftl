@@ -19,7 +19,7 @@
                 <legend>文章管理</legend>
             </fieldset>
 
-            <button class="layui-btn layui-btn-small layui-btn-normal">发表文章</button>
+            <a href="${base}/article/articleadd" class="layui-btn layui-btn-small layui-btn-normal">发表文章</a>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
                     <col width="100">
@@ -38,13 +38,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                <#list articleList as article>
                 <tr>
-                    <td>标题一</td>
-                    <td>用户01</td>
-                    <td>分类一</td>
-                    <td>2018-4-30 04:43:00</td>
-                    <td><a href="#" class="layui-btn layui-btn-mini layui-btn-primary">编辑</a><a href="#" class="layui-btn layui-btn-mini layui-btn-danger">删除</a></td>
+                    <td>${(article.title)!}</td>
+                    <td>${(article.author.realname)!}</td>
+                    <td>${(article.articletype.articletypename)!}</td>
+                    <td>${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</td>
+                    <td><a href="#" class="layui-btn layui-btn-mini layui-btn-primary">编辑</a><a href="#"
+                                                                                                class="layui-btn layui-btn-mini layui-btn-danger">删除</a>
+                    </td>
                 </tr>
+                </#list>
                 </tbody>
             </table>
 

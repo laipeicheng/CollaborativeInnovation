@@ -21,7 +21,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
         List<Article> articleList = (List<Article>) hibernateTemplate.findByCriteria(criterion);
         List<Article> tempList = new ArrayList<>();
         for (int i = 0; i < articleList.size(); i++) {
-            if(i>=6){
+            if (i >= 6) {
                 break;
             }
             if (!tempList.contains(articleList.get(i))) {
@@ -39,8 +39,14 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 
     @Override
     public List<Article> listByArticletype(int articletypeid, int page) {
-        String hql = "from Article where articletype.articletypeid=?";
+        String hql = "from Article where articletype.articletypeid=? order by publishtime desc";
         return findByPage(hql, page - 1, 6, articletypeid);
+    }
+
+    @Override
+    public List<Article> listByUsername(String username, int page) {
+        String hql = "from Article where author.username=? order by publishtime desc";
+        return findByPage(hql, page -1, 8, username);
     }
 
 }

@@ -52,4 +52,9 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     public int getPages() {
         return super.getPages(Article.class);
     }
+
+    @Override
+    public List<Article> listByUsername(String username, int page) {
+        return articleDao.listByUsername(username, page);
+    }
 }

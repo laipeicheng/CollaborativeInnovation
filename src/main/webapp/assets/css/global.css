@@ -278,9 +278,9 @@ body .fly-user-main{position: relative; width: 100%; min-height: 600px;}
 .mine-msg li .layui-elem-quote p[download]{padding: 10px 0 5px;}
 
 /* 设置 */
-.avatar-add{position:relative; width:373px; height:373px; background-color:#F2F2F5;}
-.avatar-add .upload-img{position:absolute; left:50%; top:35px; margin:0 0 0 -60px;}
-.avatar-add img{position:absolute; left:50%; top:50%; width:168px; height:168px; margin:-50px 0 0 -84px; border-radius:100%;}
+.avatar-add{ width:373px; height:373px; background-color:#F2F2F5;}
+.avatar-add .upload-img{position:absolute; left:45%; top:35px; margin:0 0 0 -60px;}
+.avatar-add img{position:absolute; left:45%; top:50%; width:168px; height:168px; margin:-50px 0 0 -84px;}
 .avatar-add .loading{display:none; position:absolute; width:100%; height:100%; left:0; top:0; padding: 0; background-color:#000; opacity:0.5; filter: Alpha(opacity=50);}
 .avatar-add p{position:absolute; top:70px; width:100%; margin-top: 10px;; font-size:12px; text-align:center; color:#999;}
 .app-bind li{margin-bottom:10px; line-height:30px; color:#999;}

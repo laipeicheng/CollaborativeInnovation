@@ -3,7 +3,11 @@ package com.zhc.collaborativeinnovation.action.tradition;
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.vo.Reply;
+import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
+import com.zhc.core.realms.LoginRealm;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -25,6 +29,8 @@ public class ArticleAction extends BaseAction {
 
     private List<Reply> replyList;
 
+    private List<Article> articleList;
+
     @Autowired
     @Qualifier("articleService")
     private ArticleService articleService;
@@ -36,6 +42,10 @@ public class ArticleAction extends BaseAction {
     }
     @Action(value = "articlelist",results = {@Result(name = "success",type = "freemarker",location = "articlelist.ftl")})
     public String articlelist(){
+        Subject subject = SecurityUtils.getSubject();
+        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getSession().getAttribute("user");
+        String username = shiroUser.getUsername();
+        articleList = articleService.listByUsername(username, curPage);
         return SUCCESS;
     }
 
@@ -69,4 +79,11 @@ public class ArticleAction extends BaseAction {
         this.replyList = replyList;
     }
 
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
 }

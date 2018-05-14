@@ -27,7 +27,7 @@
                 <div class="content" id="photos">
                     <h2 class="c_titile">${(article.title)!}</h2>
                     <p class="box_c"><span
-                            class="d_time">发布时间：${(article.publishtime)!}</span><span>编辑：${(article.author.realname)!}</span><span>浏览（${(article.pageview)!}）</span>
+                            class="d_time">发布时间：${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span><span>编辑：${(article.author.realname)!}</span><span>浏览（${(article.pageview)!}）</span>
                     </p>
                     <div class="detail-body">
                     ${(article.content)!}

@@ -19,4 +19,6 @@ public interface ArticleService extends BaseService<Article>{
     Article get(Serializable id);
 
     int getPages();
+
+    List<Article> listByUsername(String username, int page);
 }
