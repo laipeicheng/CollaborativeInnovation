@@ -21,54 +21,76 @@
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form class="layui-form" method="post" action="#" enctype="multipart/form-data">
+                        <form class="layui-form" method="post" action="${base}/article/publish"
+                              enctype="multipart/form-data">
                             <div class="layui-form-item">
-                                <label for="name" class="layui-form-label">标题</label>
+                                <label for="title" class="layui-form-label">标题</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="name" name="enterprise.name" autocomplete="off"
-                                           class="layui-input" />
+                                    <input type="text" id="title" name="article.title" autocomplete="off"
+                                           class="layui-input" lay-verify="title"/>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="" class="layui-form-label">分类</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="sex" value="0" checked title="男">
-                                    <input type="radio" name="sex" value="1" title="女">
+                                <label for="type" class="layui-form-label">分类</label>
+                                <div class="layui-input-inline">
+                                    <select id="type" name="article.articletype.articletypeid">
+                                        <#list articletypeList as articletype>
+                                            <option value="${(articletype.articletypeid)!}">${(articletype.articletypename)!}</option>
+                                        </#list>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
+                            <div class="layui-form-item layui-form-text">
                                 <label for="summary" class="layui-form-label">摘要</label>
                                 <div class="layui-input-block">
-                                        <textarea id="summary" name="enterprise.summary" lay-verify="required"
-                                                  class="layui-textarea" ></textarea>
+                                    <textarea id="summary" name="article.summary"
+                                              class="layui-textarea" lay-verify="summary"></textarea>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
-                                <label for="summary" class="layui-form-label">正文</label>
+                            <div class="layui-form-item layui-form-text">
+                                <label for="content" class="layui-form-label">正文</label>
                                 <div class="layui-input-block">
-                                        <textarea id="summary" name="enterprise.summary" lay-verify="required"
-                                                  class="layui-textarea" ></textarea>
+                                    <div id="text"></div>
+                                    <textarea id="content" name="article.content" class="layui-textarea" lay-verify="content" style="display: none;"></textarea>
                                 </div>
                             </div>
-
-
                             <div class="layui-form-item">
                                 <input type="submit" id="submit" class="layui-btn layui-btn-normal" lay-submit
-                                       value="发表" />
+                                       value="发表"/>
                             </div>
                         </form>
                     </div>
                     <script>
-                        function preview(file) {
-                            var extIndex = file.value.lastIndexOf('.');
-                            var ext = file.value.substring(extIndex+1);
-                            if('jpg'==ext || 'png'== ext){
+                        var E = window.wangEditor;
+                        var editor = new E('#text');
+                        var content = $('#content');
+                        editor.customConfig.onchange = function (html) {
+                            // 监控变化，同步更新到 textarea
+                            content.val(html);
+                        };
+                        editor.create();
 
-                            }else {
-                                layer.msg("上传的必须为图片");
-                                file.value="";
-                            }
-                        }
+                        layui.use(['form', 'layer'], function () {
+                            var form = layui.form
+                                    , layer = layui.layer;
+                            form.verify({
+                                title: function (value) {
+                                    if ("" == value) {
+                                        return "标题不能为空";
+                                    }
+                                },
+                                summary: function (value) {
+                                    if ("" == value) {
+                                        return "摘要不能为空";
+                                    }
+                                },
+                                content: function (value) {
+                                    if ("" == value) {
+                                        return "正文不能为空";
+                                    }
+                                }
+                            });
+                        });
                     </script>
                 </div>
             </div>

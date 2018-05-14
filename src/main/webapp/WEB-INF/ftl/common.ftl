@@ -6,7 +6,9 @@
 <script src="${base}/assets/layui/lay/modules/layer.js"></script>
 <script src="${base}/assets/js/index/sliders.js"></script>
 <script src="${base}/assets/js/index/html5.js"></script>
-<script src="${base}/assets/js/index/article_details.js" type="text/javascript"></script>
+<script src="${base}/assets/js/index/article_details.js"></script>
+<script src="${base}/assets/js/index/wangEditor.min.js"></script>
+
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css" media="all"/>
 <link rel="stylesheet" href="${base}/assets/layui/css/modules/layer/default/layer.css"/>
 <link rel="stylesheet" href="${base}/assets/css/global.css"/>

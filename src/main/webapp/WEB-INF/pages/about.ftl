@@ -18,7 +18,7 @@
                 &nbsp;>&nbsp;
                 <a><cite>关于我们</cite></a>
             </span>
-            <h1 align="center">关于我们</h1>
+            <h2 class="c_titile">关于我们</h2>
         </div>
     </div>
 </div>
