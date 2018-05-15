@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>协同创新-资源共享</title>
+    <title>协同创新-知识库</title>
 <@common.link_and_script />
 </head>
 <body>
@@ -67,11 +67,11 @@
             layout: ['prev', 'page', 'next'],
             jump:function (obj, first) {
                 if(!first){
-                    location.href = "${base}/articlelist?articletypeid=${articletypeid}$curPage"+obj.curr;
+                    location.href = "${base}/articlelist?articletypeid=${(articletypeid)!}&curPage="+obj.curr;
                 }
             }
         });
-    })
+    });
 </script>
 </body>
 </html>

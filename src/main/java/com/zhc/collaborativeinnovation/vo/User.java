@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -30,6 +31,10 @@ public class User extends BaseEntity {
     @Expose
     @Column(name = "phone")
     private String phone;
+
+    @Expose
+    @Column(name = "lastlogintime")
+    private Timestamp lastlogintime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roleid")
@@ -117,4 +122,11 @@ public class User extends BaseEntity {
         this.articleSet = articleSet;
     }
 
+    public Timestamp getLastlogintime() {
+        return lastlogintime;
+    }
+
+    public void setLastlogintime(Timestamp lastlogintime) {
+        this.lastlogintime = lastlogintime;
+    }
 }

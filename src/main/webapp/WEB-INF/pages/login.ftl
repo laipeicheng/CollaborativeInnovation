@@ -15,40 +15,40 @@
     <header class="layui-elip">协同创新-登录</header>
     <form class="layui-form" action="${base}/user/login" method="post">
         <div class="layui-input-inline">
-            <input type="text" name="user.username" required  lay-verify="username" placeholder="用户名" autocomplete="off" class="layui-input">
+            <input type="text" name="user.username" lay-verify="username" placeholder="用户名" autocomplete="off"
+                   class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <input type="password" name="user.password" required  lay-verify="password" placeholder="密码" autocomplete="off" class="layui-input">
+            <input type="password" name="user.password" lay-verify="password" placeholder="密码"
+                   autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline login-btn">
-            <button type="submit" class="layui-btn layui-btn-normal">登录</button>
+            <input type="submit" class="layui-btn layui-btn-normal" lay-submit value="登录"/>
         </div>
         <hr/>
         <p><a href="${base}/register" class="fl">还没有账号？注册</a>
+            <a href="${base}/register" class="fr">忘记密码?</a></p>
     </form>
 </div>
 
-<script type="text/javascript" src="${base}/assets/layui/layui.js"></script>
-<script type="text/javascript">
+<script src="${base}/assets/layui/layui.js" ></script>
+<script src="${base}/assets/js/jquery/jquery-2.1.4.min.js"></script>
+<script>
     layui.use(['form', 'layer'], function () {
-
-        // 操作对象
         var form = layui.form
-            , layer = layui.layer
-            , $ = layui.jquery;
+                , layer = layui.layer;
 
-        // 验证
         form.verify({
             username: function (value) {
-                if (value == "") {
-                    return "请输入用户名";
+                if ("" == value) {
+                    return "用户名不能为空";
                 }
             },
             password: function (value) {
-                if (value == "") {
-                    return "请输入密码";
+                if ("" == value) {
+                    return "密码不能为空";
                 }
-            },
+            }
         });
         <#if msg??>
             layer.msg("${(msg)!}");

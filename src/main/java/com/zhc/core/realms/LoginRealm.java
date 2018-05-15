@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class LoginRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
         System.out.println("----------------doGetAuthorizationInfo--------------");
-        ShiroUser shiroUser = (ShiroUser) principals;
+        ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
         User user = userService.get(shiroUser.getUsername());
         Set<String> roles = new HashSet<String>();
         roles.add(user.getRole().getRolename());
@@ -66,7 +67,7 @@ public class LoginRealm extends AuthorizingRealm {
                 if(password.equals(user.getPassword())){
                     throw new IncorrectCredentialsException();
                 }else {
-                    ShiroUser shiroUser = new ShiroUser(username, user.getRealname(), user.getPassword());
+                    ShiroUser shiroUser = new ShiroUser(username, user.getRealname(), user.getPassword(), user.getLastlogintime());
                     info = new SimpleAuthenticationInfo(shiroUser, user.getPassword(), salt, this.getName());
                 }
             } else {
@@ -87,13 +88,17 @@ public class LoginRealm extends AuthorizingRealm {
         @Expose
         private String password;
 
+        @Expose
+        private Timestamp lastlogintime;
+
         public ShiroUser() {
         }
 
-        public ShiroUser(String username, String realname, String password) {
+        public ShiroUser(String username, String realname, String password, Timestamp lastlogintime) {
             this.username = username;
             this.realname = realname;
             this.password = password;
+            this.lastlogintime = lastlogintime;
         }
 
         public String getUsername() {
@@ -118,6 +123,14 @@ public class LoginRealm extends AuthorizingRealm {
 
         public void setRealname(String realname) {
             this.realname = realname;
+        }
+
+        public Timestamp getLastlogintime() {
+            return lastlogintime;
+        }
+
+        public void setLastlogintime(Timestamp lastlogintime) {
+            this.lastlogintime = lastlogintime;
         }
     }
 }

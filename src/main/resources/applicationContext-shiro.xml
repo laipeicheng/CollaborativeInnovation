@@ -62,7 +62,19 @@
         <property name="filterChainDefinitions">
             <value>
                 /logout = logout
-                /** = anon
+                /usercenter = authc
+                /user/register = anon
+                /user/login = anon
+                /user/** = roles[admin]
+                /enterprise/authentication = authc
+                /enterprise/** = roles[admin]
+                /article = anon
+                /article/** = authc
+                /verify/** = anon
+                /* = anon
+                /assets/** = anon
+
+                /** = authc
             </value>
         </property>
     </bean>

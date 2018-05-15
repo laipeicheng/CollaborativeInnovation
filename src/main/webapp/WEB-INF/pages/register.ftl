@@ -13,7 +13,7 @@
 
 <div class="login-main">
     <header class="layui-elip">协同创新-注册</header>
-    <form id="registerform" name="registerform" class="layui-form" action="${base}/user/register" method="post">
+    <form class="layui-form" action="${base}/user/register" method="post">
         <div class="layui-form-item">
             <div class="layui-input-inline">
                 <input type="text" name="user.username" lay-verify="username" placeholder="用户名" autocomplete="off"
@@ -23,8 +23,7 @@
         <div class="layui-form-item">
             <div class="layui-input-inline">
                 <input type="text" name="user.realname" lay-verify="realname" placeholder="姓名"
-                       autocomplete="off"
-                       class="layui-input">
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -47,12 +46,6 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" name="user.email" lay-verify="email" placeholder="邮箱" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
                 <input type="submit" lay-submit class="layui-btn layui-btn-normal" value="注册"/>
             </div>
         </div>
@@ -70,21 +63,24 @@
                 , layer = layui.layer;
 
         form.verify({
-            elem: 'registerform',
             username: function (value) {
-                var verifyStr = "";
-                $.ajax({
-                    url: "${base}/verify/username",
-                    type: "post",
-                    async: false,
-                    data: {
-                        "username": value
-                    },
-                    success: function (json) {
-                        verifyStr = json.verifyStr;
-                    }
-                });
-                return verifyStr;
+                if (value == "") {
+                    return "请输入用户名";
+                } else {
+                    var verifyStr = "";
+                    $.ajax({
+                        url: "${base}/verify/username",
+                        type: "post",
+                        async: false,
+                        data: {
+                            "username": value
+                        },
+                        success: function (json) {
+                            verifyStr = json.verifyStr;
+                        }
+                    });
+                    return verifyStr;
+                }
             },
             realname: function (value) {
                 if (value == "") {

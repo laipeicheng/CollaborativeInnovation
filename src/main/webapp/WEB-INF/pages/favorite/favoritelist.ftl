@@ -16,10 +16,8 @@
 
         <div class="fly-panel fly-panel-user">
             <fieldset class="layui-elem-field layui-field-title">
-                <legend>文章管理</legend>
+                <legend>文章收藏</legend>
             </fieldset>
-
-            <a href="${base}/article/articleadd" class="layui-btn layui-btn-small layui-btn-normal">发表文章</a>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
                     <col width="100">
@@ -38,16 +36,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list articleList as article>
+                <#list articleList! as article>
                 <tr>
                     <td><a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a></td>
                     <td>${(article.author.realname)!}</td>
                     <td>${(article.articletype.articletypename)!}</td>
                     <td>${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</td>
-                    <td><a href="${base}/article/articleedit?article.articleid=${(article.articleid)!}"
-                           class="layui-btn layui-btn-mini layui-btn-primary">编辑</a><a
-                            href="javascript:;" onclick="del(${(article.articleid)!})"
-                            class="layui-btn layui-btn-mini layui-btn-danger">删除</a>
+                    <td><a href="javascript:;" onclick="del(${(article.articleid)!})"
+                           class="layui-btn layui-btn-mini layui-btn-danger">删除</a>
                     </td>
                 </tr>
                 </#list>
@@ -79,12 +75,48 @@
                     layer.confirm('是否删除？', {
                         btn: ['是', '否'] //按钮
                     }, function () {
-                        location.href="${base}/article/articledel?article.articleid="+articleid;
+                        location.href = "${base}/article/articledel?article.articleid=" + articleid;
                     }, function () {
 
                     });
                 };
             </script>
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>网站</legend>
+            </fieldset>
+            <table class="layui-table" lay-skin="line">
+                <colgroup>
+                    <col width="100">
+                    <col width="100">
+                    <col width="100">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>网站名称</th>
+                    <th>文章分类</th>
+                    <th>发表时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <#list articleList! as article>
+                <tr>
+                    <td><a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a></td>
+                    <td>${(article.author.realname)!}</td>
+                    <td>${(article.articletype.articletypename)!}</td>
+                    <td>${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</td>
+                    <td><a href="${base}/article/articleedit?article.articleid=${(article.articleid)!}"
+                           class="layui-btn layui-btn-mini layui-btn-primary">编辑</a>
+                        <a href="javascript:;" onclick="del(${(article.articleid)!})"
+                           class="layui-btn layui-btn-mini layui-btn-danger">删除</a>
+                    </td>
+                </tr>
+                </#list>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

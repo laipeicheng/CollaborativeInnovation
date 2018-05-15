@@ -27,7 +27,7 @@
                 <div class="content" id="photos">
                     <h2 class="c_titile">${(article.title)!}</h2>
                     <p class="box_c"><span
-                            class="d_time">发布时间：${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span><span>编辑：${(article.author.realname)!}</span><span>浏览（${(article.pageview)!}）</span>
+                            class="d_time">发表时间：${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span><span>作者：${(article.author.realname)!}</span><span>浏览（${(article.pageview)!}）</span><span><a href="#">收藏</a></span>
                     </p>
                     <div class="detail-body">
                     ${(article.content)!}
@@ -62,7 +62,8 @@
                                         <a>&nbsp;</a>
                                         <div class="jieda-admin">
                                             <#if article.author.username=(user.username)!||reply.user.username=(user.username)!||"admin"=(user.username)!>
-                                                <span type="del"><a href="${base}/delReply?reply.replyid=${reply.replyid}">删除</a></span></#if>
+                                                <span type="del"><a
+                                                        href="${base}/delReply?reply.replyid=${reply.replyid}">删除</a></span></#if>
                                         </div>
                                     </div>
                                 </li>
@@ -136,7 +137,9 @@
                 <div style="display: block;" class="bd bd-news">
                     <ul id="recommend">
                         <#list articleList as article>
-                            <li><a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a></li>
+                            <li>
+                                <a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a>
+                            </li>
                         </#list>
                     </ul>
                 </div>

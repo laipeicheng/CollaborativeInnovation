@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Service("articleService")
-public class ArticleServiceImpl extends BaseServiceImpl<Article> implements ArticleService{
+public class ArticleServiceImpl extends BaseServiceImpl<Article> implements ArticleService {
 
 
     @Autowired
@@ -45,16 +45,21 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
 
     @Override
     public Article get(Serializable id) {
-        return this.get(Article.class,id);
+        return this.get(Article.class, id);
     }
 
     @Override
-    public int getPages() {
-        return super.getPages(Article.class);
+    public int getPages(Integer articletypeid, String username) {
+        return articleDao.getPages(articletypeid, username);
     }
 
     @Override
     public List<Article> listByUsername(String username, int page) {
         return articleDao.listByUsername(username, page);
+    }
+
+    @Override
+    public List<Article> list(int curPage) {
+        return articleDao.list(curPage);
     }
 }

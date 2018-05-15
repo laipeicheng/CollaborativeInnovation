@@ -32,33 +32,13 @@
                                     <span class="dtime f_l">${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span>
                                     <span class="viewnum f_r">浏览（${(article.pageview)!}）</span>
                                     <span class="pingl f_r">评论（${(article.reviewcount)!}）</span>
+                                    <span class="lm f_r">收藏（${(article.reviewcount)!}）</span>
                                 </p>
                             </ul>
                         </div>
                     </#list>
                 </#if>
             </div>
-            <#--<!--分页&ndash;&gt;
-            <div id="page"></div>
-            <script>
-                //分页模块
-                layui.use(['laypage', 'layer'], function () {
-                    var laypage = layui.laypage
-                            , layer = layui.layer;
-                    //只显示上一页、下一页
-                    laypage.render({
-                        elem: 'page'
-                        , count: 10
-                        //['count', 'prev', 'page', 'next', 'limit', 'skip']
-                        , layout: ['prev', 'page', 'next']
-                        , jump: function (obj, first) {
-                            if (!first) {
-                                layer.msg('第 ' + obj.curr + ' 页');
-                            }
-                        }
-                    });
-                });
-            </script>-->
         </div>
         <div class="layui-col-md4" style="margin-top: 50px; margin-bottom: 50px">
             <!-- 登录框 -->
@@ -71,14 +51,14 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">用户名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="user.username" lay-verify="required" autocomplete="off"
+                                    <input type="text" name="user.username" lay-verify="username" autocomplete="off"
                                            class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">密码</label>
                                 <div class="layui-input-inline">
-                                    <input type="password" name="user.password" lay-verify="required" autocomplete="off"
+                                    <input type="password" name="user.password" lay-verify="password" autocomplete="off"
                                            class="layui-input">
                                 </div>
                             </div>
@@ -90,12 +70,40 @@
                         </div>
                     </form>
                 </@shiro.guest>
+                    <script>
+                        layui.use(['form', 'layer'], function () {
+                            var form = layui.form
+                                    ,layer = layui.layer;
+
+                            form.verify({
+                                username:function (value) {
+                                    if ("" == value){
+                                        return "用户名不能为空";
+                                    }
+                                },
+                                password:function (value) {
+                                    if ("" == value){
+                                        return "密码不能为空";
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+
                 <@shiro.user>
                 <div class="layui-form-pane">
                     <div class="layui-form-item">
                         <label class="layui-form-label">当前用户</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" disabled value="<@shiro.principal type="com.zhc.core.realms.LoginRealm$ShiroUser" property="realname"/>">
+                            <input type="text" class="layui-input" disabled
+                                   value="${(user.realname)!}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">上次登录时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" disabled
+                                   value="${(user.lastlogintime?string("yyyy-MM-dd HH:mm:ss"))!"本次为第一次登录"}">
                         </div>
                     </div>
                 </div>
@@ -118,7 +126,9 @@
                 <div style="display: block;" class="bd bd-news">
                     <ul id="recommend">
                         <#list pageviewArticleList as article>
-                            <li><a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a></li>
+                            <li>
+                                <a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a>
+                            </li>
                         </#list>
                     </ul>
                 </div>
@@ -127,6 +137,5 @@
     </div>
 </div>
 <@common.footer />
-<br>
 </body>
 </html>

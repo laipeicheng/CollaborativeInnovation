@@ -6,7 +6,7 @@ import com.zhc.core.service.BaseService;
 import java.io.Serializable;
 import java.util.List;
 
-public interface ArticleService extends BaseService<Article>{
+public interface ArticleService extends BaseService<Article> {
 
     List<Article> listSortByPublishtime();
 
@@ -18,7 +18,9 @@ public interface ArticleService extends BaseService<Article>{
 
     Article get(Serializable id);
 
-    int getPages();
+    int getPages(Integer articletypeid, String username);
 
     List<Article> listByUsername(String username, int page);
+
+    List<Article> list(int curPage);
 }

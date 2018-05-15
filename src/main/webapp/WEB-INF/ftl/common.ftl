@@ -1,3 +1,4 @@
+<#assign shiro=JspTaglibs["/WEB-INF/tld/shiro.tld"] >
 <#macro link_and_script>
 <script src="${base}/assets/js/jquery/jquery-2.1.4.min.js"></script>
 <script src="${base}/assets/layui/layui.js"></script>
@@ -100,7 +101,7 @@
                         var htmlStr = " ";
                         $("#recommend").empty();
                         console.log($("#recommend"));
-                        for(var i = 0; i< articleList.length ; i++){
+                        for (var i = 0; i < articleList.length; i++) {
                             htmlStr += "<li><a href='${base}/article?articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a></li>";
                         }
                         $("#recommend").html(htmlStr);
@@ -114,14 +115,33 @@
 
 <#macro left>
 <ul class="layui-nav layui-nav-tree layui-bg-blue layui-inline" lay-filter="demo">
-    <li class="layui-nav-item"><a href="${base}/usercenter">账号</a></li>
-    <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
-    <li class="layui-nav-item"><a href="${base}/enterprise/enterpriseinfo">企业资料</a></li>
-    <li class="layui-nav-item"><a href="${base}/enterprise/authentication">企业认证</a></li>
-    <li class="layui-nav-item"><a href="${base}/enterprise/authenticationlist">认证管理</a></li>
-    <li class="layui-nav-item"><a href="${base}/article/articlelist">文章管理</a></li>
-    <li class="layui-nav-item"><a href="${base}/enterprise/enterpriselist">企业管理</a></li>
-    <li class="layui-nav-item"><a href="${base}/logout">注销</a></li>
+    <@shiro.hasRole name="user">
+        <li class="layui-nav-item"><a href="${base}/usercenter">账号</a></li>
+    </@shiro.hasRole>
+    <@shiro.hasRole name="admin">
+        <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
+    </@shiro.hasRole>
+    <@shiro.hasRole name="enterprise">
+        <li class="layui-nav-item"><a href="${base}/enterprise/enterpriseinfo">企业资料</a></li>
+    </@shiro.hasRole>
+    <@shiro.hasRole name="user">
+        <li class="layui-nav-item"><a href="${base}/enterprise/authentication">企业认证</a></li>
+    </@shiro.hasRole>
+    <@shiro.hasRole name="admin">
+        <li class="layui-nav-item"><a href="${base}/enterprise/authenticationlist">认证管理</a></li>
+    </@shiro.hasRole>
+    <@shiro.user>
+        <li class="layui-nav-item"><a href="${base}/article/articlelist">文章管理</a></li>
+    </@shiro.user>
+    <@shiro.hasRole name="admin">
+        <li class="layui-nav-item"><a href="${base}/enterprise/enterpriselist">企业管理</a></li>
+    </@shiro.hasRole>
+    <@shiro.user>
+        <li class="layui-nav-item"><a href="${base}/favorite/favoritelist">收藏夹</a></li>
+    </@shiro.user>
+    <@shiro.user>
+        <li class="layui-nav-item"><a href="${base}/logout">注销</a></li>
+    </@shiro.user>
 </ul>
 </#macro>
 
@@ -129,5 +149,6 @@
 <div class="footer">
     <hr>
     <p>@layui框架模板</p>
+    <br>
 </div>
 </#macro>

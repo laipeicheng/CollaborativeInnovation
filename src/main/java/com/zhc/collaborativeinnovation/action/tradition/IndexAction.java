@@ -87,7 +87,7 @@ public class IndexAction extends BaseAction {
     public String articlelist() {
         articleList = articleService.listByArticletype(articletypeid, curPage);
         articletypeList = articletypeService.list(Articletype.class);
-        pages = articleService.getPages();
+        pages = articleService.getPages(articletypeid, null);
         return SUCCESS;
     }
 

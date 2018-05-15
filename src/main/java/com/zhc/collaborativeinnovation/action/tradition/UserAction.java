@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Namespace("/user")
@@ -79,6 +81,9 @@ public class UserAction extends BaseAction {
             UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
             try {
                 subject.login(token);
+                user = userService.get(user.getUsername());
+                user.setLastlogintime(new Timestamp(new Date().getTime()));
+                userService.saveOrUpdate(user);
                 session.setAttribute("user", subject.getPrincipal());
             } catch (AccountException e) {
                 msg = "用户不存在,请注册";
@@ -123,8 +128,8 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "deluser",results = {@Result(name = "success", type = "redirect", location = "/user/userlist")})
-    public String deluser(){
+    @Action(value = "deluser", results = {@Result(name = "success", type = "redirect", location = "/user/userlist")})
+    public String deluser() {
         user = userService.get(user.getUsername());
         userService.delete(user);
         return SUCCESS;

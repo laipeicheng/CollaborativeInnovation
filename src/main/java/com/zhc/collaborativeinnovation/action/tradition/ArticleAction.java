@@ -45,39 +45,62 @@ public class ArticleAction extends BaseAction {
     @Qualifier("articleService")
     private ArticleService articleService;
 
-    @Action(value = "article",results = {@Result(name = "success",type = "freemarker",location = "article.ftl")})
-    public String article(){
-        article = articleService.get(article.getArticleid());
-        return SUCCESS;
-    }
-    @Action(value = "articlelist",results = {@Result(name = "success",type = "freemarker",location = "articlelist.ftl")})
-    public String articlelist(){
+    @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
+    public String articlelist() {
         Subject subject = SecurityUtils.getSubject();
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getSession().getAttribute("user");
         String username = shiroUser.getUsername();
-        articleList = articleService.listByUsername(username, curPage);
+        if ("admin".equals(username)) {
+            articleList = articleService.list(curPage);
+            pages = articleService.getPages(null, null);
+        } else {
+            articleList = articleService.listByUsername(username, curPage);
+            pages = articleService.getPages(null, username);
+        }
         return SUCCESS;
     }
 
-    @Action(value = "reply",results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.articleid}")})
-    public String reply(){
-        System.out.println(reply.getReplycontent());
-        return SUCCESS;
-    }
-
-    @Action(value = "publish",results = {@Result(name = "success", type = "redirect", location = "articlelist")})
-    public String publish(){
+    @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
+    public String publish() {
+        Subject subject = SecurityUtils.getSubject();
+        String username = ((LoginRealm.ShiroUser)subject.getSession().getAttribute("user")).getUsername();
+        User user = new User();
+        user.setUsername(username);
         article.setPageview(0);
         article.setReviewcount(0);
-        Timestamp timestamp = new Timestamp(new Date().getTime());
-        article.setPublishtime(timestamp);
+        article.setPublishtime(new Timestamp(new Date().getTime()));
+        article.setAuthor(user);
         articleService.saveOrUpdate(article);
         return SUCCESS;
     }
 
-    @Action(value = "articleadd",results = {@Result(name = "success", type = "freemarker", location = "articleadd.ftl")})
-    public String articleadd(){
+    @Action(value = "articleupdate", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
+    public String articleupdate() {
+        Article article = articleService.get(this.article.getArticleid());
+        article.setTitle(this.article.getTitle());
+        article.setArticletype(this.article.getArticletype());
+        article.setSummary(this.article.getSummary());
+        article.setContent(this.article.getContent());
+        articleService.saveOrUpdate(article);
+        return SUCCESS;
+    }
+
+    @Action(value = "articledel", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
+    public String articledel() {
+        articleService.delete(article);
+        return SUCCESS;
+    }
+
+    @Action(value = "articleadd", results = {@Result(name = "success", type = "freemarker", location = "articleadd.ftl")})
+    public String articleadd() {
         articletypeList = articletypeService.list(Articletype.class);
+        return SUCCESS;
+    }
+
+    @Action(value = "articleedit", results = {@Result(name = "success", type = "freemarker", location = "articleedit.ftl")})
+    public String articleedit() {
+        articletypeList = articletypeService.list(Articletype.class);
+        article = articleService.get(article.getArticleid());
         return SUCCESS;
     }
 
