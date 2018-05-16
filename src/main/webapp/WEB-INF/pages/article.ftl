@@ -26,8 +26,17 @@
                 <hr class="layui-bg-gray">
                 <div class="content" id="photos">
                     <h2 class="c_titile">${(article.title)!}</h2>
-                    <p class="box_c"><span
-                            class="d_time">发表时间：${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span><span>作者：${(article.author.realname)!}</span><span>浏览（${(article.pageview)!}）</span><span><a href="#">收藏</a></span>
+                    <#assign favorite="com.zhc.collaborativeinnovation.directive.FavoriteDirective"?new()>
+                    <p class="box_c"><span class="d_time">发表时间：${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span>
+                        <span>作者：${(article.author.realname)!}</span>
+                        <span>浏览（${(article.pageview)!}）</span>
+                        <@favorite username='${(user.username)!}' articleid='${(article.articleid)!}'; result>
+                            <#if result>
+                                <span><a href="${base}/favorite/favoritecancel?articleid=${article.articleid}">取消收藏</a></span>
+                            <#else>
+                                <span><a href="${base}/favorite/favoriteadd?articleid=${article.articleid}">收藏</a></span>
+                            </#if>
+                        </@favorite>
                     </p>
                     <div class="detail-body">
                     ${(article.content)!}

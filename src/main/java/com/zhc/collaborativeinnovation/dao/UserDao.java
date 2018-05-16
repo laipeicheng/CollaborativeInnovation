@@ -11,4 +11,5 @@ public interface UserDao extends BaseDao<User> {
     User get(Serializable id);
 
     List<User> findByPage(int page);
+
 }

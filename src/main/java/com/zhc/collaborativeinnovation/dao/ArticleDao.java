@@ -18,4 +18,8 @@ public interface ArticleDao extends BaseDao<Article> {
     List<Article> list(int curPage);
 
     int getPages(Integer articletypeid, String username);
+
+    int favPages(String username);
+
+    List<Article> favoriteList(String username, int page);
 }

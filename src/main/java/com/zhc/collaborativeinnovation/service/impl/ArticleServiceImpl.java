@@ -62,4 +62,14 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     public List<Article> list(int curPage) {
         return articleDao.list(curPage);
     }
+
+    @Override
+    public List<Article> favoriteList(String username, int page) {
+        return articleDao.favoriteList(username, page);
+    }
+
+    @Override
+    public int favPages(String username) {
+        return articleDao.favPages(username);
+    }
 }

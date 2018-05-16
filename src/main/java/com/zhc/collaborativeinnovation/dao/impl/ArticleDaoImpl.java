@@ -64,7 +64,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
             pageSize = 6;
         }
         if (null != username) {
-            hql += "where author.username='" + username+"'";
+            hql += "where author.username='" + username + "'";
         }
         long count = (Long) hibernateTemplate.find(hql).listIterator().next();
         int pages = (int) count / pageSize;
@@ -72,5 +72,23 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
             pages++;
         }
         return pages;
+    }
+
+    @Override
+    public int favPages(String username) {
+        String hql = "select count(*) from Favorite where username=?";
+
+        long count = (Long) hibernateTemplate.find(hql, username).listIterator().next();
+        int pages = (int) count / 6;
+        if (count % 6 != 0) {
+            pages++;
+        }
+        return pages;
+    }
+
+    @Override
+    public List<Article> favoriteList(String username, int page) {
+        String hql = "from Article as article where article.articleid in (select favorite.articleid from Favorite as favorite where favorite.username=?)";
+        return findByPage(hql, page - 1, 6, username);
     }
 }

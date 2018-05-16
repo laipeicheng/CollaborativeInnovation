@@ -50,7 +50,7 @@ public class User extends BaseEntity {
 
     public User() {}
 
-    public User(String username, String realname, String password, String email, String phone, Integer roleid) {
+    public User(String username, String realname, String password, String email, String phone) {
         this.username = username;
         this.realname = realname;
         this.password = password;
@@ -129,4 +129,5 @@ public class User extends BaseEntity {
     public void setLastlogintime(Timestamp lastlogintime) {
         this.lastlogintime = lastlogintime;
     }
+
 }

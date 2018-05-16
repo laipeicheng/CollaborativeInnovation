@@ -11,4 +11,5 @@ public interface UserService extends BaseService<User> {
     User get(Serializable id);
 
     List<User> findByPage(int page);
+
 }

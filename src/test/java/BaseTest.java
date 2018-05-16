@@ -143,4 +143,16 @@ public class BaseTest {
         reply.setReplytime(new Timestamp(new Date().getTime()));
         replyService.saveOrUpdate(reply);
     }
+
+    @Test
+    public void testFavorite(){
+        List<Article> articleList = articleService.favoriteList("user01", 1);
+        System.out.println(articleList);
+    }
+
+    @Test
+    public void testFavPages(){
+        int pages = articleService.favPages("user01");
+        System.out.println(pages);
+    }
 }

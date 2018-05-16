@@ -19,6 +19,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     @Override
     public List<User> findByPage(int page) {
         String hql = "from User";
-        return findByPage(hql, page-1, 8);
+        return findByPage(hql, page - 1, 8);
     }
+
 }
