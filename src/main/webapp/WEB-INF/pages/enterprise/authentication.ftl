@@ -21,7 +21,8 @@
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form class="layui-form" method="post" action="#" enctype="multipart/form-data">
+                        <form id="auth" class="layui-form" method="post" action="${base}/enterprise/auth">
+                            <input id="fileUrl" type="hidden" name="fileUrl" value="" />
                             <div class="layui-form-item">
                                 <label for="name" class="layui-form-label">企业名称</label>
                                 <div class="layui-input-inline">
@@ -44,19 +45,59 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="license" class="layui-form-label">营业执照</label>
-                                <div class="layui-input-block">
-                                    <input type="file" name="license" id="license"
-                                       class="layui-btn layui-btn-primary" onchange="preview(this);"/>
-                                </div>
+                                <label for="test1" class="layui-form-label">上传营业执照</label>
+                                <button id="test1" type="button" class="layui-input-inline layui-btn layui-btn-primary" >选择图片</button>
                             </div>
                             <div class="layui-form-item">
-                                <input type="submit" id="submit" class="layui-btn layui-btn-normal" lay-submit
+                                <label for="demo1" class="layui-form-label">预览</label>
+                                <div class="layui-input-block">
+                                    <img style="height: 425px;width: 800px;border: 1px solid darkgrey" id="demo1" />
+                                </div>
+                            </div>
+                            <div id="submit" class="layui-form-item">
+                                <input type="submit" disabled class="layui-btn layui-btn-normal layui-btn-disabled" lay-submit
                                        value="请求认证" />
                             </div>
                         </form>
                     </div>
                     <script>
+                        layui.use(['upload', 'form', 'layer'], function(){
+                            var $ = layui.jquery
+                                    ,form = layui.form
+                                    ,layer = layui.layer
+                                    ,upload = layui.upload;
+
+                            form.verify({
+                                fileUrl:function (value) {
+                                    if("" == value){
+                                        return "图片未上传成功，请重新选择图片";
+                                    }
+                                }
+                            });
+
+                            //普通图片上传
+                            var uploadInst = upload.render({
+                                elem: '#test1'
+                                ,url: '${base}/upload/license'
+                                ,before: function(obj){
+                                    //预读本地文件示例，不支持ie8
+                                    obj.preview(function(index, file, result){
+                                        $('#demo1').attr('src', result); //图片链接（base64）
+                                    });
+                                }
+                                ,done: function(res){
+                                    if(res.uploadStatus){
+                                        $('#submit input').remove();
+                                        $('#submit').append("<input type='submit' class='layui-btn layui-btn-normal' lay-submit value='请求认证' />");
+                                        $('#fileUrl').val(res.fileUrl);
+                                    }
+                                    //上传成功
+                                }
+                                ,error: function(){
+                                    uploadInst.upload();
+                                }
+                            });
+                        });
                         function preview(file) {
                             var extIndex = file.value.lastIndexOf('.');
                             var ext = file.value.substring(extIndex+1);

@@ -55,7 +55,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public List<T> findByPage(final String hql, final int page, final int pageSize, final Object... args) {
-        System.out.println(hql);
         return hibernateTemplate.execute(new HibernateCallback<List<T>>() {
 
             @Override
