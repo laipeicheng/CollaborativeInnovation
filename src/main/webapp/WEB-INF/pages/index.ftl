@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item" style="float: right;">
-                            <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/register">注册</a>
+                            <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/register" target="_blank">注册</a>
                             <input type="submit" class="layui-btn layui-btn-small layui-btn-normal" lay-filter="*"
                                    lay-submit value="登录"/>
                         </div>
