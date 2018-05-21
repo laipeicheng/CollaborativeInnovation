@@ -23,13 +23,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     @Override
     public List<Article> listSortByPublishtime() {
         System.out.println("---------------listSortByPublishtime-----------------");
-        return articleDao.orderByCriterion("publishtime");
+        return articleDao.orderBy("publishtime");
     }
 
     @Override
     public List<Article> listSortByPageview() {
         System.out.println("-----------------listSortByPageview------------------");
-        return articleDao.orderByCriterion("pageview");
+        return articleDao.orderBy("pageview");
     }
 
     @Override

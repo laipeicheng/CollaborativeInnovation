@@ -28,13 +28,11 @@ public class RecommendAction extends BaseAction {
 
     @Action(value = "recommend", results = {@Result(type = "json")})
     public String recommend(){
-        System.out.println("---------------recommend--"+sortKey+"---------------");
         if("pageview".equals(sortKey)){
             articleList = articleService.listSortByPageview();
         }else if("recentReply".equals(sortKey)){
             articleList = articleService.listSortByRecentReply();
         }
-        System.out.println(articleList);
         return SUCCESS;
     }
 

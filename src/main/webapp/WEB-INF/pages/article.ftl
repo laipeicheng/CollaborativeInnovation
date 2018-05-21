@@ -47,7 +47,7 @@
                     </fieldset>
                     <div class="detail-box">
                         <ul class="jieda" id="jieda">
-                            <#if article.replySet?size=0>
+                            <#if replyList?size=0>
                                 <li class="fly-none">没有任何回答</li>
                             <#else>
                                 <#list replyList as reply>

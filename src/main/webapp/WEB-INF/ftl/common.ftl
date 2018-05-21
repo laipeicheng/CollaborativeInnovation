@@ -100,9 +100,8 @@
                         var articleList = json.articleList;
                         var htmlStr = " ";
                         $("#recommend").empty();
-                        console.log($("#recommend"));
                         for (var i = 0; i < articleList.length; i++) {
-                            htmlStr += "<li><a href='${base}/article?articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a></li>";
+                            htmlStr += "<li><a href='${base}/article?article.articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a></li>";
                         }
                         $("#recommend").html(htmlStr);
                     },
@@ -115,9 +114,9 @@
 
 <#macro left>
 <ul class="layui-nav layui-nav-tree layui-bg-blue layui-inline" lay-filter="demo">
-    <@shiro.hasRole name="user">
-        <li class="layui-nav-item"><a href="${base}/usercenter">账号</a></li>
-    </@shiro.hasRole>
+    <@shiro.user>
+        <li class="layui-nav-item"><a href="${base}/userinfo">账号</a></li>
+    </@shiro.user>
     <@shiro.hasRole name="admin">
         <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
     </@shiro.hasRole>

@@ -21,7 +21,7 @@
                 </fieldset>
                 <table class="layui-table" lay-skin="line">
                     <colgroup>
-                        <col width="100">
+                        <col width="240">
                         <col width="100">
                         <col width="100">
                         <col width="200">

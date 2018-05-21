@@ -2,6 +2,7 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.apache.struts2.json.annotations.JSON;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class Articletype extends BaseEntity {
     @Column(name = "articletypename")
     private String articletypename;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "articletypeid")
     private Set<Article> articleSet;
 
@@ -39,6 +40,7 @@ public class Articletype extends BaseEntity {
         this.articletypename = articletypename;
     }
 
+    @JSON(serialize = false)
     public Set<Article> getArticleSet() {
         return articleSet;
     }

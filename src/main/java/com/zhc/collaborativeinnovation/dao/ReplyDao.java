@@ -11,4 +11,6 @@ public interface ReplyDao extends BaseDao<Reply> {
     List<Reply> listByPageInUser(int articleid, int curPage);
 
     int getPages(int articleid);
+
+    int getCounts(int articleid);
 }

@@ -1,6 +1,7 @@
 package com.zhc.collaborativeinnovation.action.ajax;
 
 import com.zhc.core.action.BaseAction;
+import com.zhc.core.util.FileUtil;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -20,17 +21,17 @@ public class UploadAction extends BaseAction {
 
     private String fileFileName;
 
-    private boolean uploadStatus;
+    private boolean uploadStatus = false;
 
     private String fileUrl;
 
-    @Action(value = "license",results = {@Result(type = "json")})
-    public String license(){
-        System.out.println(file);
-        System.out.println(fileContentType);
-        System.out.println(fileFileName);
-        uploadStatus = true;
-        fileUrl = fileFileName;
+    @Action(value = "license", results = {@Result(type = "json")})
+    public String license() {
+        String path = FileUtil.saveFile(file, fileFileName);
+        if (!"".equals(path)) {
+            uploadStatus = true;
+            fileUrl = path;
+        }
         return SUCCESS;
     }
 

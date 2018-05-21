@@ -6,6 +6,7 @@ import com.zhc.core.vo.BaseEntity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "website")
 public class Website extends BaseEntity {
 
     @Id

@@ -13,4 +13,6 @@ public interface ReplyService extends BaseService<Reply> {
     List<Reply> listByPageInUser(int articleid, int curPage);
 
     int getPages(int articleid);
+
+    int getCounts(int articleid);
 }

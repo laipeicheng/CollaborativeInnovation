@@ -22,8 +22,8 @@
             <a href="${base}/article/articleadd" class="layui-btn layui-btn-small layui-btn-normal">发表文章</a>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
-                    <col width="100">
-                    <col width="100">
+                    <col width="240">
+                    <col width="80">
                     <col width="100">
                     <col width="200">
                     <col>

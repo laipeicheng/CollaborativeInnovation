@@ -2,12 +2,14 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.apache.struts2.json.annotations.JSON;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
+@Table(name = "article")
 public class Article extends BaseEntity {
 
     @Id
@@ -37,15 +39,18 @@ public class Article extends BaseEntity {
     private Integer reviewcount;
 
     @Expose
+    @Column(name = "favoritecount")
+    private Integer favoritecount;
+
+    @Expose
     @Column(name = "publishtime")
     private Timestamp publishtime;
 
-    @Expose
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "articletypeid")
     private Articletype articletype;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "articleid")
     private Set<Reply> replySet;
 
@@ -56,13 +61,13 @@ public class Article extends BaseEntity {
     public Article() {
     }
 
-    public Article(int articleid, String title, String summary, String content, Integer pageview, Integer reviewcount, Timestamp publishtime) {
-        this.articleid = articleid;
+    public Article(String title, String summary, String content, Integer pageview, Integer reviewcount, Integer favoritecount, Timestamp publishtime) {
         this.title = title;
         this.summary = summary;
         this.content = content;
         this.pageview = pageview;
         this.reviewcount = reviewcount;
+        this.favoritecount = favoritecount;
         this.publishtime = publishtime;
     }
 
@@ -130,6 +135,7 @@ public class Article extends BaseEntity {
         this.articletype = articletype;
     }
 
+    @JSON(serialize = false)
     public Set<Reply> getReplySet() {
         return replySet;
     }
@@ -146,4 +152,11 @@ public class Article extends BaseEntity {
         this.author = author;
     }
 
+    public Integer getFavoritecount() {
+        return favoritecount;
+    }
+
+    public void setFavoritecount(Integer favoritecount) {
+        this.favoritecount = favoritecount;
+    }
 }

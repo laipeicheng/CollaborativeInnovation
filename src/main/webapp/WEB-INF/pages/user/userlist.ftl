@@ -21,10 +21,10 @@
 
             <table class="layui-table" lay-skin="line">
                 <colgroup>
-                    <col width="100">
-                    <col width="100">
-                    <col width="100">
-                    <col width="200">
+                    <col width="150">
+                    <col width="150">
+                    <col width="150">
+                    <col width="150">
                     <col>
                 </colgroup>
                 <thead>
@@ -32,7 +32,7 @@
                     <th>用户名</th>
                     <th>真实姓名</th>
                     <th>手机号码</th>
-                    <th>邮箱</th>
+                    <th>用户类型</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -42,8 +42,12 @@
                     <td>${(user.username)!}</td>
                     <td>${(user.realname)!}</td>
                     <td>${(user.phone)!}</td>
-                    <td>${(user.email)!}</td>
-                    <td><a href="${base}/usercenter?user.username=${(user.username)!}"
+                    <td><#switch user.role.roleid!>
+                        <#case 0>管理员<#break>
+                        <#case 2>普通用户<#break>
+                        <#case 1>企业用户<#break>
+                    </#switch></td>
+                    <td><a href="${base}/userinfo?user.username=${(user.username)!}"
                            class="layui-btn layui-btn-mini layui-btn-primary">编辑</a><a
                             href="javascript:;" onclick="del('${(user.username)!}');"
                             class="layui-btn layui-btn-mini layui-btn-danger">删除</a>

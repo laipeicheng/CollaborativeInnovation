@@ -18,12 +18,18 @@ public class ReplyDaoImpl extends BaseDaoImpl<Reply> implements ReplyDao {
 
     @Override
     public int getPages(int articleid) {
-        final String hql = "select count(*) from Reply where article.articleid="+articleid;
-        long count = (Long) hibernateTemplate.find(hql).listIterator().next();
-        int pages = (int) count / 6 ;
+        int count = getCounts(articleid);
+        int pages = count / 6 ;
         if(count%6!=0){
             pages++;
         }
         return pages;
+    }
+
+    @Override
+    public int getCounts(int articleid) {
+        final String hql = "select count(*) from Reply where article.articleid="+articleid;
+        long count = (Long) hibernateTemplate.find(hql).listIterator().next();
+        return (int) count;
     }
 }

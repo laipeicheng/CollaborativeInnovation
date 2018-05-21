@@ -14,21 +14,9 @@ import java.util.List;
 @Repository("articleDao")
 public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
     @Override
-    public List<Article> orderByCriterion(String oderBy) {
-        DetachedCriteria criterion = DetachedCriteria.forClass(Article.class);
-        criterion.addOrder(Order.desc(oderBy));
-        criterion.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        List<Article> articleList = (List<Article>) hibernateTemplate.findByCriteria(criterion);
-        List<Article> tempList = new ArrayList<>();
-        for (int i = 0; i < articleList.size(); i++) {
-            if (i >= 6) {
-                break;
-            }
-            if (!tempList.contains(articleList.get(i))) {
-                tempList.add(articleList.get(i));
-            }
-        }
-        return tempList;
+    public List<Article> orderBy(String oderBy) {
+        String hql = "from Article order by "+oderBy+" desc";
+        return findByPage(hql, 0, 6);
     }
 
     @Override

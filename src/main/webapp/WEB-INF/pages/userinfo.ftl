@@ -46,14 +46,6 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label for="email" class="layui-form-label">邮件</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="email" name="user.email" lay-verify="email"
-                                           autocomplete="off"
-                                           value="${(user.email)!}" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
                                 <input type="submit" class="layui-btn layui-btn-normal" lay-filter="*" value="修改"/>
                             </div>
                         </form>

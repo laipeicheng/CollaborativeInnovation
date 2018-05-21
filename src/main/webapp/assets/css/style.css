@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @name:   vip-admin 后台模板css
  * @author: 随丶
  */
@@ -183,7 +183,10 @@
 
 /* login */
 .login-body {
-    background: url("../images/bg.png") repeat fixed;
+    padding-top: 30.85%;
+	background: url("../images/a.jpg") no-repeat;
+	background-size: cover;
+	background-position: center;
 }
 
 .login-box {

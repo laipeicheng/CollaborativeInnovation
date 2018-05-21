@@ -65,9 +65,13 @@
                 /usercenter = authc
                 /user/register = anon
                 /user/login = anon
+                /user/updatepwd=authc
                 /user/** = roles[admin]
+                /enterprise/auth = roles[user]
                 /enterprise/authentication = authc
+                /enterprise/enterpriseinfo = authc
                 /enterprise/** = roles[admin]
+                /auth/** = roles[admin]
                 /article = anon
                 /article/** = authc
                 /verify/** = anon

@@ -4,7 +4,6 @@ import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.vo.Role;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
-import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.util.EncryptUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -12,10 +11,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -48,8 +44,8 @@ public class UserAction extends BaseAction {
     }
 
     @Action(value = "register", results = {
-            @Result(name = "success", type = "freemarker", location = "../login.ftl")
-            , @Result(name = "error", type = "freemarker", location = "../register.ftl")})
+            @Result(name = "success", type = "redirect", location = "/login")
+            , @Result(name = "error", type = "redirect", location = "/register")})
     public String register() {
         String username = user.getUsername();
         if (userService.get(username) == null) {
@@ -62,13 +58,14 @@ public class UserAction extends BaseAction {
             msg = "注册失败";
             return ERROR;
         }
+        getSession().setAttribute("msg", msg);
         return SUCCESS;
     }
 
     @Action(value = "login", results = {
             @Result(name = "success", type = "redirect", location = "/index")
             , @Result(name = "error", type = "freemarker", location = "../login.ftl")
-            , @Result(name = "login", type = "freemarker", location = "../register.ftl")})
+            , @Result(name = "register", type = "freemarker", location = "../register.ftl")})
     public String login() {
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
@@ -87,7 +84,7 @@ public class UserAction extends BaseAction {
                 session.setAttribute("user", subject.getPrincipal());
             } catch (AccountException e) {
                 msg = "用户不存在,请注册";
-                return "login";
+                return "register";
             } catch (IncorrectCredentialsException e) {
                 msg = "用户名或密码错误";
                 return ERROR;
@@ -100,7 +97,6 @@ public class UserAction extends BaseAction {
     @Action(value = "updateinfo", results = {@Result(name = "success", type = "redirect", location = "/usercenter")})
     public String updateInfo() {
         User user = userService.get(this.user.getUsername());
-        user.setEmail(this.user.getEmail());
         user.setRealname(this.user.getRealname());
         user.setPhone(this.user.getPhone());
         userService.saveOrUpdate(user);
@@ -118,7 +114,6 @@ public class UserAction extends BaseAction {
         }
         username = user.getUsername();
         user = userService.get(username);
-        System.out.println(user);
         currPwd = user.getPassword();
         password = EncryptUtil.encMD5(newpass, username);
         if (!password.equals(currPwd)) {

@@ -6,8 +6,10 @@ import com.zhc.core.vo.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "favorite")
 public class Favorite extends BaseEntity {
 
     @Id

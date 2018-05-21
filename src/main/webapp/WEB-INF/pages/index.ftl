@@ -108,7 +108,7 @@
                     </div>
                 </div>
                     <div class="layui-form-item" style="float: right;">
-                        <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/usercenter">个人中心</a>
+                        <a class="layui-btn layui-btn-small layui-btn-primary" href="${base}/userinfo">个人中心</a>
                         <a class="layui-btn layui-btn-small layui-btn-danger" href="${base}/logout">注销</a>
                     </div>
                 </@shiro.user>

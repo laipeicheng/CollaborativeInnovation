@@ -32,4 +32,9 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements ReplySer
     public int getPages(int articleid) {
         return replyDao.getPages(articleid);
     }
+
+    @Override
+    public int getCounts(int articleid) {
+        return replyDao.getCounts(articleid);
+    }
 }

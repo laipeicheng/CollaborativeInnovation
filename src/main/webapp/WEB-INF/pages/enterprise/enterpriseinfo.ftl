@@ -21,48 +21,40 @@
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form class="layui-form" method="post" action="#">
 
-                            <div class="layui-form-item">
-                                <label for="username" class="layui-form-label">企业名称</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="username" name="email" disabled autocomplete="off"
-                                           class="layui-input">
+                        <div class="layui-form-item">
+                            <label for="name" class="layui-form-label">企业名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" value="${(enterprise.name)!}" disabled lay-verify="name" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="summary" class="layui-form-label">简介</label>
+                            <div class="layui-input-block">
+                                        <textarea id="summary" disabled lay-verify="summary" autocomplete="off"
+                                                  class="layui-textarea">${(enterprise.summary)!}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="address" class="layui-form-label">地址</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="address" disabled value="${(enterprise.address)!}" lay-verify="address" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="dmeo1" class="layui-form-label">营业执照</label>
+                            <div class="layui-input-block">
+                                <img src="${base}/stream/license?enterpriseid=${(enterprise.id)!}" style="height: 425px;width: 800px;border: 1px solid darkgrey" id="demo1"/>
+                            </div>
+                        </div>
+                            <@shiro.hasRole name="admin">
+                                <div class="layui-form-item">
+                                    <a href="${base}/auth/authenticate?status=1&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-normal">认证通过</a>
+                                    <a href="${base}/auth/authenticate?status=2&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-danger">认证不通过</a>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="realname" class="layui-form-label">简介</label>
-                                <div class="layui-input-block">
-                                        <textarea id="summary" name="" lay-verify="required"
-                                                  class="layui-textarea fly-editor" disabled></textarea>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="username" class="layui-form-label">联系地址</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="username" name="email" disabled autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="username" class="layui-form-label">联系人姓名</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="username" name="email" disabled autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label for="username" class="layui-form-label">联系人电话</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="username" name="email" disabled autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <button class="layui-btn layui-btn-normal" lay-filter="*" lay-submit>认证通过</button>
-                                <button class="layui-btn layui-btn-danger" lay-filter="*" lay-submit>认证不通过</button>
-                            </div>
-                        </form>
+                            </@shiro.hasRole>
                     </div>
                 </div>
             </div>

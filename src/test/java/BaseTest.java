@@ -61,7 +61,6 @@ public class BaseTest {
         user.setUsername("admin");
         user.setRealname("管理员");
         user.setPhone("15077774211");
-        user.setEmail("15077774211@163.com");
         String password = "admin";
         ByteSource salt = ByteSource.Util.bytes(user.getUsername());
         password = EncryptUtil.encMD5(password, salt);

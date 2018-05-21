@@ -12,10 +12,7 @@ import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.service.BaseService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -64,13 +61,12 @@ public class IndexAction extends BaseAction {
     @Action(value = "index", results = {@Result(name = "success", type = "freemarker", location = "index.ftl")})
     public String index() {
         articleList = articleService.listSortByPublishtime();
-        System.out.println(articleList);
         pageviewArticleList = articleService.listSortByPageview();
         return SUCCESS;
     }
 
-    @Action(value = "usercenter", results = {@Result(name = "success", type = "freemarker", location = "usercenter.ftl")})
-    public String userCenter() {
+    @Action(value = "userinfo", results = {@Result(name = "success", type = "freemarker", location = "userinfo.ftl")})
+    public String userinfo() {
         String username;
         if (user == null || "".equals(user.getUsername())) {
             Subject subject = SecurityUtils.getSubject();
@@ -85,6 +81,8 @@ public class IndexAction extends BaseAction {
 
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
+        msg = (String) getSession().getAttribute("msg");
+        getSession().removeAttribute("msg");
         articleList = articleService.listByArticletype(articletypeid, curPage);
         articletypeList = articletypeService.list(Articletype.class);
         pages = articleService.getPages(articletypeid, null);
@@ -97,11 +95,12 @@ public class IndexAction extends BaseAction {
     public String article() {
         if (article == null) {
             msg = "该文章已不存在";
+            getSession().setAttribute("msg", msg);
             return ERROR;
         } else {
             article = articleService.get(article.getArticleid());
             article.setPageview(article.getPageview() + 1);
-            article.setReviewcount(article.getReplySet().size());
+            article.setReviewcount(replyService.getCounts(article.getArticleid()));
             articleService.saveOrUpdate(article);
             replyList = replyService.listByPageInUser(article.getArticleid(), curPage);
             pages = replyService.getPages(article.getArticleid());
@@ -145,6 +144,20 @@ public class IndexAction extends BaseAction {
             replyService.delete(reply);
             return SUCCESS;
         }
+    }
+
+    @Action(value = "login", results = {@Result(name = "success", type = "freemarker", location = "login.ftl")})
+    public String login() {
+        msg = (String) getSession().getAttribute("msg");
+        getSession().removeAttribute("msg");
+        return SUCCESS;
+    }
+
+    @Action(value = "register", results = {@Result(name = "success", type = "freemarker", location = "register.ftl")})
+    public String register() {
+        msg = (String) getSession().getAttribute("msg");
+        getSession().removeAttribute("msg");
+        return SUCCESS;
     }
 
     public List<Article> getArticleList() {

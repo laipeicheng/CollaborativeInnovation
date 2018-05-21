@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ArticleDao extends BaseDao<Article> {
 
-    List<Article> orderByCriterion(String oderBy);
+    List<Article> orderBy(String oderBy);
 
     List<Article> orderByRecentReply();
 
