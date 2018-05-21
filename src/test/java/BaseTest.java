@@ -125,7 +125,7 @@ public class BaseTest {
 
     @Test
     public void testPages() {
-        int pages = articleDao.getPages(Article.class);
+        int pages = articleDao.getPages(Article.class, 8);
         System.out.println(pages);
     }
 
