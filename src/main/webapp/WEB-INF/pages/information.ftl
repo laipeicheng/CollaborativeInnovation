@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>协同创新-资源共享</title>
+    <title>协同创新-信息咨讯</title>
 <@common.link_and_script />
 </head>
 <body>

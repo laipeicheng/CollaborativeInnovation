@@ -5,7 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>登录</title>
+    <title>协同创新-登录</title>
     <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
     <link rel="stylesheet" href="${base}/assets/css/style.css">
 </head>

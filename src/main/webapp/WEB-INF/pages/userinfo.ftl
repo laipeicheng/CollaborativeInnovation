@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>用户中心</title>
+    <title>协同创新-账号</title>
 <@common.link_and_script />
 </head>
 <body>

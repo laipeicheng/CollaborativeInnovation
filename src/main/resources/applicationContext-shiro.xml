@@ -70,8 +70,10 @@
                 /enterprise/auth = roles[user]
                 /enterprise/authentication = authc
                 /enterprise/enterpriseinfo = authc
+                /enterprise/needs = roles[enterprise]
                 /enterprise/** = roles[admin]
                 /auth/** = roles[admin]
+                /setting/** = roles[admin]
                 /article = anon
                 /article/** = authc
                 /verify/** = anon
