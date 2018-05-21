@@ -3,10 +3,7 @@ package com.zhc.collaborativeinnovation.action.ajax;
 import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
-import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.util.EncryptUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -33,9 +30,9 @@ public class VerifyAction extends BaseAction {
     @Action(value = "username", results = {@Result(type = "json")})
     public String verifyUsername() {
         User user = userService.get(username);
-        if(user != null){
+        if (user != null) {
             verifyStr = "用户名已存在";
-        }else {
+        } else {
             verifyStr = "";
         }
         return SUCCESS;
@@ -47,7 +44,7 @@ public class VerifyAction extends BaseAction {
         password = EncryptUtil.encMD5(password, username);
         System.out.println(password);
         System.out.println(currPwd);
-        if(!password.equals(currPwd)){
+        if (!password.equals(currPwd)) {
             verifyStr = "当前密码错误";
         }
         return SUCCESS;

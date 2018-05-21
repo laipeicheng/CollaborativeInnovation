@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 @Namespace("/stream")
 @ParentPackage("struts-default")
@@ -29,9 +27,9 @@ public class StreamAction extends ActionSupport {
     @Qualifier("baseService")
     private BaseService<Enterprise> enterpriseService;
 
-    @Action(value = "license",results = {@Result(type = "stream",params = {"contentType","image/jpeg","inputName","inputStream"})})
-    public String  license(){
-        Enterprise enterprise = enterpriseService.get(Enterprise.class,enterpriseid);
+    @Action(value = "license", results = {@Result(type = "stream", params = {"contentType", "image/jpeg", "inputName", "inputStream"})})
+    public String license() {
+        Enterprise enterprise = enterpriseService.get(Enterprise.class, enterpriseid);
         inputStream = new ByteArrayInputStream(enterprise.getLicense());
 
         return SUCCESS;

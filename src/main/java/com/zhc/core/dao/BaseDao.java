@@ -55,7 +55,7 @@ public interface BaseDao<T> {
 	 * @param cls
 	 * @return
 	 */
-	int getPages(Class<T> cls);
+	int getPages(Class<T> cls, int pageSize);
 
 
 }

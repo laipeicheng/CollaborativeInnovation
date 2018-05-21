@@ -63,7 +63,7 @@ public class ArticleAction extends BaseAction {
     @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
     public String publish() {
         Subject subject = SecurityUtils.getSubject();
-        String username = ((LoginRealm.ShiroUser)subject.getSession().getAttribute("user")).getUsername();
+        String username = ((LoginRealm.ShiroUser) subject.getSession().getAttribute("user")).getUsername();
         User user = new User();
         user.setUsername(username);
         article.setPageview(0);

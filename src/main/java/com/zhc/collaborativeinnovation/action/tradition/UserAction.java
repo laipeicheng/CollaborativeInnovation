@@ -11,7 +11,10 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.struts2.convention.annotation.*;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -39,7 +42,7 @@ public class UserAction extends BaseAction {
     @Action(value = "userlist", results = {@Result(name = "success", type = "freemarker", location = "userlist.ftl")})
     public String userlist() {
         userList = userService.findByPage(curPage);
-        pages = userService.getPages(User.class);
+        pages = userService.getPages(User.class,8);
         return SUCCESS;
     }
 

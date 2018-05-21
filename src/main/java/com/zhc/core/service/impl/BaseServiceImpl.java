@@ -34,14 +34,14 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	}
 
 	@Override
-	public List<T> findByPage(Class<T> cls, int page) {
+	public List<T> findByPage(Class<T> cls, int page, int pageSize) {
 		String hql = "from "+cls.getSimpleName();
-		return baseDao.findByPage(hql,page-1,6);
+		return baseDao.findByPage(hql,page-1,pageSize);
 	}
 
 	@Override
-	public int getPages(Class<T> cls) {
-		return baseDao.getPages(cls);
+	public int getPages(Class<T> cls, int pageSize) {
+		return baseDao.getPages(cls,pageSize);
 	}
 
 }

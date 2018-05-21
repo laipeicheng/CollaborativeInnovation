@@ -19,6 +19,7 @@
                 <a><cite>关于我们</cite></a>
             </span>
             <h2 class="c_titile">关于我们</h2>
+            ${(setting.aboutContent)!}
         </div>
     </div>
 </div>

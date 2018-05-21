@@ -27,10 +27,10 @@ public class RecommendAction extends BaseAction {
     private ArticleService articleService;
 
     @Action(value = "recommend", results = {@Result(type = "json")})
-    public String recommend(){
-        if("pageview".equals(sortKey)){
+    public String recommend() {
+        if ("pageview".equals(sortKey)) {
             articleList = articleService.listSortByPageview();
-        }else if("recentReply".equals(sortKey)){
+        } else if ("recentReply".equals(sortKey)) {
             articleList = articleService.listSortByRecentReply();
         }
         return SUCCESS;

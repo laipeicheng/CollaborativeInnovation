@@ -1,6 +1,5 @@
 package com.zhc.core.util;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.zhc.core.realms.LoginRealm;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -78,9 +77,9 @@ public class FileUtil {
 
     public static void delFile(String path) {
         String dir = ServletActionContext.getServletContext().getRealPath("/image");
-            File file = new File(dir + "/" + path);
-            if (file.exists()) {
-                file.delete();
-            }
+        File file = new File(dir + "/" + path);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }

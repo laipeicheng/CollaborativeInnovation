@@ -49,27 +49,27 @@ public class FavoriteAction extends BaseAction {
 
     private int websiteCurrPage = 1;
 
-    @Action(value = "favoritelist",results = {@Result(name = "success", type = "freemarker", location = "favoritelist.ftl")})
-    public String favoritelist(){
+    @Action(value = "favoritelist", results = {@Result(name = "success", type = "freemarker", location = "favoritelist.ftl")})
+    public String favoritelist() {
         Subject subject = SecurityUtils.getSubject();
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
         String username = shiroUser.getUsername();
         pages = articleService.favPages(username);
         articleList = articleService.favoriteList(username, curPage);
-        websitePages = websiteService.getPages(Website.class);
-        websiteList = websiteService.findByPage(Website.class, websiteCurrPage);
-        if(website!=null){
+        websitePages = websiteService.getPages(Website.class, 6);
+        websiteList = websiteService.findByPage(Website.class, websiteCurrPage, 6);
+        if (website != null) {
             website = websiteService.get(Website.class, website.getId());
         }
         return SUCCESS;
     }
 
-    @Action(value = "favoriteadd",results = {@Result(name = "success",type = "redirect",location = "/article?article.articleid=${articleid}")})
-    public String favoriteadd(){
+    @Action(value = "favoriteadd", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
+    public String favoriteadd() {
         Subject subject = SecurityUtils.getSubject();
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
         String username = shiroUser.getUsername();
-        if(!favoriteService.isFavorite(username, articleid)){
+        if (!favoriteService.isFavorite(username, articleid)) {
             Favorite favorite = new Favorite();
             favorite.setArticleid(articleid);
             favorite.setUsername(username);
@@ -78,12 +78,12 @@ public class FavoriteAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "favoritecancel",results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
-    public String favoritecancel(){
+    @Action(value = "favoritecancel", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
+    public String favoritecancel() {
         Subject subject = SecurityUtils.getSubject();
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
         String username = shiroUser.getUsername();
-        if(favoriteService.isFavorite(username, articleid)){
+        if (favoriteService.isFavorite(username, articleid)) {
             Favorite favorite = new Favorite();
             favorite.setUsername(username);
             favorite.setArticleid(articleid);
@@ -92,19 +92,19 @@ public class FavoriteAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "favoritedel",results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
-    public String favoritedel(){
+    @Action(value = "favoritedel", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
+    public String favoritedel() {
         return favoritecancel();
     }
 
-    @Action(value = "websiteadd",results = {@Result(name = "success",type = "redirect",location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
-    public String websiteadd(){
+    @Action(value = "websiteadd", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
+    public String websiteadd() {
         websiteService.saveOrUpdate(website);
         return SUCCESS;
     }
 
-    @Action(value = "websitedel",results = {@Result(name = "success",type = "redirect",location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
-    public String websitedel(){
+    @Action(value = "websitedel", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
+    public String websitedel() {
         websiteService.delete(website);
         return SUCCESS;
     }

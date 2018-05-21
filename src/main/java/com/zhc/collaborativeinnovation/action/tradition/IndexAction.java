@@ -2,6 +2,7 @@ package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.service.ReplyService;
+import com.zhc.collaborativeinnovation.service.SettingService;
 import com.zhc.collaborativeinnovation.service.UserService;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.vo.Articletype;
@@ -10,9 +11,13 @@ import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
 import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.service.BaseService;
+import com.zhc.core.vo.Setting;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.apache.struts2.convention.annotation.*;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -42,9 +47,15 @@ public class IndexAction extends BaseAction {
     @Qualifier("userService")
     private UserService userService;
 
+    @Autowired
+    @Qualifier("settingService")
+    private SettingService settingService;
+
     private User user;
 
     private Reply reply;
+
+    private Setting setting;
 
     private int articletypeid = 1;
 
@@ -160,6 +171,12 @@ public class IndexAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "about",results = {@Result(name = "success", type = "freemarker",location = "about.ftl")})
+    public String about(){
+        setting = settingService.getSetting();
+        return SUCCESS;
+    }
+
     public List<Article> getArticleList() {
         return articleList;
     }
@@ -222,5 +239,13 @@ public class IndexAction extends BaseAction {
 
     public void setReply(Reply reply) {
         this.reply = reply;
+    }
+
+    public Setting getSetting() {
+        return setting;
+    }
+
+    public void setSetting(Setting setting) {
+        this.setting = setting;
     }
 }

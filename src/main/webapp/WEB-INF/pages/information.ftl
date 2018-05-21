@@ -24,17 +24,17 @@
                 <div class="layui-col-md8">
                     <div class="layui-carousel" id="test1" lay-filter="test1">
                         <div carousel-item="">
-                            <div>条目1</div>
-                            <div>条目2</div>
-                            <div>条目3</div>
-                            <div>条目4</div>
-                            <div>条目5</div>
+                            <div style="background-color: red">条目1</div>
+                            <div style="background-color: black">条目2</div>
+                            <div style="background-color: blue">条目3</div>
+                            <div style="background-color: green">条目4</div>
+                            <div style="background-color: white">条目5</div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-md4">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend>新闻资讯</legend>
+                        <legend><a href="#">新闻资讯</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -65,7 +65,7 @@
             <div class="layui-row layui-col-space20">
                 <div class="layui-col-md6">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend>需求资讯</legend>
+                        <legend><a href="#">需求资讯</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -95,7 +95,7 @@
 
                 <div class="layui-col-md6">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend>企业名录</legend>
+                        <legend><a href="#">科研成果</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -104,19 +104,19 @@
                             </colgroup>
                             <tbody>
                             <tr>
-                                <td>企业1</td>
+                                <td>成果1</td>
                             </tr>
                             <tr>
-                                <td>企业2</td>
+                                <td>成果2</td>
                             </tr>
                             <tr>
-                                <td>企业3</td>
+                                <td>成果3</td>
                             </tr>
                             <tr>
-                                <td>企业4</td>
+                                <td>成果4</td>
                             </tr>
                             <tr>
-                                <td>企业5</td>
+                                <td>成果5</td>
                             </tr>
                             </tbody>
                         </table>

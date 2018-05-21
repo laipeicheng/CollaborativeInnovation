@@ -116,42 +116,37 @@
 <ul class="layui-nav layui-nav-tree layui-bg-blue layui-inline" lay-filter="demo">
     <@shiro.user>
         <li class="layui-nav-item"><a href="${base}/userinfo">账号</a></li>
+        <li class="layui-nav-item"><a href="${base}/article/articlelist">文章管理</a></li>
     </@shiro.user>
-    <@shiro.hasRole name="admin">
-        <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
-    </@shiro.hasRole>
-    <@shiro.hasRole name="enterprise">
-        <li class="layui-nav-item"><a href="${base}/enterprise/enterpriseinfo">企业资料</a></li>
-    </@shiro.hasRole>
     <@shiro.hasRole name="user">
         <li class="layui-nav-item"><a href="${base}/enterprise/authentication">企业认证</a></li>
     </@shiro.hasRole>
-    <@shiro.hasRole name="admin">
-        <li class="layui-nav-item"><a href="${base}/enterprise/authenticationlist">认证管理</a></li>
-    </@shiro.hasRole>
-    <@shiro.user>
-        <li class="layui-nav-item"><a href="${base}/article/articlelist">文章管理</a></li>
-    </@shiro.user>
     <@shiro.hasRole name="enterprise">
+        <li class="layui-nav-item"><a href="${base}/enterprise/enterpriseinfo">企业资料</a></li>
         <li class="layui-nav-item"><a href="${base}/enterprise/needs">需求管理</a></li>
     </@shiro.hasRole>
     <@shiro.hasRole name="admin">
+        <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
+        <li class="layui-nav-item"><a href="${base}/enterprise/authenticationlist">认证管理</a></li>
         <li class="layui-nav-item"><a href="${base}/enterprise/enterpriselist">企业管理</a></li>
+        <li class="layui-nav-item"><a href="${base}/news/newslist">新闻管理</a></li>
+        <li class="layui-nav-item"><a href="${base}/achievements/achievementslist">科研成果</a></li>
+        <li class="layui-nav-item"><a href="${base}/setting/images">图片轮播</a></li>
+        <li class="layui-nav-item"><a href="${base}/setting/about">关于我们</a></li>
+        <#--<li class="layui-nav-item">
+            <a href="javascript:;">网站管理</a>
+            <dl class="layui-nav-child">
+                <dd><a href="${base}/user/userlist">用户管理</a></dd>
+                <dd><a href="${base}/enterprise/authenticationlist">认证管理</a></dd>
+                <dd><a href="${base}/enterprise/enterpriselist">企业管理</a></dd>
+                <dd><a href="${base}/setting/news">新闻管理</a></dd>
+                <dd><a href="${base}/setting/images">图片轮播</a></dd>
+                <dd><a href="${base}/setting/about">关于我们</a></dd>
+            </dl>
+        </li>-->
     </@shiro.hasRole>
     <@shiro.user>
         <li class="layui-nav-item"><a href="${base}/favorite/favoritelist">收藏夹</a></li>
-    </@shiro.user>
-    <@shiro.hasRole name="admin">
-    <li class="layui-nav-item">
-        <a href="javascript:;">网站设置</a>
-        <dl class="layui-nav-child">
-            <dd><a href="${base}/setting/news">新闻管理</a></dd>
-            <dd><a href="${base}/setting/images">图片轮播</a></dd>
-            <dd><a href="${base}/setting/about">关于我们</a></dd>
-        </dl>
-    </li>
-    </@shiro.hasRole>
-    <@shiro.user>
         <li class="layui-nav-item"><a href="${base}/logout">注销</a></li>
     </@shiro.user>
 </ul>
