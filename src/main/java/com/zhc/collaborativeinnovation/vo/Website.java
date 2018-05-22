@@ -31,6 +31,10 @@ public class Website extends BaseEntity {
     @Column(name = "password")
     private String password;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "username")
+    private User user;
+
     public int getId() {
         return id;
     }
@@ -38,7 +42,6 @@ public class Website extends BaseEntity {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getTitle() {
         return title;
@@ -48,7 +51,6 @@ public class Website extends BaseEntity {
         this.title = title;
     }
 
-
     public String getUrl() {
         return url;
     }
@@ -56,7 +58,6 @@ public class Website extends BaseEntity {
     public void setUrl(String url) {
         this.url = url;
     }
-
 
     public String getAccount() {
         return account;
@@ -66,7 +67,6 @@ public class Website extends BaseEntity {
         this.account = account;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -75,4 +75,11 @@ public class Website extends BaseEntity {
         this.password = password;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

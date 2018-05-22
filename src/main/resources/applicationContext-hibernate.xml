@@ -36,9 +36,7 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<!-- 可以自动创建数据库表(create),不创建(none) -->
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/collaborativeinnovation</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-            </props>
+			</props>
 		</property>
 		<!-- 自动扫描实体类 -->
 		<property name="packagesToScan">
@@ -46,7 +44,7 @@
 				<value>com.zhc.*</value>
 			</list>
 		</property>
-	</bean>
+    </bean>
 
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory" />

@@ -19,7 +19,7 @@
                 <legend>政策管理</legend>
             </fieldset>
 
-            <a href="${base}/news/newsadd" class="layui-btn layui-btn-small layui-btn-normal">发布政策</a>
+            <a href="${base}/policy/policyadd" class="layui-btn layui-btn-small layui-btn-normal">发布政策</a>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
                     <col width="300">

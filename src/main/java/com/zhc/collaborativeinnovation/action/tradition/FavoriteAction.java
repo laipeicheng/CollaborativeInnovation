@@ -2,8 +2,10 @@ package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.service.FavoriteService;
+import com.zhc.collaborativeinnovation.service.WebsiteService;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.vo.Favorite;
+import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.vo.Website;
 import com.zhc.core.action.BaseAction;
 import com.zhc.core.realms.LoginRealm;
@@ -34,8 +36,8 @@ public class FavoriteAction extends BaseAction {
     private FavoriteService favoriteService;
 
     @Autowired
-    @Qualifier("baseService")
-    private BaseService<Website> websiteService;
+    @Qualifier("websiteService")
+    private WebsiteService websiteService;
 
     private List<Article> articleList;
 
@@ -56,8 +58,8 @@ public class FavoriteAction extends BaseAction {
         String username = shiroUser.getUsername();
         pages = articleService.favPages(username);
         articleList = articleService.favoriteList(username, curPage);
-        websitePages = websiteService.getPages(Website.class, 6);
-        websiteList = websiteService.findByPage(Website.class, websiteCurrPage, 6);
+        websitePages = websiteService.getPages(6, username);
+        websiteList = websiteService.findByPage(websiteCurrPage, 6, username);
         if (website != null) {
             website = websiteService.get(Website.class, website.getId());
         }
@@ -101,6 +103,12 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "websiteadd", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String websiteadd() {
+        Subject subject = SecurityUtils.getSubject();
+        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+        String username = shiroUser.getUsername();
+        User user = new User();
+        user.setUsername(username);
+        website.setUser(user);
         websiteService.saveOrUpdate(website);
         return SUCCESS;
     }

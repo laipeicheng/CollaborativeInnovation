@@ -37,6 +37,9 @@ public class User extends BaseEntity {
     @JoinColumn(name = "roleid")
     private Role role;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private Enterprise enterprise;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "username")
     private Set<Reply> replySet;
@@ -44,6 +47,10 @@ public class User extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "author")
     private Set<Article> articleSet;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "username")
+    private Set<Website> websiteSet;
 
     public User() {}
 
@@ -70,6 +77,7 @@ public class User extends BaseEntity {
         this.realname = realname;
     }
 
+    @JSON(serialize = false)
     public String getPassword() {
         return password;
     }
@@ -120,4 +128,21 @@ public class User extends BaseEntity {
         this.lastlogintime = lastlogintime;
     }
 
+    @JSON(serialize = false)
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
+
+    @JSON(serialize = false)
+    public Set<Website> getWebsiteSet() {
+        return websiteSet;
+    }
+
+    public void setWebsiteSet(Set<Website> websiteSet) {
+        this.websiteSet = websiteSet;
+    }
 }

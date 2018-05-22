@@ -72,10 +72,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public int getPages(Class<T> cls, int pageSize) {
-        String hql = "select count(*) from "+cls.getSimpleName();
+        String hql = "select count(*) from " + cls.getSimpleName();
         long count = (Long) hibernateTemplate.find(hql).listIterator().next();
-        int pages = (int) count / pageSize ;
-        if(count%pageSize!=0){
+        int pages = (int) count / pageSize;
+        if (count % pageSize != 0) {
             pages++;
         }
         return pages;

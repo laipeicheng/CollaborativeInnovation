@@ -16,7 +16,7 @@ public class EnterpriseDaoImpl extends BaseDaoImpl<Enterprise> implements Enterp
 
     @Override
     public Enterprise getByUsername(String username) {
-        final String hql = "from Enterprise where corporation = ?";
+        final String hql = "from Enterprise where corporation.username = ?";
         List list = hibernateTemplate.find(hql, username);
         if (list == null||list.isEmpty()){
             return null;

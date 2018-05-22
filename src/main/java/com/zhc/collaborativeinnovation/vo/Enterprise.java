@@ -2,17 +2,19 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.apache.struts2.json.annotations.JSON;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Set;
 
 @Entity
 @Table(name = "enterprise")
 public class Enterprise extends BaseEntity {
 
-    public static int REQUEST = 0;
-    public static int SUCCESS = 1;
-    public static int REAUTH = 2;
+    public final static int REQUEST = 0;
+    public final static int SUCCESS = 1;
+    public final static int REAUTH = 2;
 
     @Id
     @Expose
@@ -39,9 +41,13 @@ public class Enterprise extends BaseEntity {
     @Column(name = "status")
     private Integer status;
 
-    @Expose
-    @Column(name = "corporation")
-    private String corporation;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "corporation")
+    private User corporation;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "publisher")
+    private Set<Needs> needsSet;
 
     public int getId() {
         return id;
@@ -91,12 +97,20 @@ public class Enterprise extends BaseEntity {
         this.status = status;
     }
 
-    public String getCorporation() {
+    public User getCorporation() {
         return corporation;
     }
 
-    public void setCorporation(String corporation) {
+    public void setCorporation(User corporation) {
         this.corporation = corporation;
     }
 
+    @JSON(serialize = false)
+    public Set<Needs> getNeedsSet() {
+        return needsSet;
+    }
+
+    public void setNeedsSet(Set<Needs> needsSet) {
+        this.needsSet = needsSet;
+    }
 }

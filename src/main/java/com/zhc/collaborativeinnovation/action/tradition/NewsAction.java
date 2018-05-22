@@ -39,6 +39,7 @@ public class NewsAction extends BaseAction {
     public String newslist(){
         pages = newsService.getPages(News.class, 8);
         newsList = newsService.findByPage(News.class, curPage, 8);
+
         return SUCCESS;
     }
 

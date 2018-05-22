@@ -2,6 +2,7 @@ package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.zhc.collaborativeinnovation.service.EnterpriseService;
 import com.zhc.collaborativeinnovation.vo.Enterprise;
+import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
 import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.util.FileUtil;
@@ -49,7 +50,8 @@ public class EnterpriseAction extends BaseAction {
                 byte[] bytes = FileUtil.getFile(fileUrl);
                 enterprise.setLicense(bytes);
                 enterprise.setStatus(Enterprise.REQUEST);
-                enterprise.setCorporation(username);
+                User user = new User();
+                enterprise.setCorporation(user);
                 enterpriseService.saveOrUpdate(enterprise);
                 FileUtil.delFile(fileUrl);
             }

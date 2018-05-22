@@ -17,7 +17,7 @@
         <div class="fly-panel fly-panel-user">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <ul class="layui-tab-title" id="LAY_mine">
-                    <li class="layui-this" lay-id="info">发表新闻</li>
+                    <li class="layui-this" lay-id="info">发布新闻</li>
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="layui-form-item">
                                 <input type="submit" id="submit" class="layui-btn layui-btn-normal" lay-submit
-                                       value="发表"/>
+                                       value="发布"/>
                             </div>
                         </form>
                     </div>

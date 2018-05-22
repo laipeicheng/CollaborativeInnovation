@@ -1,5 +1,7 @@
 import com.zhc.collaborativeinnovation.service.ArticleService;
+import com.zhc.collaborativeinnovation.service.EnterpriseService;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.collaborativeinnovation.service.impl.EnterpriseServiceImpl;
 import com.zhc.collaborativeinnovation.vo.*;
 import com.zhc.core.dao.BaseDao;
 import com.zhc.core.dao.impl.BaseDaoImpl;
@@ -40,6 +42,9 @@ public class BaseTest {
     @Autowired
     @Qualifier("baseService")
     private BaseService<Reply> replyService;
+
+    @Autowired
+    private EnterpriseService enterpriseService;
 
     @Test
     public void testEntityToString() {
@@ -153,5 +158,12 @@ public class BaseTest {
     public void testFavPages(){
         int pages = articleService.favPages("user01");
         System.out.println(pages);
+    }
+
+
+
+    @Test
+    public void testGetEnterprise(){
+        System.out.println(enterpriseService.getByUsername("user01"));
     }
 }

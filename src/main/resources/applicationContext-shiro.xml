@@ -72,6 +72,9 @@
                 /enterprise/enterpriseinfo = authc
                 /enterprise/needs = roles[enterprise]
                 /enterprise/** = roles[admin]
+                /needs/needsadd = roles[enterprise]
+                /needs/publish = roles[enterprise]
+                /needs/needsdel = roles[admin]
                 /auth/** = roles[admin]
                 /setting/** = roles[admin]
                 /news/** = roles[admin]
