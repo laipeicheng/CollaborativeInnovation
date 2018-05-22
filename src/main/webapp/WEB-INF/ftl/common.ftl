@@ -125,7 +125,7 @@
         <li class="layui-nav-item"><a href="${base}/enterprise/enterpriseinfo">企业资料</a></li>
     </@shiro.hasRole>
     <@shiro.hasAnyRoles name="enterprise,admin">
-        <li class="layui-nav-item"><a href="${base}/enterprise/needs">需求管理</a></li>
+        <li class="layui-nav-item"><a href="${base}/needs/needslist">需求管理</a></li>
     </@shiro.hasAnyRoles>
     <@shiro.hasRole name="admin">
         <li class="layui-nav-item"><a href="${base}/user/userlist">用户管理</a></li>
