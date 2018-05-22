@@ -132,7 +132,7 @@
         <li class="layui-nav-item"><a href="${base}/enterprise/authenticationlist">认证管理</a></li>
         <li class="layui-nav-item"><a href="${base}/enterprise/enterpriselist">企业管理</a></li>
         <li class="layui-nav-item"><a href="${base}/news/newslist">新闻管理</a></li>
-        <li class="layui-nav-item"><a href="${base}/achievements/achievementslist">政策管理</a></li>
+        <li class="layui-nav-item"><a href="${base}/policy/policylist">政策管理</a></li>
         <li class="layui-nav-item"><a href="${base}/setting/images">图片轮播</a></li>
         <li class="layui-nav-item"><a href="${base}/setting/about">关于我们</a></li>
 

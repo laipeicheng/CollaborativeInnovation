@@ -25,8 +25,8 @@ public class Policy extends BaseEntity {
     private String content;
 
     @Expose
-    @Column(name = "publictime")
-    private Timestamp publictime;
+    @Column(name = "publishtime")
+    private Timestamp publishtime;
 
     public int getId() {
         return id;
@@ -52,12 +52,11 @@ public class Policy extends BaseEntity {
         this.content = content;
     }
 
-    public Timestamp getPublictime() {
-        return publictime;
+    public Timestamp getPublishtime() {
+        return publishtime;
     }
 
-    public void setPublictime(Timestamp publictime) {
-        this.publictime = publictime;
+    public void setPublishtime(Timestamp publishtime) {
+        this.publishtime = publishtime;
     }
-
 }

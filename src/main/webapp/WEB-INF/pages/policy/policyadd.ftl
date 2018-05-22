@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>协同创新-新闻管理 编辑新闻</title>
+    <title>协同创新-政策管理 发布政策</title>
 <@common.link_and_script />
 </head>
 <body>
@@ -17,31 +17,24 @@
         <div class="fly-panel fly-panel-user">
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <ul class="layui-tab-title" id="LAY_mine">
-                    <li class="layui-this" lay-id="info">编辑新闻</li>
+                    <li class="layui-this" lay-id="info">发表政策</li>
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form class="layui-form" method="post" action="${base}/news/newsupdate">
-                            <input type="hidden" name="news.id" value="${(news.id)!}">
+                        <form class="layui-form" method="post" action="${base}/policy/publish"
+                              enctype="multipart/form-data">
                             <div class="layui-form-item">
                                 <label for="title" class="layui-form-label">标题</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="title" name="news.title" value="${(news.title)!}" autocomplete="off"
+                                    <input type="text" id="title" name="policy.title" autocomplete="off"
                                            class="layui-input" lay-verify="title"/>
-                                </div>
-                            </div>
-                            <div class="layui-form-item layui-form-text">
-                                <label for="summary" class="layui-form-label">摘要</label>
-                                <div class="layui-input-block">
-                                    <textarea id="summary" name="news.summary"
-                                              class="layui-textarea" lay-verify="summary">${(news.summary)!}</textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <label for="content" class="layui-form-label">正文</label>
                                 <div class="layui-input-block">
                                     <div id="text"></div>
-                                    <textarea id="content" name="news.content" class="layui-textarea" lay-verify="content" style="display: none;">${(news.content)!}</textarea>
+                                    <textarea id="content" name="policy.content" class="layui-textarea" lay-verify="content" style="display: none;"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -59,7 +52,7 @@
                             content.val(html);
                         };
                         editor.create();
-                        editor.txt.html('${(news.content)!}');
+
                         layui.use(['form', 'layer'], function () {
                             var form = layui.form
                                     , layer = layui.layer;
@@ -67,11 +60,6 @@
                                 title: function (value) {
                                     if ("" == value) {
                                         return "标题不能为空";
-                                    }
-                                },
-                                summary: function (value) {
-                                    if ("" == value) {
-                                        return "摘要不能为空";
                                     }
                                 },
                                 content: function (value) {
