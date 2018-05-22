@@ -7,4 +7,6 @@ import com.zhc.core.dao.BaseDao;
 public interface FavoriteDao extends BaseDao<Favorite> {
 
     boolean isFavorite(String username, int articleid);
+
+    int getFavoriteCounts(int articleid);
 }

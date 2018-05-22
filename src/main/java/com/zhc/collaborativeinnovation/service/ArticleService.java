@@ -27,4 +27,6 @@ public interface ArticleService extends BaseService<Article> {
     List<Article> favoriteList(String username, int page);
 
     int favPages(String username);
+
+    void changeFavoriteCounts(int articleid);
 }

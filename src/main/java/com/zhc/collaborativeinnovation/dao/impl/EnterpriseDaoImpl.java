@@ -3,6 +3,10 @@ package com.zhc.collaborativeinnovation.dao.impl;
 import com.zhc.collaborativeinnovation.dao.EnterpriseDao;
 import com.zhc.collaborativeinnovation.vo.Enterprise;
 import com.zhc.core.dao.impl.BaseDaoImpl;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,8 +16,13 @@ public class EnterpriseDaoImpl extends BaseDaoImpl<Enterprise> implements Enterp
 
     @Override
     public Enterprise getByUsername(String username) {
-        String hql = "from Enterprise where corporation = ?";
-        return (Enterprise) hibernateTemplate.find(hql, username).get(0);
+        final String hql = "from Enterprise where corporation = ?";
+        List list = hibernateTemplate.find(hql, username);
+        if (list == null||list.isEmpty()){
+            return null;
+        }else {
+            return (Enterprise) list.get(0);
+        }
     }
 
     @Override

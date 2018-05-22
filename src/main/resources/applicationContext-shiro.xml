@@ -74,6 +74,7 @@
                 /enterprise/** = roles[admin]
                 /auth/** = roles[admin]
                 /setting/** = roles[admin]
+                /news/** = roles[admin]
                 /article = anon
                 /article/** = authc
                 /verify/** = anon

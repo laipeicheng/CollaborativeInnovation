@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Namespace("/news")
@@ -28,6 +30,8 @@ public class NewsAction extends BaseAction {
 
     @Action(value = "publish",results = {@Result(name = "success",type = "redirect",location = "newslist")})
     public String publish(){
+        news.setPublishtime(new Timestamp(new Date().getTime()));
+        newsService.saveOrUpdate(news);
         return SUCCESS;
     }
 
@@ -51,6 +55,12 @@ public class NewsAction extends BaseAction {
         news.setSummary(this.news.getSummary());
         news.setContent(this.news.getContent());
         newsService.saveOrUpdate(news);
+        return SUCCESS;
+    }
+
+    @Action(value = "newsdel",results = {@Result(name = "success",type = "redirect",location = "newslist")})
+    public String newsdel(){
+        newsService.delete(news);
         return SUCCESS;
     }
 

@@ -36,11 +36,11 @@
                 <tbody>
                 <#list newsList! as news>
                     <tr>
-                        <td><a href="#">${(news.title)!}</a></td>
+                        <td><a href="${base}/news?news.id=${(news.id)!}">${(news.title)!}</a></td>
 
                         <td>${(news.publishtime?string("yyyy-MM-dd HH:mm:SS"))!}</td>
-                        <td><a href="" class="layui-btn layui-btn-mini layui-btn-primary">编辑</a><a
-                                href="javascript:;" onclick="del()"
+                        <td><a href="${base}/news/newsedit?news.id=${(news.id)!}" class="layui-btn layui-btn-mini layui-btn-primary">编辑</a>
+                            <a href="javascript:;" onclick="del(${(news.id)!})"
                                 class="layui-btn layui-btn-mini layui-btn-danger">删除</a>
                         </td>
                     </tr>
@@ -63,21 +63,22 @@
                         , layout: ['prev', 'page', 'next']
                         , jump: function (obj, first) {
                             if (!first) {
-                                location.href = "#";
+                                location.href = "${base}/news/newslist?curPage=" + obj.curr;
                             }
                         }
                     });
-                });
 
-                function del() {
+                });
+                function del(newsid) {
                     layer.confirm('是否删除？', {
                         btn: ['是', '否'] //按钮
                     }, function () {
-                        location.href="#";
+                        location.href="${base}/news/newsdel?news.id="+newsid;
                     }, function () {
 
                     });
                 };
+
             </script>
         </div>
     </div>

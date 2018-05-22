@@ -68,6 +68,7 @@ public class ArticleAction extends BaseAction {
         user.setUsername(username);
         article.setPageview(0);
         article.setReviewcount(0);
+        article.setFavoritecount(0);
         article.setPublishtime(new Timestamp(new Date().getTime()));
         article.setAuthor(user);
         articleService.saveOrUpdate(article);

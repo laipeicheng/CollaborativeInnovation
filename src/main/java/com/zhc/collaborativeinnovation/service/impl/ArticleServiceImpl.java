@@ -1,6 +1,7 @@
 package com.zhc.collaborativeinnovation.service.impl;
 
 import com.zhc.collaborativeinnovation.dao.ArticleDao;
+import com.zhc.collaborativeinnovation.dao.FavoriteDao;
 import com.zhc.collaborativeinnovation.dao.impl.ArticleDaoImpl;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.service.ArticleService;
@@ -20,15 +21,17 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     @Qualifier("articleDao")
     private ArticleDao articleDao;
 
+    @Autowired
+    @Qualifier("favoriteDao")
+    private FavoriteDao favoriteDao;
+
     @Override
     public List<Article> listSortByPublishtime() {
-        System.out.println("---------------listSortByPublishtime-----------------");
         return articleDao.orderBy("publishtime");
     }
 
     @Override
     public List<Article> listSortByPageview() {
-        System.out.println("-----------------listSortByPageview------------------");
         return articleDao.orderBy("pageview");
     }
 
@@ -71,5 +74,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     @Override
     public int favPages(String username) {
         return articleDao.favPages(username);
+    }
+
+    @Override
+    public void changeFavoriteCounts(int articleid) {
+        int favoritecounts = favoriteDao.getFavoriteCounts(articleid);
+        Article article = get(articleid);
+        article.setFavoritecount(favoritecounts);
+        saveOrUpdate(article);
     }
 }

@@ -38,8 +38,14 @@ public class EnterpriseAction extends BaseAction {
         LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
         if (null != shiroUser) {
             String username = shiroUser.getUsername();
-            enterprise = enterpriseService.getByUsername(username);
+            Enterprise enterprise = enterpriseService.getByUsername(username);
             if (enterprise == null || Enterprise.REAUTH == enterprise.getStatus()) {
+                if(null==enterprise){
+                    enterprise = new Enterprise();
+                }
+                enterprise.setName(this.enterprise.getName());
+                enterprise.setSummary(this.enterprise.getSummary());
+                enterprise.setAddress(this.enterprise.getAddress());
                 byte[] bytes = FileUtil.getFile(fileUrl);
                 enterprise.setLicense(bytes);
                 enterprise.setStatus(Enterprise.REQUEST);

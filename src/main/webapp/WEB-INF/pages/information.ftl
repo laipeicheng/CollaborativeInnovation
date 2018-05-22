@@ -95,7 +95,7 @@
 
                 <div class="layui-col-md6">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend><a href="#">科研成果</a></legend>
+                        <legend><a href="#">政策</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -104,19 +104,19 @@
                             </colgroup>
                             <tbody>
                             <tr>
-                                <td>成果1</td>
+                                <td>政策1</td>
                             </tr>
                             <tr>
-                                <td>成果2</td>
+                                <td>政策2</td>
                             </tr>
                             <tr>
-                                <td>成果3</td>
+                                <td>政策3</td>
                             </tr>
                             <tr>
-                                <td>成果4</td>
+                                <td>政策4</td>
                             </tr>
                             <tr>
-                                <td>成果5</td>
+                                <td>政策5</td>
                             </tr>
                             </tbody>
                         </table>

@@ -42,6 +42,7 @@
                                                 <span class="dtime f_l">${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span>
                                                 <span class="viewnum f_r">浏览（${(article.pageview)!}）</span>
                                                 <span class="pingl f_r">评论（${(article.reviewcount)!}）</span>
+                                                <span class="lm f_r">收藏（${(article.favoritecount)!}）</span>
                                             </p>
                                         </ul>
                                     </div>

@@ -114,9 +114,9 @@
                                 }
                             });
 
-                            <#if (enterprise.status=2)!>
-                                layer.msg("认证未通过请重新提交认证申请");
-                            </#if>
+                            <#switch (enterprise.status)!3>
+                            <#case 2>layer.msg("认证未通过请重新提交认证申请");<#break>
+                            </#switch>
                         });
                     </script>
                 </div>

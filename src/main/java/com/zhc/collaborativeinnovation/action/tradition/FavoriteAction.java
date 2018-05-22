@@ -75,6 +75,7 @@ public class FavoriteAction extends BaseAction {
             favorite.setUsername(username);
             favoriteService.saveOrUpdate(favorite);
         }
+        articleService.changeFavoriteCounts(articleid);
         return SUCCESS;
     }
 
@@ -89,6 +90,7 @@ public class FavoriteAction extends BaseAction {
             favorite.setArticleid(articleid);
             favoriteService.delete(favorite);
         }
+        articleService.changeFavoriteCounts(articleid);
         return SUCCESS;
     }
 
