@@ -105,18 +105,13 @@ public class ActicleAction extends BaseAction {
     @Action(value = "delReply", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.article.articleid}")})
     public String delReply() {
         LoginRealm.ShiroUser shiroUser = getShiroUser();
-        if (shiroUser == null) {
-            return ERROR;
-        }
         String username = shiroUser.getUsername();
         reply = replyService.get(reply.getReplyid());
         User user = reply.getArticle().getAuthor();
-        if (!username.equals(user.getUsername())) {
-            return ERROR;
-        } else {
+        if (username.equals(user.getUsername()) || "admin".equals(username)) {
             replyService.delete(reply);
-            return SUCCESS;
         }
+        return SUCCESS;
     }
 
     public int getArticletypeid() {

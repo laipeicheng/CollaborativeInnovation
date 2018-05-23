@@ -37,7 +37,7 @@ public class User extends BaseEntity {
     @JoinColumn(name = "roleid")
     private Role role;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "corporation")
     private Enterprise enterprise;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})

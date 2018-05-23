@@ -1,6 +1,9 @@
 package com.zhc.collaborativeinnovation.action.tradition;
 
+import com.zhc.collaborativeinnovation.service.EnterpriseService;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.collaborativeinnovation.service.impl.EnterpriseServiceImpl;
+import com.zhc.collaborativeinnovation.vo.Enterprise;
 import com.zhc.collaborativeinnovation.vo.Role;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
@@ -37,6 +40,10 @@ public class UserAction extends BaseAction {
     @Autowired
     @Qualifier("userService")
     private UserService userService;
+
+    @Autowired
+    @Qualifier("enterpriseService")
+    private EnterpriseService enterpriseService;
 
 
     @Action(value = "userlist", results = {@Result(name = "success", type = "freemarker", location = "userlist.ftl")})
@@ -97,7 +104,7 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "updateinfo", results = {@Result(name = "success", type = "redirect", location = "/usercenter")})
+    @Action(value = "updateinfo", results = {@Result(name = "success", type = "redirect", location = "/userinfo")})
     public String updateInfo() {
         User user = userService.get(this.user.getUsername());
         user.setRealname(this.user.getRealname());
@@ -106,7 +113,7 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "updatepwd", results = {@Result(name = "success", type = "redirect", location = "/usercenter")})
+    @Action(value = "updatepwd", results = {@Result(name = "success", type = "redirect", location = "/userinfo")})
     public String updatePwd() {
         String username;
         String password;
@@ -128,6 +135,8 @@ public class UserAction extends BaseAction {
     @Action(value = "deluser", results = {@Result(name = "success", type = "redirect", location = "/user/userlist")})
     public String deluser() {
         user = userService.get(user.getUsername());
+        Enterprise enterprise = enterpriseService.getByUsername(user.getUsername());
+        user.setEnterprise(enterprise);
         userService.delete(user);
         return SUCCESS;
     }

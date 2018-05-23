@@ -135,7 +135,6 @@
         <li class="layui-nav-item"><a href="${base}/policy/policylist">政策管理</a></li>
         <li class="layui-nav-item"><a href="${base}/setting/images">图片轮播</a></li>
         <li class="layui-nav-item"><a href="${base}/setting/about">关于我们</a></li>
-
     </@shiro.hasRole>
     <@shiro.user>
         <li class="layui-nav-item"><a href="${base}/favorite/favoritelist">收藏夹</a></li>
