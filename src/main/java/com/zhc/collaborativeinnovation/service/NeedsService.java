@@ -10,4 +10,8 @@ public interface NeedsService extends BaseService<Needs> {
     int getPages(int pageSize, int id);
 
     List<Needs> findByPage(int curPage, int pageSize, int id);
+
+    List<Needs> listTop5();
+
+    List<Needs> findByPage(int page, int pageSize);
 }

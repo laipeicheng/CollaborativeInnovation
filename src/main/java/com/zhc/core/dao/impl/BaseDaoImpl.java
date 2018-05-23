@@ -85,4 +85,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         }
         return pages;
     }
+
+    public List<T> listTop(Class<T> cls, int top){
+        String hql = "from "+cls.getSimpleName();
+        return findByPage(hql, 0, top);
+    }
 }

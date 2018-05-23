@@ -60,5 +60,11 @@ public interface BaseDao<T> {
      */
     int getPages(Class<T> cls, int pageSize);
 
-
+    /**
+     *
+     * @param cls
+     * @param top
+     * @return
+     */
+    List<T> listTop(Class<T> cls, int top);
 }

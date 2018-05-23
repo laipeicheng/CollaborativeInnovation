@@ -15,9 +15,9 @@
         <div class="layui-col-md8">
             <div>
             <span class="">
-                <a href="index">首页</a>
+                <a href="${base}/index">首页</a>
                 &nbsp;>&nbsp;
-                <a href="articlelist">知识库</a>
+                <a href="${base}/articlelist">知识库</a>
                 &nbsp;>&nbsp;
                 <a href="${base}/articlelist?articletypeid=${(article.articletype.articletypeid)!}">${(article.articletype.articletypename)!}</a>
                 &nbsp;>&nbsp;

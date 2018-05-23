@@ -34,7 +34,7 @@
                 </div>
                 <div class="layui-col-md4">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend><a href="#">新闻资讯</a></legend>
+                        <legend><a href="${base}/newslist">新闻资讯</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -42,21 +42,11 @@
                                 <col>
                             </colgroup>
                             <tbody>
+                            <#list newsList! as news>
                             <tr>
-                                <td>新闻1</td>
+                                <td><a href="${base}/news?news.id=${(news.id)!}">${(news.title)!}</a></td>
                             </tr>
-                            <tr>
-                                <td>新闻2</td>
-                            </tr>
-                            <tr>
-                                <td>新闻3</td>
-                            </tr>
-                            <tr>
-                                <td>新闻4</td>
-                            </tr>
-                            <tr>
-                                <td>新闻5</td>
-                            </tr>
+                            </#list>
                             </tbody>
                         </table>
                     </div>
@@ -65,7 +55,7 @@
             <div class="layui-row layui-col-space20">
                 <div class="layui-col-md6">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend><a href="#">需求资讯</a></legend>
+                        <legend><a href="${base}/needslist">需求资讯</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -73,21 +63,15 @@
                                 <col>
                             </colgroup>
                             <tbody>
+                            <#list needsList! as needs>
                             <tr>
-                                <td>需求1</td>
+                                <td><a href="${base}/needs?needs.id=${(needs.id)!}">${(needs.title)!} (
+                                <#switch (needs.status)>
+                                    <#case 0>已结束<#break>
+                                    <#case 1>进行中...<#break>
+                                </#switch>)</a></td>
                             </tr>
-                            <tr>
-                                <td>需求2</td>
-                            </tr>
-                            <tr>
-                                <td>需求3</td>
-                            </tr>
-                            <tr>
-                                <td>需求4</td>
-                            </tr>
-                            <tr>
-                                <td>需求5</td>
-                            </tr>
+                            </#list>
                             </tbody>
                         </table>
                     </div>
@@ -95,7 +79,7 @@
 
                 <div class="layui-col-md6">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend><a href="#">政策</a></legend>
+                        <legend><a href="${base}/policylist">政策资讯</a></legend>
                     </fieldset>
                     <div class="layui-form">
                         <table class="layui-table">
@@ -103,21 +87,11 @@
                                 <col>
                             </colgroup>
                             <tbody>
+                            <#list policyList! as policy>
                             <tr>
-                                <td>政策1</td>
+                                <td><a href="${base}/policy?policy.id=${(policy.id)!}">${(policy.title)!}</a></td>
                             </tr>
-                            <tr>
-                                <td>政策2</td>
-                            </tr>
-                            <tr>
-                                <td>政策3</td>
-                            </tr>
-                            <tr>
-                                <td>政策4</td>
-                            </tr>
-                            <tr>
-                                <td>政策5</td>
-                            </tr>
+                            </#list>
                             </tbody>
                         </table>
                     </div>

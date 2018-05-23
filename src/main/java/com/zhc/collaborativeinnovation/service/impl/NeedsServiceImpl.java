@@ -26,4 +26,14 @@ public class NeedsServiceImpl extends BaseServiceImpl<Needs> implements NeedsSer
     public List<Needs> findByPage(int curPage, int pageSize, int id) {
         return needsDao.findByPage(curPage, pageSize, id);
     }
+
+    @Override
+    public List<Needs> listTop5() {
+        return needsDao.listTop5();
+    }
+
+    @Override
+    public List<Needs> findByPage(int page, int pageSize) {
+        return needsDao.findByPage(page, pageSize);
+    }
 }

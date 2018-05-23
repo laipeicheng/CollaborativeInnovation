@@ -23,7 +23,18 @@ public class NeedsDaoImpl extends BaseDaoImpl<Needs> implements NeedsDao {
 
     @Override
     public List<Needs> findByPage(int curPage, int pageSize, int id) {
-        String hql = "from Needs where publisher.id=?";
+        String hql = "from Needs where publisher.id=? order by status desc, publishtime desc";
         return findByPage(hql, curPage - 1, pageSize, id);
+    }
+
+    @Override
+    public List<Needs> listTop5() {
+        return listTop(Needs.class, 5);
+    }
+
+    @Override
+    public List<Needs> findByPage(int page, int pageSize) {
+        String hql = "from Needs order by status desc, publishtime desc";
+        return findByPage(hql, page-1, pageSize);
     }
 }
