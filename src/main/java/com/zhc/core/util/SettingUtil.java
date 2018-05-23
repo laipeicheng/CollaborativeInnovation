@@ -36,7 +36,7 @@ public class SettingUtil {
         try {
             File file = new File(dir + "/setting.json");
             InputStream inputStream = new FileInputStream(file);
-            JsonReader reader = new JsonReader(new InputStreamReader(inputStream,"UTF-8"));
+            JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
             Setting setting = gson.fromJson(reader, new TypeToken<Setting>() {
             }.getType());
             reader.close();

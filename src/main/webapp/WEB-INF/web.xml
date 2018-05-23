@@ -16,6 +16,7 @@
     </error-page> -->
 
     <servlet>
+        <!--suppress ServletWithoutMappingInspection -->
         <servlet-name>JspSupportServlet</servlet-name>
         <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
         <load-on-startup>1</load-on-startup>

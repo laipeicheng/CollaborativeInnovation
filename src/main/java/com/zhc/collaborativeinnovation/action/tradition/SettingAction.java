@@ -22,16 +22,16 @@ public class SettingAction extends BaseAction {
 
     private String aboutContent;
 
-    @Action(value = "updateAbout",results = {@Result(name = "success", type = "redirect",location = "about")})
-    public String updateAbout(){
+    @Action(value = "updateAbout", results = {@Result(name = "success", type = "redirect", location = "about")})
+    public String updateAbout() {
         Setting setting = settingService.getSetting();
         setting.setAboutContent(aboutContent);
         settingService.saveSetting(setting);
         return SUCCESS;
     }
 
-    @Action(value = "about",results = {@Result(name = "success", type = "freemarker",location = "about.ftl")})
-    public String about(){
+    @Action(value = "about", results = {@Result(name = "success", type = "freemarker", location = "about.ftl")})
+    public String about() {
         aboutContent = settingService.getSetting().getAboutContent();
         return SUCCESS;
     }

@@ -52,7 +52,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "username")
     private Set<Website> websiteSet;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String realname, String password, String phone) {
         this.username = username;

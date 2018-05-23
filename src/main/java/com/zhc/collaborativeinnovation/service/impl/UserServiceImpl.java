@@ -1,8 +1,8 @@
 package com.zhc.collaborativeinnovation.service.impl;
 
 import com.zhc.collaborativeinnovation.dao.UserDao;
-import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

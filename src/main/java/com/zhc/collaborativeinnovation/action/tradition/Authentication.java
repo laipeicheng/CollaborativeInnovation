@@ -29,22 +29,27 @@ public class Authentication extends BaseAction {
     @Qualifier("userService")
     private UserService userService;
 
-    @Action(value = "authenticate",results = {@Result(name = "success", type = "redirect", location ="/enterprise/authenticationlist")})
-    public String authenticate(){
+    @Action(value = "authenticate", results = {@Result(name = "success", type = "redirect", location = "/enterprise/authenticationlist")})
+    public String authenticate() {
         Enterprise enterprise = enterpriseService.get(Enterprise.class, this.enterprise.getId());
         enterprise.setStatus(this.enterprise.getStatus());
-        User user = userService.get(enterprise.getCorporation());
+        User user = userService.get(enterprise.getCorporation().getUsername());
         Role role = new Role();
         System.out.println(enterprise.getStatus());
-        if (Enterprise.SUCCESS==enterprise.getStatus()){
+        if (Enterprise.SUCCESS == enterprise.getStatus()) {
             role.setRoleid(1);
-        }else{
+        } else {
             role.setRoleid(2);
         }
         user.setRole(role);
         userService.saveOrUpdate(user);
         enterpriseService.saveOrUpdate(enterprise);
         return SUCCESS;
+    }
+
+    @Action(value = "reauthenticate", results = {@Result(name = "success", type = "redirect", location = "/enterprise/enterpriselist")})
+    public String reauthenticate() {
+        return authenticate();
     }
 
     public Enterprise getEnterprise() {

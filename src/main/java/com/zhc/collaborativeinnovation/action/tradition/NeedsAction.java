@@ -1,12 +1,10 @@
 package com.zhc.collaborativeinnovation.action.tradition;
 
 import com.zhc.collaborativeinnovation.service.EnterpriseService;
+import com.zhc.collaborativeinnovation.service.NeedsService;
+import com.zhc.collaborativeinnovation.vo.Enterprise;
 import com.zhc.collaborativeinnovation.vo.Needs;
 import com.zhc.core.action.BaseAction;
-import com.zhc.core.realms.LoginRealm;
-import com.zhc.core.service.BaseService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -25,8 +23,8 @@ import java.util.List;
 public class NeedsAction extends BaseAction {
 
     @Autowired
-    @Qualifier("baseService")
-    private BaseService<Needs> needsService;
+    @Qualifier("needsService")
+    private NeedsService needsService;
 
     @Autowired
     @Qualifier("enterpriseService")
@@ -36,11 +34,9 @@ public class NeedsAction extends BaseAction {
 
     private Needs needs;
 
-    @Action(value = "publish",results = {@Result(name = "success",type = "redirect",location = "needslist")})
-    public String publish(){
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+    @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "needslist")})
+    public String publish() {
+        String username = getCurrUsername();
         needs.setPublishtime(new Timestamp(new Date().getTime()));
         needs.setPublisher(enterpriseService.getByUsername(username));
         needs.setStatus(Needs.START);
@@ -48,21 +44,28 @@ public class NeedsAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "needslist",results = {@Result(name = "success",type = "freemarker",location = "needslist.ftl")})
-    public String needslist(){
-        pages = needsService.getPages(Needs.class, 8);
-        needsList = needsService.findByPage(Needs.class, curPage, 8);
+    @Action(value = "needslist", results = {@Result(name = "success", type = "freemarker", location = "needslist.ftl")})
+    public String needslist() {
+        String username = getCurrUsername();
+        if (!"admin".equals(username)) {
+            Enterprise enterprise = enterpriseService.getByUsername(username);
+            pages = needsService.getPages(8, enterprise.getId());
+            needsList = needsService.findByPage(curPage, 8, enterprise.getId());
+        } else {
+            pages = needsService.getPages(Needs.class, 8);
+            needsList = needsService.findByPage(Needs.class, curPage, 8);
+        }
         return SUCCESS;
     }
 
-    @Action(value = "needsedit",results = {@Result(name = "success",type = "freemarker",location = "needsedit.ftl")})
-    public String needsedit(){
+    @Action(value = "needsedit", results = {@Result(name = "success", type = "freemarker", location = "needsedit.ftl")})
+    public String needsedit() {
         needs = needsService.get(Needs.class, needs.getId());
         return SUCCESS;
     }
 
-    @Action(value = "needsupdate",results = {@Result(name = "success",type = "redirect",location = "needslist")})
-    public String needsupdate(){
+    @Action(value = "needsupdate", results = {@Result(name = "success", type = "redirect", location = "needslist")})
+    public String needsupdate() {
         Needs needs = needsService.get(Needs.class, this.needs.getId());
         needs.setTitle(this.needs.getTitle());
         needs.setContent(this.needs.getContent());
@@ -70,16 +73,16 @@ public class NeedsAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "needsend",results = {@Result(name = "success",type = "redirect",location = "needslist")})
-    public String needsend(){
+    @Action(value = "needsend", results = {@Result(name = "success", type = "redirect", location = "needslist")})
+    public String needsend() {
         Needs needs = needsService.get(Needs.class, this.needs.getId());
         needs.setStatus(Needs.END);
         needsService.saveOrUpdate(needs);
         return SUCCESS;
     }
 
-    @Action(value = "needsdel",results = {@Result(name = "success",type = "redirect",location = "needslist")})
-    public String needsdel(){
+    @Action(value = "needsdel", results = {@Result(name = "success", type = "redirect", location = "needslist")})
+    public String needsdel() {
         needsService.delete(needs);
         return SUCCESS;
     }

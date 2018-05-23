@@ -6,10 +6,7 @@ import com.zhc.collaborativeinnovation.vo.Articletype;
 import com.zhc.collaborativeinnovation.vo.Reply;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
-import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.service.BaseService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -47,9 +44,7 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getSession().getAttribute("user");
-        String username = shiroUser.getUsername();
+        String username = getCurrUsername();
         if ("admin".equals(username)) {
             articleList = articleService.list(curPage);
             pages = articleService.getPages(null, null);
@@ -62,10 +57,8 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
     public String publish() {
-        Subject subject = SecurityUtils.getSubject();
-        String username = ((LoginRealm.ShiroUser) subject.getSession().getAttribute("user")).getUsername();
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(getCurrUsername());
         article.setPageview(0);
         article.setReviewcount(0);
         article.setFavoritecount(0);

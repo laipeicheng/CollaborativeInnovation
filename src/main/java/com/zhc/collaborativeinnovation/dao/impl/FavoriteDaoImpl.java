@@ -12,7 +12,7 @@ public class FavoriteDaoImpl extends BaseDaoImpl<Favorite> implements FavoriteDa
     public boolean isFavorite(String username, int articleid) {
         String hql = "select count(*) from Favorite where username=? and articleid=?";
         long count = (Long) hibernateTemplate.find(hql, username, articleid).listIterator().next();
-        if(count>0)
+        if (count > 0)
             return true;
         return false;
     }

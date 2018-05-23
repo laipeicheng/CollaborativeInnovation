@@ -5,7 +5,6 @@ import com.zhc.core.vo.BaseEntity;
 import org.apache.struts2.json.annotations.JSON;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Set;
 
 @Entity

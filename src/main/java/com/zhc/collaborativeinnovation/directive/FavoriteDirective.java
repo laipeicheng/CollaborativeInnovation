@@ -1,19 +1,10 @@
 package com.zhc.collaborativeinnovation.directive;
 
-import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.service.FavoriteService;
-import com.zhc.collaborativeinnovation.service.UserService;
-import com.zhc.collaborativeinnovation.service.impl.ArticleServiceImpl;
-import com.zhc.collaborativeinnovation.service.impl.UserServiceImpl;
-import com.zhc.collaborativeinnovation.vo.Article;
-import com.zhc.collaborativeinnovation.vo.User;
 import freemarker.core.Environment;
 import freemarker.template.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Map;

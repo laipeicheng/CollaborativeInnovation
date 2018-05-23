@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository("baseDao")
@@ -73,7 +74,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public int getPages(Class<T> cls, int pageSize) {
         String hql = "select count(*) from " + cls.getSimpleName();
-        long count = (Long) hibernateTemplate.find(hql).listIterator().next();
+        Iterator iterator = hibernateTemplate.find(hql).listIterator();
+        long count = 0;
+        if (iterator.hasNext()) {
+            count = (Long) iterator.next();
+        }
         int pages = (int) count / pageSize;
         if (count % pageSize != 0) {
             pages++;

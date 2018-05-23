@@ -36,7 +36,7 @@
                 <tr>
                     <td><a href="${base}/enterprise/enterpriseinfo?enterprise.id=${(enterprise.id)!}">${(enterprise.name)!}</a></td>
                     <td><a href="${base}/userinfo?user.username=${(enterprise.corporation.username)!}">${(enterprise.corporation.realname)}</a></td>
-                    <td><a href="${base}/auth/authenticate?enterprise.status=2&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-mini layui-btn-danger">重新认证</a></td>
+                    <td><a href="${base}/auth/reauthenticate?enterprise.status=2&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-mini layui-btn-danger">重新认证</a></td>
                 </tr>
                 </#list>
                 </tbody>

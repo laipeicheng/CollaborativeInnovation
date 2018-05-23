@@ -7,7 +7,7 @@ public class GsonUtil {
 
     private static Gson gson;
 
-    public static Gson getGson(){
+    public static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         //只将具有Expose注解的属性进行转json
         gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();

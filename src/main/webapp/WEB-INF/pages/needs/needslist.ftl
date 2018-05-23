@@ -97,7 +97,7 @@
                     });
                 }
 
-                function end(newsid) {
+                function del(newsid) {
                     layer.confirm('是否删除？', {
                         btn: ['是', '否'] //按钮
                     }, function () {

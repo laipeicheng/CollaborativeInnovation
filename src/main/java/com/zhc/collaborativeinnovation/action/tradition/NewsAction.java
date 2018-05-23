@@ -28,29 +28,29 @@ public class NewsAction extends BaseAction {
 
     private News news;
 
-    @Action(value = "publish",results = {@Result(name = "success",type = "redirect",location = "newslist")})
-    public String publish(){
+    @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "newslist")})
+    public String publish() {
         news.setPublishtime(new Timestamp(new Date().getTime()));
         newsService.saveOrUpdate(news);
         return SUCCESS;
     }
 
-    @Action(value = "newslist",results = {@Result(name = "success",type = "freemarker",location = "newslist.ftl")})
-    public String newslist(){
+    @Action(value = "newslist", results = {@Result(name = "success", type = "freemarker", location = "newslist.ftl")})
+    public String newslist() {
         pages = newsService.getPages(News.class, 8);
         newsList = newsService.findByPage(News.class, curPage, 8);
 
         return SUCCESS;
     }
 
-    @Action(value = "newsedit",results = {@Result(name = "success",type = "freemarker",location = "newsedit.ftl")})
-    public String newsedit(){
+    @Action(value = "newsedit", results = {@Result(name = "success", type = "freemarker", location = "newsedit.ftl")})
+    public String newsedit() {
         news = newsService.get(News.class, news.getId());
         return SUCCESS;
     }
 
-    @Action(value = "newsupdate",results = {@Result(name = "success",type = "redirect",location = "newslist")})
-    public String newsupdate(){
+    @Action(value = "newsupdate", results = {@Result(name = "success", type = "redirect", location = "newslist")})
+    public String newsupdate() {
         News news = newsService.get(News.class, this.news.getId());
         news.setTitle(this.news.getTitle());
         news.setSummary(this.news.getSummary());
@@ -59,8 +59,8 @@ public class NewsAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "newsdel",results = {@Result(name = "success",type = "redirect",location = "newslist")})
-    public String newsdel(){
+    @Action(value = "newsdel", results = {@Result(name = "success", type = "redirect", location = "newslist")})
+    public String newsdel() {
         newsService.delete(news);
         return SUCCESS;
     }

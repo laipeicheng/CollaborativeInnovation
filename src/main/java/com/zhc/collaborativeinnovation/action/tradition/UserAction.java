@@ -42,7 +42,7 @@ public class UserAction extends BaseAction {
     @Action(value = "userlist", results = {@Result(name = "success", type = "freemarker", location = "userlist.ftl")})
     public String userlist() {
         userList = userService.findByPage(curPage);
-        pages = userService.getPages(User.class,8);
+        pages = userService.getPages(User.class, 8);
         return SUCCESS;
     }
 
@@ -112,8 +112,7 @@ public class UserAction extends BaseAction {
         String password;
         String currPwd;
         if (user == null || "".equals(user.getUsername())) {
-            Subject subject = SecurityUtils.getSubject();
-            user = (User) subject.getSession().getAttribute("user");
+            user = getCurrUser();
         }
         username = user.getUsername();
         user = userService.get(username);

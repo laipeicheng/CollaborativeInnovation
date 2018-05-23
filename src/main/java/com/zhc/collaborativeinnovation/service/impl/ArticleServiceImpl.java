@@ -2,9 +2,8 @@ package com.zhc.collaborativeinnovation.service.impl;
 
 import com.zhc.collaborativeinnovation.dao.ArticleDao;
 import com.zhc.collaborativeinnovation.dao.FavoriteDao;
-import com.zhc.collaborativeinnovation.dao.impl.ArticleDaoImpl;
-import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.collaborativeinnovation.service.ArticleService;
+import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.core.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @Service("articleService")
 public class ArticleServiceImpl extends BaseServiceImpl<Article> implements ArticleService {
-
 
     @Autowired
     @Qualifier("articleDao")

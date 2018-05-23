@@ -3,11 +3,8 @@ package com.zhc.collaborativeinnovation.dao.impl;
 import com.zhc.collaborativeinnovation.dao.ArticleDao;
 import com.zhc.collaborativeinnovation.vo.Article;
 import com.zhc.core.dao.impl.BaseDaoImpl;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.query.Query;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
@@ -36,7 +33,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
             }
         });
         List<Article> articleList = new ArrayList<Article>();
-        for (int id:articleidList){
+        for (int id : articleidList) {
             Article article = get(Article.class, id);
             articleList.add(article);
         }

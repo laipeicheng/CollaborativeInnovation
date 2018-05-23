@@ -8,10 +8,6 @@ import com.zhc.collaborativeinnovation.vo.Favorite;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.vo.Website;
 import com.zhc.core.action.BaseAction;
-import com.zhc.core.realms.LoginRealm;
-import com.zhc.core.service.BaseService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -53,9 +49,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoritelist", results = {@Result(name = "success", type = "freemarker", location = "favoritelist.ftl")})
     public String favoritelist() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+        String username = getCurrUsername();
         pages = articleService.favPages(username);
         articleList = articleService.favoriteList(username, curPage);
         websitePages = websiteService.getPages(6, username);
@@ -68,9 +62,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoriteadd", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
     public String favoriteadd() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+        String username = getCurrUsername();
         if (!favoriteService.isFavorite(username, articleid)) {
             Favorite favorite = new Favorite();
             favorite.setArticleid(articleid);
@@ -83,9 +75,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoritecancel", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
     public String favoritecancel() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+        String username = getCurrUsername();
         if (favoriteService.isFavorite(username, articleid)) {
             Favorite favorite = new Favorite();
             favorite.setUsername(username);
@@ -103,9 +93,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "websiteadd", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String websiteadd() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+        String username = getCurrUsername();
         User user = new User();
         user.setUsername(username);
         website.setUser(user);

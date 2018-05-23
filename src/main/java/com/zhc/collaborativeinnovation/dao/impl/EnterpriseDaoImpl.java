@@ -3,10 +3,6 @@ package com.zhc.collaborativeinnovation.dao.impl;
 import com.zhc.collaborativeinnovation.dao.EnterpriseDao;
 import com.zhc.collaborativeinnovation.vo.Enterprise;
 import com.zhc.core.dao.impl.BaseDaoImpl;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,9 +14,9 @@ public class EnterpriseDaoImpl extends BaseDaoImpl<Enterprise> implements Enterp
     public Enterprise getByUsername(String username) {
         final String hql = "from Enterprise where corporation.username = ?";
         List list = hibernateTemplate.find(hql, username);
-        if (list == null||list.isEmpty()){
+        if (list == null || list.isEmpty()) {
             return null;
-        }else {
+        } else {
             return (Enterprise) list.get(0);
         }
     }
@@ -28,15 +24,15 @@ public class EnterpriseDaoImpl extends BaseDaoImpl<Enterprise> implements Enterp
     @Override
     public List<Enterprise> listByStatus(int curPage, int status) {
         String hql = "from Enterprise where status=?";
-        return findByPage(hql, curPage-1, 8, status);
+        return findByPage(hql, curPage - 1, 8, status);
     }
 
     @Override
     public int getPagesByStatus(int status) {
         String hql = "select count(*) from Enterprise where status=?";
         long count = (Long) hibernateTemplate.find(hql, status).listIterator().next();
-        int pages = (int) count / 8 ;
-        if(count%8!=0){
+        int pages = (int) count / 8;
+        if (count % 8 != 0) {
             pages++;
         }
         return pages;

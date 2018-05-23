@@ -1,8 +1,8 @@
 package com.zhc.core.realms;
 
 import com.google.gson.annotations.Expose;
-import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.service.UserService;
+import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.util.EncryptUtil;
 import com.zhc.core.vo.BaseEntity;
 import org.apache.shiro.authc.*;
@@ -14,7 +14,6 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +26,6 @@ public class LoginRealm extends AuthorizingRealm {
 
     /**
      * 授权
-     * 用户第一次查询权限时调用
      *
      * @param principals
      * @return
@@ -63,10 +61,10 @@ public class LoginRealm extends AuthorizingRealm {
             User user = userService.get(username);
             if (user != null) {
                 ByteSource salt = ByteSource.Util.bytes(username);
-                password = EncryptUtil.encMD5(password,salt);
-                if(password.equals(user.getPassword())){
+                password = EncryptUtil.encMD5(password, salt);
+                if (password.equals(user.getPassword())) {
                     throw new IncorrectCredentialsException();
-                }else {
+                } else {
                     ShiroUser shiroUser = new ShiroUser(username, user.getRealname(), user.getPassword(), user.getLastlogintime());
                     info = new SimpleAuthenticationInfo(shiroUser, user.getPassword(), salt, this.getName());
                 }

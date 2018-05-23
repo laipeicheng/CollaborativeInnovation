@@ -4,8 +4,6 @@ import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
-import java.util.Date;
-
 /*
  * 加密工具类
  */
@@ -58,9 +56,4 @@ public class EncryptUtil {
         return tmp;
     }
 
-    public static void main(String[] args) {
-        String encStr = encBase64(new Date().getTime() + "", "");
-        System.out.println(encStr);
-        System.out.println(decBase64(encStr, ""));
-    }
 }

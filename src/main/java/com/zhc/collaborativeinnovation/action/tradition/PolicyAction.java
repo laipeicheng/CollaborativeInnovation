@@ -27,28 +27,28 @@ public class PolicyAction extends BaseAction {
 
     private Policy policy;
 
-    @Action(value = "publish",results = {@Result(name = "success",type = "redirect",location = "policylist")})
-    public String publish(){
+    @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "policylist")})
+    public String publish() {
         policy.setPublishtime(new Timestamp(new Date().getTime()));
         policyService.saveOrUpdate(policy);
         return SUCCESS;
     }
 
-    @Action(value = "policylist",results = {@Result(name = "success",type = "freemarker",location = "policylist.ftl")})
-    public String policylist(){
+    @Action(value = "policylist", results = {@Result(name = "success", type = "freemarker", location = "policylist.ftl")})
+    public String policylist() {
         pages = policyService.getPages(Policy.class, 8);
         policyList = policyService.findByPage(Policy.class, curPage, 8);
         return SUCCESS;
     }
 
-    @Action(value = "policyedit",results = {@Result(name = "success",type = "freemarker",location = "policyedit.ftl")})
-    public String policyedit(){
+    @Action(value = "policyedit", results = {@Result(name = "success", type = "freemarker", location = "policyedit.ftl")})
+    public String policyedit() {
         policy = policyService.get(Policy.class, policy.getId());
         return SUCCESS;
     }
 
-    @Action(value = "policyupdate",results = {@Result(name = "success",type = "redirect",location = "policylist")})
-    public String policyupdate(){
+    @Action(value = "policyupdate", results = {@Result(name = "success", type = "redirect", location = "policylist")})
+    public String policyupdate() {
         Policy policy = policyService.get(Policy.class, this.policy.getId());
         policy.setTitle(this.policy.getTitle());
         policy.setContent(this.policy.getContent());
@@ -56,8 +56,8 @@ public class PolicyAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "policydel",results = {@Result(name = "success",type = "redirect",location = "policylist")})
-    public String policydel(){
+    @Action(value = "policydel", results = {@Result(name = "success", type = "redirect", location = "policylist")})
+    public String policydel() {
         policyService.delete(policy);
         return SUCCESS;
     }

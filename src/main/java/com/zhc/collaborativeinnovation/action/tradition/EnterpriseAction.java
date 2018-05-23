@@ -6,8 +6,6 @@ import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.core.action.BaseAction;
 import com.zhc.core.realms.LoginRealm;
 import com.zhc.core.util.FileUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -35,13 +33,12 @@ public class EnterpriseAction extends BaseAction {
 
     @Action(value = "auth", results = {@Result(name = "success", type = "redirect", location = "enterpriseinfo")})
     public String auth() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
+        LoginRealm.ShiroUser shiroUser = getShiroUser();
         if (null != shiroUser) {
             String username = shiroUser.getUsername();
             Enterprise enterprise = enterpriseService.getByUsername(username);
             if (enterprise == null || Enterprise.REAUTH == enterprise.getStatus()) {
-                if(null==enterprise){
+                if (null == enterprise) {
                     enterprise = new Enterprise();
                 }
                 enterprise.setName(this.enterprise.getName());
@@ -51,6 +48,7 @@ public class EnterpriseAction extends BaseAction {
                 enterprise.setLicense(bytes);
                 enterprise.setStatus(Enterprise.REQUEST);
                 User user = new User();
+                user.setUsername(username);
                 enterprise.setCorporation(user);
                 enterpriseService.saveOrUpdate(enterprise);
                 FileUtil.delFile(fileUrl);
@@ -62,9 +60,7 @@ public class EnterpriseAction extends BaseAction {
     @Action(value = "authentication", results = {@Result(name = "success", type = "freemarker", location = "authentication.ftl")
             , @Result(name = "enterpriseinfo", type = "chain", params = {"actionName", "enterpriseinfo", "namespace", "enterprise"})})
     public String authentication() {
-        Subject subject = SecurityUtils.getSubject();
-        LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-        String username = shiroUser.getUsername();
+        String username = getCurrUsername();
         enterprise = enterpriseService.getByUsername(username);
         if (enterprise == null || Enterprise.REAUTH == enterprise.getStatus()) {
             return SUCCESS;
@@ -90,9 +86,7 @@ public class EnterpriseAction extends BaseAction {
     @Action(value = "enterpriseinfo", results = {@Result(name = "success", type = "freemarker", location = "enterpriseinfo.ftl")})
     public String enterpriseinfo() {
         if (enterprise == null) {
-            Subject subject = SecurityUtils.getSubject();
-            LoginRealm.ShiroUser shiroUser = (LoginRealm.ShiroUser) subject.getPrincipal();
-            String username = shiroUser.getUsername();
+            String username = getCurrUsername();
             enterprise = enterpriseService.getByUsername(username);
         } else {
             enterprise = enterpriseService.get(Enterprise.class, enterprise.getId());

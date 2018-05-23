@@ -6,6 +6,7 @@ import com.zhc.core.dao.BaseDao;
 import java.util.List;
 
 public interface EnterpriseDao extends BaseDao<Enterprise> {
+
     Enterprise getByUsername(String username);
 
     List<Enterprise> listByStatus(int curPage, int status);

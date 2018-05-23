@@ -51,8 +51,15 @@
                         </div>
                             <@shiro.hasRole name="admin">
                                 <div class="layui-form-item">
-                                    <a href="${base}/auth/authenticate?status=1&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-normal">认证通过</a>
-                                    <a href="${base}/auth/authenticate?status=2&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-danger">认证不通过</a>
+                                    <#switch enterprise.status>
+                                        <#case 0>
+                                            <a href="${base}/auth/authenticate?enterprise.status=1&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-normal">认证通过</a>
+                                            <a href="${base}/auth/authenticate?enterprise.status=2&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-danger">认证不通过</a>
+                                        <#break >
+                                        <#case 1>
+                                            <a href="${base}/auth/reauthenticate?enterprise.status=2&enterprise.id=${(enterprise.id)!}" class="layui-btn layui-btn-danger">重新认证</a>
+                                        <#break>
+                                    </#switch>
                                 </div>
                             </@shiro.hasRole>
                     </div>
