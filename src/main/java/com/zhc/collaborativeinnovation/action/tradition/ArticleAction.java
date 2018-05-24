@@ -44,7 +44,7 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
-        log.debug("articlelist");
+        log.info("articlelist");
         String username = getCurrUsername();
         if ("admin".equals(username)) {
             articleList = articleService.list(curPage);
@@ -58,6 +58,7 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
     public String publish() {
+        log.info("publish:{}", article.getTitle());
         User user = new User();
         user.setUsername(getCurrUsername());
         article.setPageview(0);
@@ -71,6 +72,7 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "articleupdate", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
     public String articleupdate() {
+        log.info("articleupdate:{}", article.getArticleid());
         Article article = articleService.get(this.article.getArticleid());
         article.setTitle(this.article.getTitle());
         article.setArticletype(this.article.getArticletype());
@@ -82,18 +84,21 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "articledel", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
     public String articledel() {
+        log.info("articledel:{}", article.getArticleid());
         articleService.delete(article);
         return SUCCESS;
     }
 
     @Action(value = "articleadd", results = {@Result(name = "success", type = "freemarker", location = "articleadd.ftl")})
     public String articleadd() {
+        log.info("articleadd");
         articletypeList = articletypeService.list(Articletype.class);
         return SUCCESS;
     }
 
     @Action(value = "articleedit", results = {@Result(name = "success", type = "freemarker", location = "articleedit.ftl")})
     public String articleedit() {
+        log.info("articleedit:{}", article.getArticleid());
         articletypeList = articletypeService.list(Articletype.class);
         article = articleService.get(article.getArticleid());
         return SUCCESS;

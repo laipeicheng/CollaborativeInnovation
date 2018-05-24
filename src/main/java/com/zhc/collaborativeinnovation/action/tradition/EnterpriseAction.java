@@ -33,6 +33,7 @@ public class EnterpriseAction extends BaseAction {
 
     @Action(value = "auth", results = {@Result(name = "success", type = "redirect", location = "enterpriseinfo")})
     public String auth() {
+        log.info("auth:{}",enterprise.getName());
         LoginRealm.ShiroUser shiroUser = getShiroUser();
         if (null != shiroUser) {
             String username = shiroUser.getUsername();
@@ -60,6 +61,7 @@ public class EnterpriseAction extends BaseAction {
     @Action(value = "authentication", results = {@Result(name = "success", type = "freemarker", location = "authentication.ftl")
             , @Result(name = "enterpriseinfo", type = "chain", params = {"actionName", "enterpriseinfo", "namespace", "enterprise"})})
     public String authentication() {
+        log.info("authentication");
         String username = getCurrUsername();
         enterprise = enterpriseService.getByUsername(username);
         if (enterprise == null || Enterprise.REAUTH == enterprise.getStatus()) {
@@ -71,6 +73,7 @@ public class EnterpriseAction extends BaseAction {
 
     @Action(value = "authenticationlist", results = {@Result(name = "success", type = "freemarker", location = "authenticationlist.ftl")})
     public String authenticationlist() {
+        log.info("authenticationlist");
         pages = enterpriseService.getPagesByStatus(Enterprise.REQUEST);
         enterpriseList = enterpriseService.listByStatus(curPage, Enterprise.REQUEST);
         return SUCCESS;
@@ -78,6 +81,7 @@ public class EnterpriseAction extends BaseAction {
 
     @Action(value = "enterpriselist", results = {@Result(name = "success", type = "freemarker", location = "enterpriselist.ftl")})
     public String enterpriselist() {
+        log.info("enterpriselist");
         pages = enterpriseService.getPagesByStatus(Enterprise.SUCCESS);
         enterpriseList = enterpriseService.listByStatus(curPage, Enterprise.SUCCESS);
         return SUCCESS;
@@ -85,6 +89,7 @@ public class EnterpriseAction extends BaseAction {
 
     @Action(value = "enterpriseinfo", results = {@Result(name = "success", type = "freemarker", location = "enterpriseinfo.ftl")})
     public String enterpriseinfo() {
+        log.info("enterpriseinfo");
         if (enterprise == null) {
             String username = getCurrUsername();
             enterprise = enterpriseService.getByUsername(username);

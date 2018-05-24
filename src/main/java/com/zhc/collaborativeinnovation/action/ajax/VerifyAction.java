@@ -52,8 +52,6 @@ public class VerifyAction extends BaseAction {
     public String verifyPassword() {
         String currPwd = userService.get(username).getPassword();
         password = EncryptUtil.encMD5(password, username);
-        System.out.println(password);
-        System.out.println(currPwd);
         if (!password.equals(currPwd)) {
             verifyStr = "当前密码错误";
         }

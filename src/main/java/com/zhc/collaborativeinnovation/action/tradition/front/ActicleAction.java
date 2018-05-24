@@ -56,6 +56,7 @@ public class ActicleAction extends BaseAction {
 
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
+        log.info("articlelist");
         msg = (String) getSession().getAttribute("msg");
         getSession().removeAttribute("msg");
         articleList = articleService.listByArticletype(articletypeid, curPage);
@@ -68,6 +69,7 @@ public class ActicleAction extends BaseAction {
             @Result(name = "success", type = "freemarker", location = "article.ftl")
             , @Result(name = "error", type = "redirect", location = "articlelist")})
     public String article() {
+        log.info("article:{},{}", article.getArticleid(), article.getTitle());
         if (article == null) {
             msg = "该文章已不存在";
             getSession().setAttribute("msg", msg);
@@ -89,6 +91,7 @@ public class ActicleAction extends BaseAction {
             @Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.article.articleid}")
             , @Result(name = "error", type = "redirect", location = "/login")})
     public String reply() {
+        log.info("reply:{}", reply.getReplycontent());
         Timestamp replytime = new Timestamp(new Date().getTime());
         LoginRealm.ShiroUser shiroUser = getShiroUser();
         if (shiroUser == null) {
@@ -104,6 +107,7 @@ public class ActicleAction extends BaseAction {
 
     @Action(value = "delReply", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${reply.article.articleid}")})
     public String delReply() {
+        log.info("delReply:{}", reply.getReplyid());
         LoginRealm.ShiroUser shiroUser = getShiroUser();
         String username = shiroUser.getUsername();
         reply = replyService.get(reply.getReplyid());

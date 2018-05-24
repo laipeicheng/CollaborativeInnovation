@@ -30,6 +30,7 @@ public class NewsAction extends BaseAction {
 
     @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "newslist")})
     public String publish() {
+        log.info("publish:{}", news.getTitle());
         news.setPublishtime(new Timestamp(new Date().getTime()));
         newsService.saveOrUpdate(news);
         return SUCCESS;
@@ -37,6 +38,7 @@ public class NewsAction extends BaseAction {
 
     @Action(value = "newslist", results = {@Result(name = "success", type = "freemarker", location = "newslist.ftl")})
     public String newslist() {
+        log.info("newslist");
         pages = newsService.getPages(News.class, 8);
         newsList = newsService.findByPage(News.class, curPage, 8);
 
@@ -45,12 +47,14 @@ public class NewsAction extends BaseAction {
 
     @Action(value = "newsedit", results = {@Result(name = "success", type = "freemarker", location = "newsedit.ftl")})
     public String newsedit() {
+        log.info("newsedit:{}", news.getId());
         news = newsService.get(News.class, news.getId());
         return SUCCESS;
     }
 
     @Action(value = "newsupdate", results = {@Result(name = "success", type = "redirect", location = "newslist")})
     public String newsupdate() {
+        log.info("newsupdate:{}", news.getId());
         News news = newsService.get(News.class, this.news.getId());
         news.setTitle(this.news.getTitle());
         news.setSummary(this.news.getSummary());
@@ -61,6 +65,7 @@ public class NewsAction extends BaseAction {
 
     @Action(value = "newsdel", results = {@Result(name = "success", type = "redirect", location = "newslist")})
     public String newsdel() {
+        log.info("newsdel:{}", news.getId());
         newsService.delete(news);
         return SUCCESS;
     }

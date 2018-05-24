@@ -2,7 +2,7 @@
 <Configuration>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT"> <!-- 定义类型为Console的Appender -->
-            <PatternLayout pattern="%d{HH:mm:ss} [%level] %c{10} - %msg%n"/> <!-- 定义类型为Pattern的Layout -->
+            <PatternLayout pattern="%d{HH:mm:ss} %-5p [%t] %C{2} (%F:%L) - %m%n"/> <!-- 定义类型为Pattern的Layout -->
         </Console>
     </Appenders>
     <Loggers>

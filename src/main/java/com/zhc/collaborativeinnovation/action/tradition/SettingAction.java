@@ -28,6 +28,7 @@ public class SettingAction extends BaseAction {
 
     @Action(value = "updateAbout", results = {@Result(name = "success", type = "redirect", location = "about")})
     public String updateAbout() {
+        log.info("updateAbout");
         Setting setting = settingService.getSetting();
         setting.setAboutContent(aboutContent);
         settingService.saveSetting(setting);
@@ -36,19 +37,21 @@ public class SettingAction extends BaseAction {
 
     @Action(value = "about", results = {@Result(name = "success", type = "freemarker", location = "about.ftl")})
     public String about() {
+        log.info("about");
         aboutContent = settingService.getSetting().getAboutContent();
         return SUCCESS;
     }
 
     @Action(value = "images", results = {@Result(name = "success", type = "freemarker", location = "images.ftl")})
     public String images(){
+        log.info("images");
         imageList = settingService.getSetting().getImageList();
         return SUCCESS;
     }
 
     @Action(value = "updateImages", results = {@Result(name = "success", type = "redirect", location = "images")})
     public String updateImages(){
-
+        log.info("updateImages");
         return SUCCESS;
     }
 

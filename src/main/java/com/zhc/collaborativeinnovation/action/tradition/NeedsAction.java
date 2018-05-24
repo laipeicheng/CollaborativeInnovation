@@ -36,6 +36,7 @@ public class NeedsAction extends BaseAction {
 
     @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "needslist")})
     public String publish() {
+        log.info("publish:{}", needs.getTitle());
         String username = getCurrUsername();
         needs.setPublishtime(new Timestamp(new Date().getTime()));
         needs.setPublisher(enterpriseService.getByUsername(username));
@@ -46,6 +47,7 @@ public class NeedsAction extends BaseAction {
 
     @Action(value = "needslist", results = {@Result(name = "success", type = "freemarker", location = "needslist.ftl")})
     public String needslist() {
+        log.info("needslist");
         String username = getCurrUsername();
         if (!"admin".equals(username)) {
             Enterprise enterprise = enterpriseService.getByUsername(username);
@@ -60,12 +62,14 @@ public class NeedsAction extends BaseAction {
 
     @Action(value = "needsedit", results = {@Result(name = "success", type = "freemarker", location = "needsedit.ftl")})
     public String needsedit() {
+        log.info("needsedit:{}", needs.getId());
         needs = needsService.get(Needs.class, needs.getId());
         return SUCCESS;
     }
 
     @Action(value = "needsupdate", results = {@Result(name = "success", type = "redirect", location = "needslist")})
     public String needsupdate() {
+        log.info("needsupdate:{}", needs.getId());
         Needs needs = needsService.get(Needs.class, this.needs.getId());
         needs.setTitle(this.needs.getTitle());
         needs.setContent(this.needs.getContent());
@@ -75,6 +79,7 @@ public class NeedsAction extends BaseAction {
 
     @Action(value = "needsend", results = {@Result(name = "success", type = "redirect", location = "needslist")})
     public String needsend() {
+        log.info("needsend:{}", needs.getId());
         Needs needs = needsService.get(Needs.class, this.needs.getId());
         needs.setStatus(Needs.END);
         needsService.saveOrUpdate(needs);
@@ -83,6 +88,7 @@ public class NeedsAction extends BaseAction {
 
     @Action(value = "needsdel", results = {@Result(name = "success", type = "redirect", location = "needslist")})
     public String needsdel() {
+        log.info("needsdel:{}", needs.getId());
         needsService.delete(needs);
         return SUCCESS;
     }

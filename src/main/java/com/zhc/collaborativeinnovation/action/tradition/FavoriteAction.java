@@ -49,6 +49,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoritelist", results = {@Result(name = "success", type = "freemarker", location = "favoritelist.ftl")})
     public String favoritelist() {
+        log.info("favoritelist");
         String username = getCurrUsername();
         pages = articleService.favPages(username);
         articleList = articleService.favoriteList(username, curPage);
@@ -62,6 +63,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoriteadd", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
     public String favoriteadd() {
+        log.info("favoriteadd");
         String username = getCurrUsername();
         if (!favoriteService.isFavorite(username, articleid)) {
             Favorite favorite = new Favorite();
@@ -75,6 +77,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoritecancel", results = {@Result(name = "success", type = "redirect", location = "/article?article.articleid=${articleid}")})
     public String favoritecancel() {
+        log.info("favoritecancel");
         String username = getCurrUsername();
         if (favoriteService.isFavorite(username, articleid)) {
             Favorite favorite = new Favorite();
@@ -88,11 +91,13 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "favoritedel", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String favoritedel() {
+        log.info("favoritedel");
         return favoritecancel();
     }
 
     @Action(value = "websiteadd", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String websiteadd() {
+        log.info("websiteadd");
         String username = getCurrUsername();
         User user = new User();
         user.setUsername(username);
@@ -103,6 +108,7 @@ public class FavoriteAction extends BaseAction {
 
     @Action(value = "websitedel", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String websitedel() {
+        log.info("websitedel");
         websiteService.delete(website);
         return SUCCESS;
     }

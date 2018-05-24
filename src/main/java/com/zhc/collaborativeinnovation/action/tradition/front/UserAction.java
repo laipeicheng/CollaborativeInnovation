@@ -24,7 +24,8 @@ public class UserAction extends BaseAction {
 
     @Action(value = "userinfo", results = {@Result(name = "success", type = "freemarker", location = "userinfo.ftl")})
     public String userinfo() {
-        String username;
+        log.info("userinfo");
+        String username = "";
         if (user == null || "".equals(user.getUsername())) {
             username = getCurrUsername();
         } else {
@@ -36,6 +37,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "login", results = {@Result(name = "success", type = "freemarker", location = "login.ftl")})
     public String login() {
+        log.info("login");
         msg = (String) getSession().getAttribute("msg");
         getSession().removeAttribute("msg");
         return SUCCESS;
@@ -43,6 +45,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "register", results = {@Result(name = "success", type = "freemarker", location = "register.ftl")})
     public String register() {
+        log.info("register");
         msg = (String) getSession().getAttribute("msg");
         getSession().removeAttribute("msg");
         return SUCCESS;

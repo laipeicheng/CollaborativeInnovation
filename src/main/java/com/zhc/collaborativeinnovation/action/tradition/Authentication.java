@@ -31,11 +31,11 @@ public class Authentication extends BaseAction {
 
     @Action(value = "authenticate", results = {@Result(name = "success", type = "redirect", location = "/enterprise/authenticationlist")})
     public String authenticate() {
+        log.info("authenticate:{}", enterprise.getId());
         Enterprise enterprise = enterpriseService.get(Enterprise.class, this.enterprise.getId());
         enterprise.setStatus(this.enterprise.getStatus());
         User user = userService.get(enterprise.getCorporation().getUsername());
         Role role = new Role();
-        System.out.println(enterprise.getStatus());
         if (Enterprise.SUCCESS == enterprise.getStatus()) {
             role.setRoleid(1);
         } else {
@@ -49,6 +49,7 @@ public class Authentication extends BaseAction {
 
     @Action(value = "reauthenticate", results = {@Result(name = "success", type = "redirect", location = "/enterprise/enterpriselist")})
     public String reauthenticate() {
+        log.info("reauthenticate:{}", enterprise.getId());
         return authenticate();
     }
 

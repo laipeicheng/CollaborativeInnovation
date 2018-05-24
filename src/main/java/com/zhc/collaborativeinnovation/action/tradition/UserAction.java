@@ -50,7 +50,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "userlist", results = {@Result(name = "success", type = "freemarker", location = "userlist.ftl")})
     public String userlist() {
-        log.debug("userlist");
+        log.info("userlist");
         userList = userService.findByPage(curPage);
         pages = userService.getPages(User.class, 8);
         return SUCCESS;
@@ -60,6 +60,7 @@ public class UserAction extends BaseAction {
             @Result(name = "success", type = "redirect", location = "/login")
             , @Result(name = "error", type = "redirect", location = "/register")})
     public String register() {
+        log.info("register:{}", user.getUsername());
         String username = user.getUsername();
         if (userService.get(username) == null) {
             String password = user.getPassword();
@@ -80,6 +81,7 @@ public class UserAction extends BaseAction {
             , @Result(name = "error", type = "freemarker", location = "../login.ftl")
             , @Result(name = "register", type = "freemarker", location = "../register.ftl")})
     public String login() {
+        log.info("login:{}", user.getUsername());
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         if (subject.isAuthenticated()) {
@@ -109,6 +111,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "updateinfo", results = {@Result(name = "success", type = "redirect", location = "/userinfo")})
     public String updateInfo() {
+        log.info("updateInfo:{}", user.getUsername());
         User user = userService.get(this.user.getUsername());
         user.setRealname(this.user.getRealname());
         user.setPhone(this.user.getPhone());
@@ -118,6 +121,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "updatepwd", results = {@Result(name = "success", type = "redirect", location = "/userinfo")})
     public String updatePwd() {
+        log.info("updatePwd:{}", user.getUsername());
         String username;
         String password;
         String currPwd;
@@ -137,6 +141,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "deluser", results = {@Result(name = "success", type = "redirect", location = "/user/userlist")})
     public String deluser() {
+        log.info("deluser:{}", user.getUsername());
         user = userService.get(user.getUsername());
         Enterprise enterprise = enterpriseService.getByUsername(user.getUsername());
         user.setEnterprise(enterprise);

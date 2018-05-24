@@ -42,8 +42,9 @@ public class IndexAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "about",results = {@Result(name = "success", type = "freemarker",location = "about.ftl")})
-    public String about(){
+    @Action(value = "about", results = {@Result(name = "success", type = "freemarker", location = "about.ftl")})
+    public String about() {
+        log.info("about");
         setting = settingService.getSetting();
         return SUCCESS;
     }

@@ -11,6 +11,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -24,6 +26,8 @@ public class LoginRealm extends AuthorizingRealm {
     @Qualifier("userService")
     private UserService userService;
 
+    private Logger log = LoggerFactory.getLogger("MainLogger");
+
     /**
      * 授权
      *
@@ -33,7 +37,7 @@ public class LoginRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
-        System.out.println("----------------doGetAuthorizationInfo--------------");
+        log.info("doGetAuthorizationInfo---授权");
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
         User user = userService.get(shiroUser.getUsername());
         Set<String> roles = new HashSet<String>();
@@ -52,7 +56,7 @@ public class LoginRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken token) throws AuthenticationException {
-        System.out.println("----------------doGetAuthenticationInfo-------------");
+        log.info("doGetAuthenticationInfo---认证");
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
         String username = upToken.getUsername();
         String password = upToken.getPassword().toString();

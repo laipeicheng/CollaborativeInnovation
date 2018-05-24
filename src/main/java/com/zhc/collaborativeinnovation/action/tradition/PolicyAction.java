@@ -29,6 +29,7 @@ public class PolicyAction extends BaseAction {
 
     @Action(value = "publish", results = {@Result(name = "success", type = "redirect", location = "policylist")})
     public String publish() {
+        log.info("publish:{}", policy.getTitle());
         policy.setPublishtime(new Timestamp(new Date().getTime()));
         policyService.saveOrUpdate(policy);
         return SUCCESS;
@@ -36,6 +37,7 @@ public class PolicyAction extends BaseAction {
 
     @Action(value = "policylist", results = {@Result(name = "success", type = "freemarker", location = "policylist.ftl")})
     public String policylist() {
+        log.info("policylist:{}", policy.getId());
         pages = policyService.getPages(Policy.class, 8);
         policyList = policyService.findByPage(Policy.class, curPage, 8);
         return SUCCESS;
@@ -43,12 +45,14 @@ public class PolicyAction extends BaseAction {
 
     @Action(value = "policyedit", results = {@Result(name = "success", type = "freemarker", location = "policyedit.ftl")})
     public String policyedit() {
+        log.info("policyedit:{}", policy.getId());
         policy = policyService.get(Policy.class, policy.getId());
         return SUCCESS;
     }
 
     @Action(value = "policyupdate", results = {@Result(name = "success", type = "redirect", location = "policylist")})
     public String policyupdate() {
+        log.info("policyupdate:{}", policy.getId());
         Policy policy = policyService.get(Policy.class, this.policy.getId());
         policy.setTitle(this.policy.getTitle());
         policy.setContent(this.policy.getContent());
@@ -58,6 +62,7 @@ public class PolicyAction extends BaseAction {
 
     @Action(value = "policydel", results = {@Result(name = "success", type = "redirect", location = "policylist")})
     public String policydel() {
+        log.info("policydel:{}", policy.getId());
         policyService.delete(policy);
         return SUCCESS;
     }
