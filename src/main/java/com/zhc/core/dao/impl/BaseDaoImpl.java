@@ -4,6 +4,8 @@ import com.zhc.core.dao.BaseDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.hibernate5.HibernateCallback;
@@ -18,6 +20,8 @@ import java.util.List;
 @Repository("baseDao")
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
+    public Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     @Qualifier("hibernateTemplate")
     public HibernateTemplate hibernateTemplate;
@@ -30,13 +34,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public void delete(T entity) {
         hibernateTemplate.delete(entity);
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public void saveOrUpdate(T entity) {
         hibernateTemplate.saveOrUpdate(entity);
     }
@@ -55,7 +59,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<T> findByPage(final String hql, final int page, final int pageSize, final Object... args) {
+
         return hibernateTemplate.execute(new HibernateCallback<List<T>>() {
 
             @Override
@@ -72,6 +78,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public int getPages(Class<T> cls, int pageSize) {
         String hql = "select count(*) from " + cls.getSimpleName();
         Iterator iterator = hibernateTemplate.find(hql).listIterator();
@@ -86,6 +93,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return pages;
     }
 
+    @Override
+    @Transactional(readOnly = true)
     public List<T> listTop(Class<T> cls, int top){
         String hql = "from "+cls.getSimpleName();
         return findByPage(hql, 0, top);

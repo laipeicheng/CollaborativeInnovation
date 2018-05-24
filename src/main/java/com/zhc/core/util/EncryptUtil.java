@@ -41,6 +41,8 @@ public class EncryptUtil {
     }
 
     /**
+     * Base64解密
+     *
      * @param str 要解密的字符串
      * @return 解密后的字符串
      */

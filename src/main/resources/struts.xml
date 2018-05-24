@@ -14,7 +14,7 @@
     <constant name="struts.devMode" value="true"/>
     <!-- 指定由spring负责action对象的创建 -->
     <constant name="struts.objectFactory" value="spring"/>
-
+    <!-- 指定默认资源路径 -->
     <constant name="struts.convention.result.path" value="/WEB-INF/pages"/>
 
 </struts>

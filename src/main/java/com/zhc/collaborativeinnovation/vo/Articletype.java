@@ -24,6 +24,14 @@ public class Articletype extends BaseEntity {
     @JoinColumn(name = "articletypeid")
     private Set<Article> articleSet;
 
+    public Articletype() {
+    }
+
+    public Articletype(int articletypeid, String articletypename) {
+        this.articletypeid = articletypeid;
+        this.articletypename = articletypename;
+    }
+
     public int getArticletypeid() {
         return articletypeid;
     }

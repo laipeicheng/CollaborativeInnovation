@@ -2,12 +2,14 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reply")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Reply extends BaseEntity {
 
     @Id

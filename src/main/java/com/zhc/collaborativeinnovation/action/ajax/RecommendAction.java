@@ -26,6 +26,11 @@ public class RecommendAction extends BaseAction {
     @Qualifier("articleService")
     private ArticleService articleService;
 
+    /**
+     * 获取排行文章列表
+     *
+     * @return
+     */
     @Action(value = "recommend", results = {@Result(type = "json")})
     public String recommend() {
         if ("pageview".equals(sortKey)) {

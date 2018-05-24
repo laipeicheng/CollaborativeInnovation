@@ -9,6 +9,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * 自定义freemarker指令
+ * 查询当前用户是否已收藏该文章
+ */
 public class FavoriteDirective implements TemplateDirectiveModel {
 
     private FavoriteService favoriteService;

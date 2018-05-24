@@ -27,6 +27,11 @@ public class VerifyAction extends BaseAction {
     @Qualifier("userService")
     private UserService userService;
 
+    /**
+     * 校验用户名
+     *
+     * @return
+     */
     @Action(value = "username", results = {@Result(type = "json")})
     public String verifyUsername() {
         User user = userService.get(username);
@@ -38,6 +43,11 @@ public class VerifyAction extends BaseAction {
         return SUCCESS;
     }
 
+    /**
+     * 校验密码
+     *
+     * @return
+     */
     @Action(value = "password", results = {@Result(type = "json")})
     public String verifyPassword() {
         String currPwd = userService.get(username).getPassword();

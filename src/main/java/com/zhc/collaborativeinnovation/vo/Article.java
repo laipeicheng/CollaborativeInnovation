@@ -3,6 +3,7 @@ package com.zhc.collaborativeinnovation.vo;
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
 import org.apache.struts2.json.annotations.JSON;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "article")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Article extends BaseEntity {
 
     @Id

@@ -36,6 +36,7 @@ public class IndexAction extends BaseAction {
 
     @Action(value = "index", results = {@Result(name = "success", type = "freemarker", location = "index.ftl")})
     public String index() {
+        log.info("index");
         articleList = articleService.listSortByPublishtime();
         pageviewArticleList = articleService.listSortByPageview();
         return SUCCESS;

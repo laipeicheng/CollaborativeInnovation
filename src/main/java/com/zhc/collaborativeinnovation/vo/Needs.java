@@ -1,11 +1,14 @@
 package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "needs")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Needs {
 
     public final static int END = 0;
@@ -36,6 +39,16 @@ public class Needs {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "publisher")
     private Enterprise publisher;
+
+    public Needs() {
+    }
+
+    public Needs(String title, String content, Integer status, Timestamp publishtime) {
+        this.title = title;
+        this.content = content;
+        this.status = status;
+        this.publishtime = publishtime;
+    }
 
     public int getId() {
         return id;

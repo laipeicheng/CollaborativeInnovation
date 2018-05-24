@@ -35,6 +35,16 @@ public class Website extends BaseEntity {
     @JoinColumn(name = "username")
     private User user;
 
+    public Website() {
+    }
+
+    public Website(String title, String url, String account, String password) {
+        this.title = title;
+        this.url = url;
+        this.account = account;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,12 +1,63 @@
-<ehcache updateCheck="false" name="shiroCache">
+<ehcache name="shiro_ehcache" updateCheck="false">
+    <diskStore path="../ehcache"/>
 
+    <!--
+    hibernate ehcache 和 shiro_ehcache 必须放在同一个xml中配置,不要分开放，不然只会有一个生效。
+     -->
+    <!-- hibernate ehcache-->
     <defaultCache
             maxElementsInMemory="10000"
             eternal="false"
             timeToIdleSeconds="120"
             timeToLiveSeconds="120"
-            overflowToDisk="false"
+            overflowToDisk="true"
+            maxElementsOnDisk="10000000"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
     />
+
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+           maxElementsInMemory="5000"
+           eternal="true"
+           overflowToDisk="true"/>
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"/>
+
+    <!-- shiro ehcache-->
+    <!-- 登录记录缓存 锁定20分钟 -->
+    <cache name="passwordRetryCache"
+           maxElementsInMemory="2000" eternal="false"
+           timeToIdleSeconds="7200"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+    <cache name="authorizationCache"
+           maxElementsInMemory="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+    <cache name="authenticationCache"
+           maxElementsInMemory="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+    <cache name="shiro-activeSessionCache"
+           maxElementsInMemory="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
 </ehcache>

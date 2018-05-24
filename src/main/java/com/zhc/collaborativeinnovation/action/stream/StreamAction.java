@@ -23,15 +23,19 @@ public class StreamAction extends ActionSupport {
 
     private InputStream inputStream;
 
-    @Autowired()
+    @Autowired
     @Qualifier("baseService")
     private BaseService<Enterprise> enterpriseService;
 
+    /**
+     * 获取营业执照，响应二进制流到客户端，客户端显示图片
+     *
+     * @return
+     */
     @Action(value = "license", results = {@Result(type = "stream", params = {"contentType", "image/jpeg", "inputName", "inputStream"})})
     public String license() {
         Enterprise enterprise = enterpriseService.get(Enterprise.class, enterpriseid);
         inputStream = new ByteArrayInputStream(enterprise.getLicense());
-
         return SUCCESS;
     }
 

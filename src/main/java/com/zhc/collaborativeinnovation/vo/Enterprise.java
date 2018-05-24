@@ -48,6 +48,17 @@ public class Enterprise extends BaseEntity {
     @JoinColumn(name = "publisher")
     private Set<Needs> needsSet;
 
+    public Enterprise() {
+    }
+
+    public Enterprise(String name, String summary, String address, byte[] license, Integer status) {
+        this.name = name;
+        this.summary = summary;
+        this.address = address;
+        this.license = license;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }

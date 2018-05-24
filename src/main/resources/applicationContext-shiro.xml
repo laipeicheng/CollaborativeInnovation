@@ -4,20 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 1. 配置 SecurityManager! -->
+    <!-- 配置 SecurityManager! -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="realm" ref="loginRealm"/>
     </bean>
 
-    <!-- 2. 配置 CacheManager.
-        2.1 需要加入 ehcache 的 jar 包及配置文件. -->
-    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
-    </bean>
+    <!-- 配置 CacheManager.
+        需要加入 ehcache 的 jar 包及配置文件. -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 
-    <!-- 3. 配置 Realm
-        3.1 直接配置实现了 org.apache.shiro.realm.Realm 接口的 bean -->
+    <!-- 配置 Realm,直接配置实现了 org.apache.shiro.realm.Realm 接口的 bean -->
     <bean id="loginRealm" class="com.zhc.core.realms.LoginRealm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -27,17 +24,18 @@
         </property>
     </bean>
 
-    <!-- 4. 配置 LifecycleBeanPostProcessor. 可以自定的来调用配置在 Spring IOC 容器中 shiro
-        bean 的生命周期方法. -->
+    <!-- 没有使用shiro的注解，因此不需要配置 -->
+    <!--&lt;!&ndash; 配置 LifecycleBeanPostProcessor. 可以自定的来调用配置在 Spring IOC 容器中 shiro
+        bean 的生命周期方法. &ndash;&gt;
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <!-- 5. 启用 IOC 容器中使用 shiro 的注解. 但必须在配置了 LifecycleBeanPostProcessor 之后才可以使用. -->
+    &lt;!&ndash; 启用 IOC 容器中使用 shiro 的注解. 但必须在配置了 LifecycleBeanPostProcessor 之后才可以使用. &ndash;&gt;
     <bean id="advisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-            depends-on="lifecycleBeanPostProcessor"/>
+            depends-on="lifecycleBeanPostProcessor"/>-->
 
-    <!-- 6. 配置 ShiroFilter.
-        6.1 id 必须和 web.xml 文件中配置的 DelegatingFilterProxy
-        的 <filter-name> 一致. 若不一致, 则会抛出: NoSuchBeanDefinitionException.
+    <!-- 配置 ShiroFilter.
+        id 必须和 web.xml 文件中配置的 DelegatingFilterProxy的 <filter-name> 一致.
+         若不一致, 则会抛出: NoSuchBeanDefinitionException.
         因为 Shiro 会来 IOC 容器中查找和 <filter-name> 名字对应的 filter bean. -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>

@@ -22,6 +22,14 @@ public class Favorite extends BaseEntity {
     @Column(name = "articleid")
     private Integer articleid;
 
+    public Favorite() {
+    }
+
+    public Favorite(String username, Integer articleid) {
+        this.username = username;
+        this.articleid = articleid;
+    }
+
     public String getUsername() {
         return username;
     }

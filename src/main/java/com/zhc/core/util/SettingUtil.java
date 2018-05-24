@@ -13,6 +13,11 @@ public class SettingUtil {
 
     private static Gson gson = GsonUtil.getGson();
 
+    /**
+     * 将网站设置的配置写进setting.json文件中
+     *
+     * @param setting
+     */
     public static void writeToJson(Setting setting) {
         try {
             String dir = ServletActionContext.getServletContext().getRealPath("/WEB-INF");
@@ -31,6 +36,11 @@ public class SettingUtil {
         }
     }
 
+    /**
+     * 从setting.json获取网站的设置
+     *
+     * @return
+     */
     public static Setting readFromJson() {
         String dir = ServletActionContext.getServletContext().getRealPath("/WEB-INF");
         try {

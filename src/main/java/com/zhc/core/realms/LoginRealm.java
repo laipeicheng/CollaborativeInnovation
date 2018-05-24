@@ -75,6 +75,9 @@ public class LoginRealm extends AuthorizingRealm {
         return info;
     }
 
+    /**
+     * 保存当前登录用户信息的类
+     */
     public class ShiroUser extends BaseEntity {
 
         @Expose

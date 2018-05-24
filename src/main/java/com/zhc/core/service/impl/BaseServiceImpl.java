@@ -2,6 +2,8 @@ package com.zhc.core.service.impl;
 
 import com.zhc.core.dao.BaseDao;
 import com.zhc.core.service.BaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Service("baseService")
 public class BaseServiceImpl<T> implements BaseService<T> {
+
+    public Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     @Qualifier("baseDao")

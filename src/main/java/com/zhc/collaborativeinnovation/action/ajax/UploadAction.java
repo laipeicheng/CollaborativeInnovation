@@ -25,6 +25,11 @@ public class UploadAction extends BaseAction {
 
     private String fileUrl;
 
+    /**
+     * 上传营业执照，响应保存该图片的路径到客户端
+     *
+     * @return
+     */
     @Action(value = "license", results = {@Result(type = "json")})
     public String license() {
         String path = FileUtil.saveFile(file, fileFileName);

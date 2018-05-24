@@ -2,12 +2,14 @@ package com.zhc.collaborativeinnovation.vo;
 
 import com.google.gson.annotations.Expose;
 import com.zhc.core.vo.BaseEntity;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "policy")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Policy extends BaseEntity {
 
     @Id
@@ -27,6 +29,15 @@ public class Policy extends BaseEntity {
     @Expose
     @Column(name = "publishtime")
     private Timestamp publishtime;
+
+    public Policy() {
+    }
+
+    public Policy(String title, String content, Timestamp publishtime) {
+        this.title = title;
+        this.content = content;
+        this.publishtime = publishtime;
+    }
 
     public int getId() {
         return id;

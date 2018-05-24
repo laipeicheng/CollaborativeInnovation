@@ -44,6 +44,7 @@ public class ArticleAction extends BaseAction {
 
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
+        log.debug("articlelist");
         String username = getCurrUsername();
         if ("admin".equals(username)) {
             articleList = articleService.list(curPage);
