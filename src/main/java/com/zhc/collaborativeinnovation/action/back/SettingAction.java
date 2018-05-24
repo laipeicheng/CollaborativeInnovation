@@ -1,4 +1,4 @@
-package com.zhc.collaborativeinnovation.action.tradition;
+package com.zhc.collaborativeinnovation.action.back;
 
 import com.zhc.collaborativeinnovation.service.SettingService;
 import com.zhc.core.action.BaseAction;

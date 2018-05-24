@@ -14,7 +14,7 @@ import java.util.List;
 @Service("baseService")
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-    public Logger log = LoggerFactory.getLogger(this.getClass());
+    public Logger log = LoggerFactory.getLogger("MainLogger");
 
     @Autowired
     @Qualifier("baseDao")

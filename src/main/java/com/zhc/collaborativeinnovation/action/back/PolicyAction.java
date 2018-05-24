@@ -1,4 +1,4 @@
-package com.zhc.collaborativeinnovation.action.tradition;
+package com.zhc.collaborativeinnovation.action.back;
 
 import com.zhc.collaborativeinnovation.vo.Policy;
 import com.zhc.core.action.BaseAction;
@@ -37,7 +37,7 @@ public class PolicyAction extends BaseAction {
 
     @Action(value = "policylist", results = {@Result(name = "success", type = "freemarker", location = "policylist.ftl")})
     public String policylist() {
-        log.info("policylist:{}", policy.getId());
+        log.info("policylist");
         pages = policyService.getPages(Policy.class, 8);
         policyList = policyService.findByPage(Policy.class, curPage, 8);
         return SUCCESS;

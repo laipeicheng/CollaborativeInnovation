@@ -1,4 +1,4 @@
-package com.zhc.collaborativeinnovation.action.tradition.front;
+package com.zhc.collaborativeinnovation.action.front;
 
 import com.zhc.collaborativeinnovation.service.NeedsService;
 import com.zhc.collaborativeinnovation.service.NewsService;

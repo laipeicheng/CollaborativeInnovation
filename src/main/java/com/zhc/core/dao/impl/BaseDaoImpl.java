@@ -20,7 +20,7 @@ import java.util.List;
 @Repository("baseDao")
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
-    public Logger log = LoggerFactory.getLogger(this.getClass());
+    public Logger log = LoggerFactory.getLogger("MainLogger");
 
     @Autowired
     @Qualifier("hibernateTemplate")
