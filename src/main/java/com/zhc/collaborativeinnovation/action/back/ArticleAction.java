@@ -74,10 +74,12 @@ public class ArticleAction extends BaseAction {
     public String articleupdate() {
         log.info("articleupdate:{}", article.getArticleid());
         Article article = articleService.get(this.article.getArticleid());
+
         article.setTitle(this.article.getTitle());
         article.setArticletype(this.article.getArticletype());
         article.setSummary(this.article.getSummary());
         article.setContent(this.article.getContent());
+
         articleService.saveOrUpdate(article);
         return SUCCESS;
     }

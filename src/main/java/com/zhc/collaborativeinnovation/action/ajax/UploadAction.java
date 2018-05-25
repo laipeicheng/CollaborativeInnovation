@@ -1,14 +1,20 @@
 package com.zhc.collaborativeinnovation.action.ajax;
 
+import com.zhc.collaborativeinnovation.service.SettingService;
 import com.zhc.core.action.BaseAction;
 import com.zhc.core.util.FileUtil;
+import com.zhc.core.vo.Setting;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @Namespace("/upload")
 @ParentPackage("json-default")
@@ -33,6 +39,16 @@ public class UploadAction extends BaseAction {
     @Action(value = "license", results = {@Result(type = "json")})
     public String license() {
         String path = FileUtil.saveFile(file, fileFileName);
+        if (!"".equals(path)) {
+            uploadStatus = true;
+            fileUrl = path;
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "images", results = {@Result(type = "json")})
+    public String images() {
+        String path = FileUtil.saveImage(file, fileFileName);
         if (!"".equals(path)) {
             uploadStatus = true;
             fileUrl = path;

@@ -24,11 +24,11 @@
                 <div class="layui-col-md8">
                     <div class="layui-carousel" id="test1" lay-filter="test1">
                         <div carousel-item="">
-                            <div style="background-color: red">条目1</div>
-                            <div style="background-color: black">条目2</div>
-                            <div style="background-color: blue">条目3</div>
-                            <div style="background-color: green">条目4</div>
-                            <div style="background-color: white">条目5</div>
+                            <#list imageList! as image>
+                                <div id='preview${('${image}'?substring(0, '${image}'?last_index_of('.')))!}' style='background-color: white'>
+                                    <img style='height: 100%;width: 100%' src='${base}/carousel/${(image)!}'/>
+                                </div>
+                            </#list>
                         </div>
                     </div>
                 </div>

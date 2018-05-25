@@ -6,17 +6,6 @@ layui.use('element', function(){
     element.init()
 });
 
-//图片轮播
-layui.use('carousel', function(){
-  var carousel = layui.carousel;
-  //建造实例
-  carousel.render({
-    elem: '#images-carousel'
-    ,width: '100%' //设置容器宽度
-    ,arrow: 'always' //始终显示箭头
-    ,anim: 'fade' //切换动画方式
-  });
-});
 
 //返回到顶部
 layui.use('util', function(){

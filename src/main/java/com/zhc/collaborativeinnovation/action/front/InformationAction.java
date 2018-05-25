@@ -56,7 +56,7 @@ public class InformationAction extends BaseAction {
     @Action(value = "information", results = {@Result(name = "success", type = "freemarker", location = "information.ftl")})
     public String information() {
         log.info("information");
-        imageList = settingService.getSetting().getImageList();
+        imageList = settingService.loadImageList();
         needsList = needsService.listTop5();
         newsList = newsService.listTop5();
         policyList = policyService.listTop5();

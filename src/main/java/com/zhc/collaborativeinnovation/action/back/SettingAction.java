@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Namespace("/setting")
@@ -24,34 +25,35 @@ public class SettingAction extends BaseAction {
 
     private String aboutContent;
 
+    private String[] images;
+
     private List<String> imageList;
 
     @Action(value = "updateAbout", results = {@Result(name = "success", type = "redirect", location = "about")})
     public String updateAbout() {
         log.info("updateAbout");
-        Setting setting = settingService.getSetting();
-        setting.setAboutContent(aboutContent);
-        settingService.saveSetting(setting);
+        settingService.saveAboutContent(aboutContent);
         return SUCCESS;
     }
 
     @Action(value = "about", results = {@Result(name = "success", type = "freemarker", location = "about.ftl")})
     public String about() {
         log.info("about");
-        aboutContent = settingService.getSetting().getAboutContent();
+        aboutContent = settingService.loadAboutContent();
         return SUCCESS;
     }
 
     @Action(value = "images", results = {@Result(name = "success", type = "freemarker", location = "images.ftl")})
-    public String images(){
+    public String images() {
         log.info("images");
-        imageList = settingService.getSetting().getImageList();
+        imageList = settingService.loadImageList();
         return SUCCESS;
     }
 
-    @Action(value = "updateImages", results = {@Result(name = "success", type = "redirect", location = "images")})
-    public String updateImages(){
+    @Action(value = "updateimages", results = {@Result(name = "success", type = "redirect", location = "images")})
+    public String updateimages() {
         log.info("updateImages");
+        settingService.saveImageList(images);
         return SUCCESS;
     }
 
@@ -69,5 +71,13 @@ public class SettingAction extends BaseAction {
 
     public void setImageList(List<String> imageList) {
         this.imageList = imageList;
+    }
+
+    public String[] getImages() {
+        return images;
+    }
+
+    public void setImages(String[] images) {
+        this.images = images;
     }
 }

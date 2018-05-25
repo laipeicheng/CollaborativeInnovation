@@ -7,7 +7,6 @@
 <script src="${base}/assets/layui/lay/modules/layer.js"></script>
 <script src="${base}/assets/js/index/sliders.js"></script>
 <script src="${base}/assets/js/index/html5.js"></script>
-<script src="${base}/assets/js/index/article_details.js"></script>
 <script src="${base}/assets/js/index/wangEditor.min.js"></script>
 
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css" media="all"/>
@@ -21,12 +20,12 @@
         <ul class="layui-nav layui-nav-left" lay-filter="filter">
 
             <li class="layui-nav-item layui-this nav-left" pc>
-                <a class="logo" href="index" title="Fly">logo</a>
+                <a class="logo" href="${base}/index" title="Fly">logo</a>
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="filter" style="background-color: white">
             <!-- 搜索框 -->
-            <form class="layui-form" method="post" action="#" style="margin-right: 200px; margin-top: 10px">
+            <form class="layui-form" method="post" action="${base}/search" style="margin-right: 200px; margin-top: 10px">
                 <div class="layui-form-item">
                     <div class="layui-input-inline" width="60%">
                         <input type="text" name="title" lay-verify="required" placeholder="请输入关键字"
@@ -113,7 +112,7 @@
 </#macro>
 
 <#macro left>
-<ul class="layui-nav layui-nav-tree layui-bg-blue layui-inline" lay-filter="demo">
+<ul class="layui-nav layui-nav-tree layui-bg-blue layui-inline">
     <@shiro.user>
         <li class="layui-nav-item"><a href="${base}/userinfo">账号</a></li>
         <li class="layui-nav-item"><a href="${base}/article/articlelist">文章管理</a></li>

@@ -25,7 +25,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
         List<Integer> articleidList = (List<Integer>) hibernateTemplate.execute(new HibernateCallback<List<Integer>>() {
             @Override
             public List<Integer> doInHibernate(Session session) throws HibernateException {
-                String hql = "select reply.article.articleid from Reply reply order by replytime desc";
+                String hql = "select distinct reply.article.articleid from Reply reply order by replytime desc";
                 Query<Integer> query = session.createQuery(hql);
                 query.setFirstResult(0);
                 query.setMaxResults(6);

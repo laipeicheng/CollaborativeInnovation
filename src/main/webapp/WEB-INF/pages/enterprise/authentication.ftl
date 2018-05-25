@@ -21,7 +21,7 @@
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form id="auth" class="layui-form" method="post" action="${base}/enterprise/auth" enctype="multipart/form-data">
+                        <form id="auth" class="layui-form" method="post" action="${base}/enterprise/auth">
                             <input id="fileUrl" type="hidden" name="fileUrl" lay-verify="fileUrl" value=""/>
                             <div class="layui-form-item">
                                 <label for="name" class="layui-form-label">企业名称</label>
@@ -115,7 +115,7 @@
                             });
 
                             <#switch (enterprise.status)!3>
-                            <#case 2>layer.msg("认证未通过请重新提交认证申请");<#break>
+                                <#case 2>layer.msg("认证未通过请重新提交认证申请");<#break>
                             </#switch>
                         });
                     </script>

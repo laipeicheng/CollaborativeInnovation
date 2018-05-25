@@ -12,7 +12,7 @@ public class FileUtil {
     /**
      * 上传文件
      *
-     * @param file 需要上传的文件
+     * @param file     需要上传的文件
      * @param filename 文件名
      * @return
      */
@@ -75,8 +75,41 @@ public class FileUtil {
         return null;
     }
 
+    public static String saveImage(File file, String filename) {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        String path = "";
+        try {
+            inputStream = new FileInputStream(file);
+            String dir = ServletActionContext.getServletContext().getRealPath("/carousel");
+            File fileTmp = new File(dir);
+            if (!fileTmp.exists()) {
+                fileTmp.mkdir();
+            }
+            path = EncryptUtil.encMD5("carousel", filename) + ".jpg";
+            fileTmp = new File(dir + "/" + path);
+            if (!fileTmp.exists()) {
+                outputStream = new FileOutputStream(fileTmp);
+                byte[] bytes = new byte[(int) file.length()];
+                inputStream.read(bytes);
+                outputStream.write(bytes);
+                outputStream.flush();
+            } else {
+                return path;
+            }
+            inputStream.close();
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
+
     /**
      * 删除文件
+     *
      * @param path 文件路径
      */
     public static void delFile(String path) {

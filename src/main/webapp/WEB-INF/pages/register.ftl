@@ -39,9 +39,12 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width:230px">
                 <input type="text" name="user.phone" lay-verify="phone" placeholder="手机号码" autocomplete="off"
                        class="layui-input" maxlength="11">
+            </div>
+            <div class="layui-form-pane">
+                <a class="layui-form-label" href="javascript:;">发送验证码</a>
             </div>
         </div>
         <div class="layui-form-item">
