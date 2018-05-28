@@ -8,6 +8,7 @@ import com.zhc.collaborativeinnovation.vo.Favorite;
 import com.zhc.collaborativeinnovation.vo.User;
 import com.zhc.collaborativeinnovation.vo.Website;
 import com.zhc.core.action.BaseAction;
+import com.zhc.core.util.EncryptUtil;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -52,8 +53,10 @@ public class FavoriteAction extends BaseAction {
         log.info("favoritelist");
         String username = getCurrUsername();
         pages = articleService.favPages(username);
+        curPage = curPage > pages ? pages : curPage;
         articleList = articleService.favoriteList(username, curPage);
         websitePages = websiteService.getPages(6, username);
+        websiteCurrPage = websiteCurrPage > websitePages ? websitePages : websiteCurrPage;
         websiteList = websiteService.findByPage(websiteCurrPage, 6, username);
         if (website != null) {
             website = websiteService.get(Website.class, website.getId());
@@ -98,10 +101,19 @@ public class FavoriteAction extends BaseAction {
     @Action(value = "websiteadd", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String websiteadd() {
         log.info("websiteadd");
-        String username = getCurrUsername();
-        User user = new User();
-        user.setUsername(username);
-        website.setUser(user);
+        if (website.getId()!=null){
+            String username = getCurrUsername();
+            User user = new User();
+            user.setUsername(username);
+            website.setAccount(username);
+            String password = getCurrUser().getPassword();
+            password = EncryptUtil.encMD5(website.getUrl(), password);
+            website.setPassword(password);
+            website.setUser(user);
+        } else {
+            Website website = websiteService.get(Website.class, this.website.getId());
+            website.setTitle(this.website.getTitle());
+        }
         websiteService.saveOrUpdate(website);
         return SUCCESS;
     }

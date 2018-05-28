@@ -13,7 +13,7 @@ public class Website extends BaseEntity {
     @Expose
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Expose
     @Column(name = "title")
@@ -45,11 +45,11 @@ public class Website extends BaseEntity {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

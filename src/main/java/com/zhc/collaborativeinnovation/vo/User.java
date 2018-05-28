@@ -37,7 +37,7 @@ public class User extends BaseEntity {
     @JoinColumn(name = "roleid")
     private Role role;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "corporation")
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "corporation")
     @JoinColumn(name = "corporation")
     private Enterprise enterprise;
 
@@ -130,7 +130,6 @@ public class User extends BaseEntity {
         this.lastlogintime = lastlogintime;
     }
 
-    @JSON(serialize = false)
     public Enterprise getEnterprise() {
         return enterprise;
     }

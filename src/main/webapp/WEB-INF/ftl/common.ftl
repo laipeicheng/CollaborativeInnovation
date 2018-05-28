@@ -103,7 +103,7 @@
                             htmlStr += "<li><a href='${base}/article?article.articleid=" + articleList[i].articleid + "'>" + articleList[i].title + "</a></li>";
                         }
                         $("#recommend").html(htmlStr);
-                    },
+                    }
                 });
             }
         }

@@ -18,7 +18,19 @@
             <fieldset class="layui-elem-field layui-field-title">
                 <legend>用户管理</legend>
             </fieldset>
-
+            <form class="layui-form" method="get" action="${base}/user/userlist">
+                <div class="layui-input-inline" style="margin-left: 360px">
+                    <select name="roleid">
+                        <option value="">全部</option>
+                        <option value="1" <#if 1==roleid!3>selected</#if>>企业用户</option>
+                        <option value="2" <#if 2==roleid!3>selected</#if>>个人用户</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="keyword" value="${(keyword)!}" placeholder="关键字"/>
+                </div>
+                <input type="submit" class="layui-btn layui-btn-small layui-btn-normal" lay-submit value="搜索" />
+            </form>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
                     <col width="150">
@@ -58,7 +70,7 @@
             </table>
             <div id="page"/>
             <script>
-                layui.use(['layer', 'laypage'], function () {
+                layui.use(['form', 'layer', 'laypage'], function () {
                     var layer = layui.layer
                             , laypage = layui.laypage;
 
@@ -72,7 +84,7 @@
                         , layout: ['prev', 'page', 'next']
                         , jump: function (obj, first) {
                             if (!first) {
-                                location.href = "${base}/user/userlist?curPage=" + obj.curr;
+                                location.href = "${base}/user/userlist?roleid=${(roleid)!}&keyword=${(keyword)!}&curPage=" + obj.curr;
                             }
                         }
                     });
@@ -82,7 +94,7 @@
                     layer.confirm('是否删除？', {
                         btn: ['是', '否'] //按钮
                     }, function () {
-                        location.href="${base}/user/deluser?user.username="+username;
+                        location.href="${base}/user/deluser?roleid=${(roleid)!}&keyword=${(keyword)!}&curPage=${(currPage)!}&user.username="+username;
                     }, function () {
 
                     });

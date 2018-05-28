@@ -89,9 +89,9 @@
                 </fieldset>
                 <table class="layui-table" lay-skin="line">
                     <colgroup>
-                        <col width="100">
+                        <col width="70">
                         <col>
-                        <col width="200">
+                        <col width="150">
                     </colgroup>
                     <thead>
                     <tr>
@@ -104,7 +104,7 @@
                     <#list websiteList! as website>
                     <tr>
                         <td>${(website_index+1)!}</td>
-                        <td><a href="${(website.url)!}">${(website.title)!}:${(website.url)!}</a>
+                        <td><a href="javascript:;" onclick="openUrl(${(website.id)!})">${(website.title)!}-${(website.url)!}</a>
                         </td>
                         <td><a href="${base}/favorite/favoritelist?websiteCurrPage=${websiteCurrPage!1}&curPage=${curPage!1}&website.id=${(website.id)!}"
                                class="layui-btn layui-btn-mini layui-btn-primary">编辑</a>
@@ -138,6 +138,26 @@
                         });
                     });
 
+                    function openUrl(index) {
+                        $.ajax({
+                            url: '${base}/favorite/loadWebsite',
+                            type: 'post',
+                            data: {
+                                websiteid : index
+                            },
+                            dataType: 'json',
+                            success: function (json) {
+                                layer.confirm("用户名："+json.website.account+"   密码："+json.website.password,{
+                                    btn: ['跳转', '否']
+                                }, function () {
+                                    location.href=json.website.url;
+                                }, function () {
+
+                                })
+                            }
+                        });
+                    }
+
                     function delWebsite(id) {
                         layer.confirm('是否删除？', {
                             btn: ['是', '否'] //按钮
@@ -152,7 +172,7 @@
                         layer.open({
                             type: 1,
                             skin: 'layui-layer-rim', //加上边框
-                            area: ['500px', '350px'], //宽高
+                            area: ['500px', '220px'], //宽高
                             content: "<div style='margin: 10px'>" +
                             "<form action='${base}/favorite/websiteadd' method='post' class='layui-form layui-form-pane'>\n" +
                             "    <#if website??><input type='hidden' name='website.id' value='${(website.id)!}'/>\n</#if>" +
@@ -165,19 +185,7 @@
                             "    <div class='layui-form-item'>\n" +
                             "        <label for='url' class='layui-form-label'>URL</label>\n" +
                             "        <div class='layui-input-block'>\n" +
-                            "            <input type='text' class='layui-input' lay-verify='url' name='website.url' value='${(website.url)!}'/>\n" +
-                            "        </div>\n" +
-                            "    </div>\n" +
-                            "    <div class='layui-form-item'>\n" +
-                            "        <label for='account' class='layui-form-label'>用户名</label>\n" +
-                            "        <div class='layui-input-block'>\n" +
-                            "            <input type='text' class='layui-input' lay-verify='account' name='website.account' value='${(website.account)!}'/>\n" +
-                            "        </div>\n" +
-                            "    </div>\n" +
-                            "    <div class='layui-form-item'>\n" +
-                            "        <label for='password' class='layui-form-label'>密码</label>\n" +
-                            "        <div class='layui-input-block'>\n" +
-                            "            <input type='text' class='layui-input' lay-verify='password' name='website.password' value='${(website.password)!}'/>\n" +
+                            "            <input type='text' class='layui-input' lay-verify='url' name='website.url' <#if (website.url)??>disabled</#if> value='${(website.url)!}'/>\n" +
                             "        </div>\n" +
                             "    </div>\n" +
                             "    <div class='layui-form-item' style='float: right'>\n" +
@@ -195,14 +203,9 @@
                             "                   return '网站名称不能为空';\n" +
                             "               }\n" +
                             "           },\n" +
-                            "           account:function(value) {\n" +
+                            "           url:function(value) {\n" +
                             "               if(''==value){\n" +
-                            "                   return '用户名不能为空';\n" +
-                            "               }\n" +
-                            "           },\n" +
-                            "           password:function(value) {\n" +
-                            "               if(''==value){\n" +
-                            "                   return '密码不能为空';\n" +
+                            "                   return '网站链接不能为空';\n" +
                             "               }\n" +
                             "           }\n" +
                             "       });\n" +

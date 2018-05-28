@@ -50,18 +50,18 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     }
 
     @Override
-    public int getPages(Integer articletypeid, String username) {
-        return articleDao.getPages(articletypeid, username);
+    public int getPages(int pageSize, Integer articletypeid, String username, String keyword) {
+        return articleDao.getPages(pageSize, articletypeid, username, keyword);
     }
 
     @Override
-    public List<Article> listByUsername(String username, int page) {
-        return articleDao.listByUsername(username, page);
+    public List<Article> listByUsername(String username, int page, Integer articletypeid, String keyword) {
+        return articleDao.listByUsername(username, page, articletypeid, keyword);
     }
 
     @Override
-    public List<Article> list(int curPage) {
-        return articleDao.list(curPage);
+    public List<Article> list(int curPage, Integer articletypeid, String keyword) {
+        return articleDao.list(curPage, articletypeid, keyword);
     }
 
     @Override

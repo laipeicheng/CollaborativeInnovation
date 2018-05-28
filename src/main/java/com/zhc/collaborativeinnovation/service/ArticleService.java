@@ -18,11 +18,11 @@ public interface ArticleService extends BaseService<Article> {
 
     Article get(Serializable id);
 
-    int getPages(Integer articletypeid, String username);
+    int getPages(int pageSize, Integer articletypeid, String username, String keyword);
 
-    List<Article> listByUsername(String username, int page);
+    List<Article> listByUsername(String username, int page, Integer articletypeid, String keyword);
 
-    List<Article> list(int curPage);
+    List<Article> list(int curPage, Integer articletypeid, String keyword);
 
     List<Article> favoriteList(String username, int page);
 

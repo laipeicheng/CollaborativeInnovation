@@ -26,9 +26,19 @@
                 <hr class="layui-bg-gray">
                 <div class="content" id="photos">
                     <h2 class="c_titile">${(article.title)!}</h2>
-                    <#assign favorite="com.zhc.collaborativeinnovation.directive.FavoriteDirective"?new()>
+                    <#assign favorite=favoriteDirective>
                     <p class="box_c"><span class="d_time">发表时间：${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</span>
-                        <span>作者：${(article.author.realname)!}</span>
+                        <span>作者：<#switch (article.author.role.roleid)!3>
+                            <#case 3>
+                                佚名
+                            <#break>
+                            <#case 2>
+                                ${(article.author.realname)!}
+                            <#break>
+                            <#case 1>
+                                ${(article.author.enterprise.name)!}
+                            <#break>
+                        </#switch></span>
                         <span>浏览（${(article.pageview)!}）</span>
                         <@favorite username='${(user.username)!}' articleid='${(article.articleid)!}'; result>
                             <#if result>

@@ -34,6 +34,10 @@ public class ArticleAction extends BaseAction {
 
     private List<Articletype> articletypeList;
 
+    private Integer articletypeid;
+
+    private String keyword;
+
     @Autowired
     @Qualifier("baseService")
     private BaseService<Articletype> articletypeService;
@@ -45,13 +49,18 @@ public class ArticleAction extends BaseAction {
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
         log.info("articlelist");
+        log.info("articletypeid:{}, keyword:{}", articletypeid, keyword);
         String username = getCurrUsername();
+        articletypeList = articletypeService.list(Articletype.class);
+        if (curPage > pages){
+            curPage = pages;
+        }
         if ("admin".equals(username)) {
-            articleList = articleService.list(curPage);
-            pages = articleService.getPages(null, null);
+            articleList = articleService.list(curPage, articletypeid, keyword);
+            pages = articleService.getPages(8, articletypeid, null, keyword);
         } else {
-            articleList = articleService.listByUsername(username, curPage);
-            pages = articleService.getPages(null, username);
+            articleList = articleService.listByUsername(username, curPage, articletypeid, keyword);
+            pages = articleService.getPages(8, articletypeid, username, keyword);
         }
         return SUCCESS;
     }
@@ -84,7 +93,7 @@ public class ArticleAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "articledel", results = {@Result(name = "success", type = "redirect", location = "articlelist")})
+    @Action(value = "articledel", results = {@Result(name = "success", type = "redirect", location = "articlelist?articletypeid=${articletypeid}&keyword=${keyword}&currPage=${currPage}")})
     public String articledel() {
         log.info("articledel:{}", article.getArticleid());
         articleService.delete(article);
@@ -145,5 +154,21 @@ public class ArticleAction extends BaseAction {
 
     public void setArticletypeList(List<Articletype> articletypeList) {
         this.articletypeList = articletypeList;
+    }
+
+    public Integer getArticletypeid() {
+        return articletypeid;
+    }
+
+    public void setArticletypeid(Integer articletypeid) {
+        this.articletypeid = articletypeid;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

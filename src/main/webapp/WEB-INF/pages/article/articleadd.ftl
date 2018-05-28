@@ -21,8 +21,7 @@
                 </ul>
                 <div class="layui-tab-content" style="padding: 20px 0;">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                        <form class="layui-form" method="post" action="${base}/article/publish"
-                              enctype="multipart/form-data">
+                        <form class="layui-form" method="post" action="${base}/article/publish">
                             <div class="layui-form-item">
                                 <label for="title" class="layui-form-label">标题</label>
                                 <div class="layui-input-inline">

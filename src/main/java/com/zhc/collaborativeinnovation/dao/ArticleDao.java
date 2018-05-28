@@ -13,11 +13,11 @@ public interface ArticleDao extends BaseDao<Article> {
 
     List<Article> listByArticletype(int articletypeid, int page);
 
-    List<Article> listByUsername(String username, int page);
+    List<Article> listByUsername(String username, int page, Integer articletypeid, String keyword);
 
-    List<Article> list(int curPage);
+    List<Article> list(int curPage, Integer articletypeid, String keyword);
 
-    int getPages(Integer articletypeid, String username);
+    int getPages(int pageSize, Integer articletypeid, String username, String keyword);
 
     int favPages(String username);
 

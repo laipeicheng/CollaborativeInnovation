@@ -39,6 +39,10 @@ public class UserAction extends BaseAction {
 
     private List<User> userList;
 
+    private Integer roleid;
+
+    private String keyword;
+
     @Autowired
     @Qualifier("userService")
     private UserService userService;
@@ -51,8 +55,8 @@ public class UserAction extends BaseAction {
     @Action(value = "userlist", results = {@Result(name = "success", type = "freemarker", location = "userlist.ftl")})
     public String userlist() {
         log.info("userlist");
-        userList = userService.findByPage(curPage);
-        pages = userService.getPages(User.class, 8);
+        userList = userService.findByPage(curPage, roleid, keyword);
+        pages = userService.getPages(8, roleid, keyword);
         return SUCCESS;
     }
 
@@ -139,7 +143,7 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    @Action(value = "deluser", results = {@Result(name = "success", type = "redirect", location = "/user/userlist")})
+    @Action(value = "deluser", results = {@Result(name = "success", type = "redirect", location = "/user/userlist?roleid=${roleid}&keyword=${keyword}&curPage=${currPage}")})
     public String deluser() {
         log.info("deluser:{}", user.getUsername());
         user = userService.get(user.getUsername());
@@ -171,5 +175,21 @@ public class UserAction extends BaseAction {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

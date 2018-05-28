@@ -47,27 +47,42 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
     }
 
     @Override
-    public List<Article> listByUsername(String username, int page) {
-        String hql = "from Article where author.username=? order by publishtime desc";
+    public List<Article> listByUsername(String username, int page, Integer articletypeid, String keyword) {
+        String hql = "from Article where author.username=?";
+        if (null != articletypeid) {
+            hql += " and articletype.articletypeid=" + articletypeid;
+        }
+        if (null != keyword){
+            hql += " and (title like '%"+keyword+"%' or author.realname like '%"+keyword+"%')";
+        }
+        hql += " order by publishtime desc";
         return findByPage(hql, page - 1, 8, username);
     }
 
     @Override
-    public List<Article> list(int curPage) {
-        String hql = "from Article order by publishtime desc";
+    public List<Article> list(int curPage, Integer articletypeid, String keyword) {
+        String hql = "from Article where 1=1";
+        if (null != articletypeid) {
+            hql += " and articletype.articletypeid=" + articletypeid;
+        }
+        if (null != keyword){
+            hql += " and (title like '%"+keyword+"%' or author.realname like '%"+keyword+"%')";
+        }
+        hql += " order by publishtime desc";
         return findByPage(hql, curPage - 1, 8);
     }
 
     @Override
-    public int getPages(Integer articletypeid, String username) {
-        String hql = "select count(*) from Article ";
-        int pageSize = 8;
+    public int getPages(int pageSize, Integer articletypeid, String username, String keyword) {
+        String hql = "select count(*) from Article where 1=1";
         if (null != articletypeid) {
-            hql += "where articletype.articletypeid=" + articletypeid;
-            pageSize = 6;
+            hql += " and articletype.articletypeid=" + articletypeid;
         }
         if (null != username) {
-            hql += "where author.username='" + username + "'";
+            hql += " and author.username='" + username + "'";
+        }
+        if (null != keyword){
+            hql += " and (title like '%"+keyword+"%' or author.realname like '%"+keyword+"%')";
         }
         long count = (Long) hibernateTemplate.find(hql).listIterator().next();
         int pages = (int) count / pageSize;

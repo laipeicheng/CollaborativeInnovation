@@ -1,5 +1,6 @@
 package com.zhc.collaborativeinnovation.action.front;
 
+import com.zhc.collaborativeinnovation.directive.FavoriteDirective;
 import com.zhc.collaborativeinnovation.service.ArticleService;
 import com.zhc.collaborativeinnovation.service.ReplyService;
 import com.zhc.collaborativeinnovation.vo.Article;
@@ -38,6 +39,10 @@ public class ActicleAction extends BaseAction {
     @Qualifier("replyService")
     private ReplyService replyService;
 
+    @Autowired
+    @Qualifier("favoriteDirective")
+    private FavoriteDirective favoriteDirective;
+
     private int articletypeid = 1;
 
     private Reply reply;
@@ -59,9 +64,12 @@ public class ActicleAction extends BaseAction {
         log.info("articlelist");
         msg = (String) getSession().getAttribute("msg");
         getSession().removeAttribute("msg");
+        if (curPage > pages){
+            curPage = pages;
+        }
         articleList = articleService.listByArticletype(articletypeid, curPage);
         articletypeList = articletypeService.list(Articletype.class);
-        pages = articleService.getPages(articletypeid, null);
+        pages = articleService.getPages(6, articletypeid, null, null);
         return SUCCESS;
     }
 
@@ -180,5 +188,13 @@ public class ActicleAction extends BaseAction {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public FavoriteDirective getFavoriteDirective() {
+        return favoriteDirective;
+    }
+
+    public void setFavoriteDirective(FavoriteDirective favoriteDirective) {
+        this.favoriteDirective = favoriteDirective;
     }
 }

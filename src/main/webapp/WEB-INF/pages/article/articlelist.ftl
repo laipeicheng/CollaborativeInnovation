@@ -19,14 +19,28 @@
                 <legend>文章管理</legend>
             </fieldset>
 
-            <a href="${base}/article/articleadd" class="layui-btn layui-btn-small layui-btn-normal">发表文章</a>
+            <form class="layui-form" method="get" action="${base}/article/articlelist">
+                <a href="${base}/article/articleadd" class="layui-btn layui-btn-small layui-btn-normal">发表文章</a>
+                <div class="layui-input-inline" style="margin-left: 290px">
+                    <select name="articletypeid">
+                        <option value="">全部</option>
+                        <#list articletypeList! as articletype>
+                            <option value="${(articletype.articletypeid)!}" <#if articletype.articletypeid==articletypeid!100>selected</#if>>${(articletype.articletypename)!}</option>
+                        </#list>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="keyword" value="${(keyword)!}" placeholder="关键字"/>
+                </div>
+                <input type="submit" lay-submit class="layui-btn layui-btn-small layui-btn-normal" value="搜索" />
+            </form>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
-                    <col width="240">
-                    <col width="80">
-                    <col width="100">
-                    <col width="200">
                     <col>
+                    <col width="100">
+                    <col width="100">
+                    <col width="180">
+                    <col width="150">
                 </colgroup>
                 <thead>
                 <tr>
@@ -41,7 +55,17 @@
                 <#list articleList as article>
                 <tr>
                     <td><a href="${base}/article?article.articleid=${(article.articleid)!}">${(article.title)!}</a></td>
-                    <td>${(article.author.realname)!}</td>
+                    <td><#switch (article.author.role.roleid)!3>
+                            <#case 3>
+                                佚名
+                                <#break>
+                            <#case 2>
+                                ${(article.author.realname)!}
+                                <#break>
+                            <#case 1>
+                                ${(article.author.enterprise.name)!}
+                                <#break>
+                    </#switch></td>
                     <td>${(article.articletype.articletypename)!}</td>
                     <td>${(article.publishtime?string("yyyy-MM-dd HH:mm:ss"))!}</td>
                     <td><a href="${base}/article/articleedit?article.articleid=${(article.articleid)!}"
@@ -55,8 +79,9 @@
             </table>
             <div id="page"/>
             <script>
-                layui.use(['layer', 'laypage'], function () {
+                layui.use(['form', 'layer', 'laypage'], function () {
                     var layer = layui.layer
+                            , form = layui.form
                             , laypage = layui.laypage;
 
                     //只显示上一页、下一页
@@ -69,7 +94,7 @@
                         , layout: ['prev', 'page', 'next']
                         , jump: function (obj, first) {
                             if (!first) {
-                                location.href = "${base}/article/articlelist?curPage=" + obj.curr;
+                                location.href = "${base}/article/articlelist?articletypeid=${(articletypeid)!}&keyword=${(keyword)!}&curPage=" + obj.curr;
                             }
                         }
                     });
@@ -79,7 +104,7 @@
                     layer.confirm('是否删除？', {
                         btn: ['是', '否'] //按钮
                     }, function () {
-                        location.href="${base}/article/articledel?article.articleid="+articleid;
+                        location.href = "${base}/article/articledel?articletypeid=${(articletypeid)!}&keyword=${(keyword)!}&curPage=${(currPage)!}&article.articleid=" + articleid;
                     }, function () {
 
                     });

@@ -24,8 +24,13 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public List<User> findByPage(int page) {
-        return userDao.findByPage(page);
+    public List<User> findByPage(int page, Integer roleid, String username) {
+        return userDao.findByPage(page, roleid, username);
+    }
+
+    @Override
+    public int getPages(int pageSize, Integer roleid, String keyword) {
+        return userDao.getPages(pageSize, roleid, keyword);
     }
 
 }

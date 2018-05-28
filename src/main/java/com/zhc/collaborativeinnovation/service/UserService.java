@@ -10,6 +10,7 @@ public interface UserService extends BaseService<User> {
 
     User get(Serializable id);
 
-    List<User> findByPage(int page);
+    List<User> findByPage(int page, Integer roleid, String username);
 
+    int getPages(int pageSize, Integer roleid, String keyword);
 }

@@ -61,12 +61,11 @@ public class BaseTest {
     @Test
     public void testAddUser() {
         User user = new User();
-        user.setUsername("admin");
-        user.setRealname("管理员");
+        user.setUsername("user02");
+        user.setRealname("用户02");
         user.setPhone("15077774211");
-        String password = "admin";
-        ByteSource salt = ByteSource.Util.bytes(user.getUsername());
-        password = EncryptUtil.encMD5(password, salt);
+        String password = "123456";
+        password = EncryptUtil.encMD5(password, user.getUsername());
         user.setPassword(password);
         user.setRole(new Role(0, ""));
         userService.saveOrUpdate(user);

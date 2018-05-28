@@ -59,21 +59,23 @@ public class LoginRealm extends AuthorizingRealm {
         log.info("doGetAuthenticationInfo---认证");
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
         String username = upToken.getUsername();
-        String password = upToken.getPassword().toString();
+        String password = new String(upToken.getPassword());
+        log.info("username:{}, password:{}", username, password);
         AuthenticationInfo info = null;
         if (username != null && !"".equals(username)) {
             User user = userService.get(username);
             if (user != null) {
                 ByteSource salt = ByteSource.Util.bytes(username);
-                password = EncryptUtil.encMD5(password, salt);
-                if (password.equals(user.getPassword())) {
-                    throw new IncorrectCredentialsException();
+                password = EncryptUtil.encMD5(password, username);
+                log.info("\npassword:{}\nuserpassword:{}", password, user.getPassword());
+                if (!password.equals(user.getPassword())) {
+                    throw new IncorrectCredentialsException();//用户名或密码不正确
                 } else {
                     ShiroUser shiroUser = new ShiroUser(username, user.getRealname(), user.getPassword(), user.getLastlogintime());
                     info = new SimpleAuthenticationInfo(shiroUser, user.getPassword(), salt, this.getName());
                 }
             } else {
-                throw new UnknownAccountException();
+                throw new UnknownAccountException();//没有此用户
             }
         }
         return info;
