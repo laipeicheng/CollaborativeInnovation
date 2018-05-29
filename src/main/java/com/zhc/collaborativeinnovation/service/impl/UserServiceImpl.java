@@ -33,4 +33,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return userDao.getPages(pageSize, roleid, keyword);
     }
 
+    @Override
+    public boolean isExist(String username, String phone) {
+        return userDao.isExist(username, phone);
+    }
+
 }

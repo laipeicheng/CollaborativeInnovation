@@ -28,24 +28,24 @@ public class EncryptUtil {
         return encMD5Str;
     }
 
-    /**
+   /* *//**
      * Base64加密
      *
      * @param str 要加密的字符串
      * @return 加密后的字符串
-     */
+     *//*
     public static String encBase64(String str, String password) {
         String tmp = str + Base64.encodeToString(password.getBytes());
         tmp = Base64.encodeToString(tmp.getBytes());
         return tmp;
     }
 
-    /**
+    *//**
      * Base64解密
      *
      * @param str 要解密的字符串
      * @return 解密后的字符串
-     */
+     *//*
     public static String decBase64(String str, String password) {
         String tmp = str;
         if (null != tmp && !tmp.isEmpty()) {
@@ -57,5 +57,5 @@ public class EncryptUtil {
         }
         return tmp;
     }
-
+*/
 }

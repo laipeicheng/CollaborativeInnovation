@@ -50,4 +50,14 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
         return pages;
     }
 
+    @Override
+    public boolean isExist(String username, String phone) {
+        String hql = "from User where username=? and phone=?";
+        List list = hibernateTemplate.find(hql, username, phone);
+        if (list != null && !list.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
 }

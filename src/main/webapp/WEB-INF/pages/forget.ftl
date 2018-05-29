@@ -5,37 +5,19 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>协同创新-注册</title>
+    <title>协同创新-忘记密码</title>
     <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
     <link rel="stylesheet" href="${base}/assets/css/style.css">
 </head>
 <body class="login-body body">
 
 <div class="login-main">
-    <header class="layui-elip" style="margin-top: 100px">协同创新-注册</header>
-    <form class="layui-form" action="${base}/user/register" method="post">
+    <header class="layui-elip">协同创新-忘记密码</header>
+    <form class="layui-form" action="${base}/updatepwd" method="post">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input id="username" type="text" name="user.username" lay-verify="username" placeholder="用户名" autocomplete="off"
+                <input type="text" name="user.username" lay-verify="username" placeholder="用户名" autocomplete="off"
                        class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <input type="text" name="user.realname" lay-verify="realname" placeholder="姓名"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <input type="password" id="password" name="user.password" lay-verify="password" placeholder="密码"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <input type="password" name="" lay-verify="repassword" placeholder="确认密码"
-                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -47,7 +29,7 @@
         <div class="layui-form-item">
             <div class="layui-input-inline" style="width:210px">
                 <input type="text" name="code" lay-verify="code" placeholder="验证码" autocomplete="off"
-                       class="layui-input" maxlength="6">
+                       class="layui-input" maxlength="11">
             </div>
             <div class="layui-form-pane">
                 <a id="code" class="layui-btn layui-btn-primary" style="width: 130px" href="javascript:;"
@@ -57,12 +39,24 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="submit" lay-submit class="layui-btn layui-btn-normal" value="注册"/>
+                <input type="password" id="password" name="user.password" lay-verify="password" placeholder="新密码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input type="password" name="" lay-verify="repassword" placeholder="确认密码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input type="submit" lay-submit class="layui-btn layui-btn-normal" value="更改密码"/>
             </div>
         </div>
         <hr/>
-        <p><a href="${base}/login" class="fl">已有账号，登录</a>
-
+        <p class="fr"><a href="${base}/login">记得密码？登录</a></p>
     </form>
 </div>
 
@@ -77,25 +71,6 @@
             username: function (value) {
                 if (value == "") {
                     return "请输入用户名";
-                } else {
-                    var verifyStr = "";
-                    $.ajax({
-                        url: "${base}/verify/username",
-                        type: "post",
-                        async: false,
-                        data: {
-                            "username": value
-                        },
-                        success: function (json) {
-                            verifyStr = json.verifyStr;
-                        }
-                    });
-                    return verifyStr;
-                }
-            },
-            realname: function (value) {
-                if (value == "") {
-                    return "请输入姓名";
                 }
             },
             password: function (value) {
@@ -130,9 +105,6 @@
                 }
             }
         });
-        <#if msg??>
-            layer.msg("${(msg)!}");
-        </#if>
     });
 
     function sendCode() {
@@ -160,6 +132,8 @@
                         layer.msg("发送验证码成功");
                     }else if("error" == verifyStr){
                         layer.msg("发送验证码失败");
+                    }else if("notExist" == verifyStr){
+                        layer.msg("该用户与手机号码不对应");
                     }
                 },
                 error:function (json) {

@@ -13,4 +13,6 @@ public interface UserDao extends BaseDao<User> {
     List<User> findByPage(int page, Integer roleid, String username);
 
     int getPages(int pageSize, Integer roleid, String keyword);
+
+    boolean isExist(String username, String phone);
 }

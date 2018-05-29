@@ -27,7 +27,7 @@
         </div>
         <hr/>
         <p><a href="${base}/register" class="fl">还没有账号？注册</a>
-            <a href="${base}/register" class="fr">忘记密码?</a></p>
+            <a href="${base}/forget" class="fr">忘记密码?</a></p>
     </form>
 </div>
 

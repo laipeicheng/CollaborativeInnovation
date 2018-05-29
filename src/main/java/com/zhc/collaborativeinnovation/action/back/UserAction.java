@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Namespace("/user")
 @ParentPackage("struts-default")
@@ -42,6 +43,8 @@ public class UserAction extends BaseAction {
     private Integer roleid;
 
     private String keyword;
+
+    private String code;
 
     @Autowired
     @Qualifier("userService")
@@ -66,12 +69,26 @@ public class UserAction extends BaseAction {
     public String register() {
         log.info("register:{}", user.getUsername());
         String username = user.getUsername();
-        if (userService.get(username) == null) {
-            String password = user.getPassword();
-            user.setPassword(EncryptUtil.encMD5(password, username));
-            user.setRole(new Role(2, ""));
-            userService.saveOrUpdate(user);
-            msg = "注册成功";
+        if (userService.get(username) == null && code != null && !"".equals(code)) {
+            Map<String, String> verifyCodeMap = (Map<String, String>) getSession().getAttribute("verifyCodeMap");
+            if (verifyCodeMap != null) {
+                String verifyCode = verifyCodeMap.get(user.getPhone());
+                if (code.equals(verifyCode)) {
+                    if(verifyCodeMap.containsKey(user.getPhone())){
+                        verifyCodeMap.remove(user.getPhone());
+                        getSession().setAttribute("verifyCodeMap", verifyCodeMap);
+                    }
+                    String password = user.getPassword();
+                    user.setPassword(EncryptUtil.encMD5(password, username));
+                    user.setRole(new Role(2, ""));
+                    userService.saveOrUpdate(user);
+                    msg = "注册成功";
+                } else {
+                    msg = "验证码错误";
+                }
+            } else {
+                msg = "验证码错误";
+            }
         } else {
             msg = "注册失败";
             return ERROR;
@@ -140,6 +157,7 @@ public class UserAction extends BaseAction {
             user.setPassword(password);
         }
         userService.saveOrUpdate(user);
+        SecurityUtils.getSubject().logout();
         return SUCCESS;
     }
 
@@ -191,5 +209,13 @@ public class UserAction extends BaseAction {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
