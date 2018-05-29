@@ -67,7 +67,6 @@ public class LoginRealm extends AuthorizingRealm {
             if (user != null) {
                 ByteSource salt = ByteSource.Util.bytes(username);
                 password = EncryptUtil.encMD5(password, username);
-                log.info("\npassword:{}\nuserpassword:{}", password, user.getPassword());
                 if (!password.equals(user.getPassword())) {
                     throw new IncorrectCredentialsException();//用户名或密码不正确
                 } else {

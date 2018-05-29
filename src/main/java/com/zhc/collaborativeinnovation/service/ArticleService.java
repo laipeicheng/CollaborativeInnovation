@@ -22,7 +22,7 @@ public interface ArticleService extends BaseService<Article> {
 
     List<Article> listByUsername(String username, int page, Integer articletypeid, String keyword);
 
-    List<Article> list(int curPage, Integer articletypeid, String keyword);
+    List<Article> list(int curPage, int pageSize, Integer articletypeid, String keyword);
 
     List<Article> favoriteList(String username, int page);
 

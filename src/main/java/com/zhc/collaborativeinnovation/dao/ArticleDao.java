@@ -15,7 +15,7 @@ public interface ArticleDao extends BaseDao<Article> {
 
     List<Article> listByUsername(String username, int page, Integer articletypeid, String keyword);
 
-    List<Article> list(int curPage, Integer articletypeid, String keyword);
+    List<Article> list(int curPage, int pageSize, Integer articletypeid, String keyword);
 
     int getPages(int pageSize, Integer articletypeid, String username, String keyword);
 

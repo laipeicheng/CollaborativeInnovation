@@ -56,7 +56,7 @@ public class ArticleAction extends BaseAction {
             curPage = pages;
         }
         if ("admin".equals(username)) {
-            articleList = articleService.list(curPage, articletypeid, keyword);
+            articleList = articleService.list(curPage, 8, articletypeid, keyword);
             pages = articleService.getPages(8, articletypeid, null, keyword);
         } else {
             articleList = articleService.listByUsername(username, curPage, articletypeid, keyword);

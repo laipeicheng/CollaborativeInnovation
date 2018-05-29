@@ -60,7 +60,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
     }
 
     @Override
-    public List<Article> list(int curPage, Integer articletypeid, String keyword) {
+    public List<Article> list(int curPage, int pageSize, Integer articletypeid, String keyword) {
         String hql = "from Article where 1=1";
         if (null != articletypeid) {
             hql += " and articletype.articletypeid=" + articletypeid;
@@ -69,7 +69,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
             hql += " and (title like '%"+keyword+"%' or author.realname like '%"+keyword+"%')";
         }
         hql += " order by publishtime desc";
-        return findByPage(hql, curPage - 1, 8);
+        return findByPage(hql, curPage - 1, pageSize);
     }
 
     @Override

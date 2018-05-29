@@ -147,7 +147,7 @@
                             },
                             dataType: 'json',
                             success: function (json) {
-                                layer.confirm("用户名："+json.website.account+"   密码："+json.website.password,{
+                                layer.confirm("账号："+json.website.account+"   密码："+json.website.password,{
                                     btn: ['跳转', '否']
                                 }, function () {
                                     location.href=json.website.url;

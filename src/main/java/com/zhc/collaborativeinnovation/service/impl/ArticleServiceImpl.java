@@ -60,8 +60,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     }
 
     @Override
-    public List<Article> list(int curPage, Integer articletypeid, String keyword) {
-        return articleDao.list(curPage, articletypeid, keyword);
+    public List<Article> list(int curPage, int pageSize, Integer articletypeid, String keyword) {
+        return articleDao.list(curPage, pageSize, articletypeid, keyword);
     }
 
     @Override

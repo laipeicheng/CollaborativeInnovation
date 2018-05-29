@@ -25,15 +25,28 @@
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="filter" style="background-color: white">
             <!-- 搜索框 -->
-            <form class="layui-form" method="post" action="${base}/search" style="margin-right: 200px; margin-top: 10px">
+            <form class="layui-form" method="get" action="${base}/search" style="margin-right: 200px; margin-top: 10px">
                 <div class="layui-form-item">
                     <div class="layui-input-inline" width="60%">
-                        <input type="text" name="title" lay-verify="required" placeholder="请输入关键字"
-                               class="layui-input">
+                        <input type="text" name="searchKeyword" lay-verify="keyword" placeholder="关键字"
+                               class="layui-input" value="${(searchKeyword)!}">
                     </div>
-                    <input type="submit" class="layui-btn layui-btn-normal" lay-filter="*" lay-submit value="搜索"/>
+                    <input type="submit" class="layui-btn layui-btn-normal" lay-submit value="搜索"/>
                 </div>
             </form>
+            <script>
+                layui.use(['form', 'layer'], function () {
+                    var form = layui.form
+                            ,layer = layui.layer;
+                    form.verify({
+                       keyword:function (value) {
+                           if(""==value){
+                               return "关键字不能为空";
+                           }
+                       }
+                    });
+                });
+            </script>
         </ul>
     </div>
 </div>
