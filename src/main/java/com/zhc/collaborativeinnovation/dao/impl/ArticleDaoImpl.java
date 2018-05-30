@@ -22,21 +22,16 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 
     @Override
     public List<Article> orderByRecentReply() {
-        List<Integer> articleidList = (List<Integer>) hibernateTemplate.execute(new HibernateCallback<List<Integer>>() {
+        List<Article> articleList = (List<Article>) hibernateTemplate.execute(new HibernateCallback<List<Article>>() {
             @Override
-            public List<Integer> doInHibernate(Session session) throws HibernateException {
-                String hql = "select distinct reply.article.articleid from Reply reply order by replytime desc";
-                Query<Integer> query = session.createQuery(hql);
+            public List<Article> doInHibernate(Session session) throws HibernateException {
+                String hql = "SELECT r.article FROM Reply r WHERE replytime in(SELECT MAX(replytime) FROM Reply WHERE article.articleid=r.article.articleid) ORDER BY r.replytime DESC";
+                Query<Article> query = session.createQuery(hql);
                 query.setFirstResult(0);
                 query.setMaxResults(6);
                 return query.list();
             }
         });
-        List<Article> articleList = new ArrayList<Article>();
-        for (int id : articleidList) {
-            Article article = get(Article.class, id);
-            articleList.add(article);
-        }
         return articleList;
     }
 
