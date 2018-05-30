@@ -80,7 +80,8 @@ i{font-style: normal;}
 background:url(../images/logo.png) no-repeat;}
 .layui-nav-left{margin-left:120px;}
 .layui-nav-right{margin-right:120px;}
-.nav-left{margin-left:130px;}
+.nav-left{margin-left:240px;}
+.nav-right{margin-right:260px;}
 
 /*footer*/
 .footer {width: auto; clear: both; text-align: center;}

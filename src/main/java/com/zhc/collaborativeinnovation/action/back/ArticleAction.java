@@ -49,18 +49,18 @@ public class ArticleAction extends BaseAction {
     @Action(value = "articlelist", results = {@Result(name = "success", type = "freemarker", location = "articlelist.ftl")})
     public String articlelist() {
         log.info("articlelist");
-        log.info("articletypeid:{}, keyword:{}", articletypeid, keyword);
+        log.info("articletypeid:{}, keyword:{}, curPage:{},pages:{}", articletypeid, keyword, curPage, pages);
         String username = getCurrUsername();
         articletypeList = articletypeService.list(Articletype.class);
-        if (curPage > pages){
-            curPage = pages;
-        }
         if ("admin".equals(username)) {
             articleList = articleService.list(curPage, 8, articletypeid, keyword);
             pages = articleService.getPages(8, articletypeid, null, keyword);
         } else {
             articleList = articleService.listByUsername(username, curPage, articletypeid, keyword);
             pages = articleService.getPages(8, articletypeid, username, keyword);
+        }
+        if (curPage > pages){
+            curPage = pages;
         }
         return SUCCESS;
     }

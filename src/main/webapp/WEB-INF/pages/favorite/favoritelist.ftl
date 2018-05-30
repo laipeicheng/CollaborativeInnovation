@@ -104,9 +104,11 @@
                     <#list websiteList! as website>
                     <tr>
                         <td>${(website_index+1)!}</td>
-                        <td><a href="javascript:;" onclick="openUrl(${(website.id)!})">${(website.title)!}-${(website.url)!}</a>
+                        <td><a href="javascript:;" onclick="openUrl(${(website.id)!})">${(website.title)!}
+                            -${(website.url)!}</a>
                         </td>
-                        <td><a href="${base}/favorite/favoritelist?websiteCurrPage=${websiteCurrPage!1}&curPage=${curPage!1}&website.id=${(website.id)!}"
+                        <td>
+                            <a href="${base}/favorite/favoritelist?websiteCurrPage=${websiteCurrPage!1}&curPage=${curPage!1}&website.id=${(website.id)!}"
                                class="layui-btn layui-btn-mini layui-btn-primary">编辑</a>
                             <a href="javascript:;" onclick="delWebsite(${(website.id)!})"
                                class="layui-btn layui-btn-mini layui-btn-danger">删除</a>
@@ -115,7 +117,8 @@
                     </#list>
                     </tbody>
                 </table>
-                <button onclick="add();" class="layui-btn layui-btn-normal layui-btn-small" style="float: right">添加</button>
+                <button onclick="add();" class="layui-btn layui-btn-normal layui-btn-small" style="float: right">添加
+                </button>
                 <div id="websitepage"/>
                 <script>
                     layui.use(['layer', 'laypage'], function () {
@@ -143,14 +146,15 @@
                             url: '${base}/favorite/loadWebsite',
                             type: 'post',
                             data: {
-                                websiteid : index
+                                websiteid: index
                             },
                             dataType: 'json',
                             success: function (json) {
-                                layer.confirm("账号："+json.website.account+"   密码："+json.website.password,{
+                                layer.confirm("账号：" + json.website.account + "   密码：" + json.website.password, {
                                     btn: ['跳转', '否']
                                 }, function () {
-                                    location.href=json.website.url;
+                                    window.open(json.website.url, "_blank");
+                                    layer.close(layer.index);
                                 }, function () {
 
                                 })
@@ -211,8 +215,8 @@
                             "       });\n" +
                             "   });\n" +
                             "<\/script\>\n",
-                            cancel: function(index, layero){
-                                location.href="${base}/favorite/favoritelist?websiteCurrPage=${websiteCurrPage!1}&curPage=${curPage!1}";
+                            cancel: function (index, layero) {
+                                location.href = "${base}/favorite/favoritelist?websiteCurrPage=${websiteCurrPage!1}&curPage=${curPage!1}";
                             }
                         });
                     }

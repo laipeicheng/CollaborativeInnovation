@@ -41,7 +41,27 @@
                 </#list>
                 </tbody>
             </table>
+            <div id="page"/>
+            <script>
+                layui.use(['laypage'], function () {
+                    var laypage = layui.laypage;
 
+                    //只显示上一页、下一页
+                    laypage.render({
+                        elem: 'page'
+                        , count: ${(pages*10)!}
+                        , theme: '#1E9FFF'
+                        , curr:${curPage!1}
+                        //['count', 'prev', 'page', 'next', 'limit', 'skip']
+                        , layout: ['prev', 'page', 'next']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                location.href = "${base}/enterprise/enterpriselist?curPage=" + obj.curr;
+                            }
+                        }
+                    });
+                });
+            </script>
         </div>
     </div>
 </div>

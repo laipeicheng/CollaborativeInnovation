@@ -101,7 +101,7 @@ public class FavoriteAction extends BaseAction {
     @Action(value = "websiteadd", results = {@Result(name = "success", type = "redirect", location = "favoritelist?websiteCurrPage=${websiteCurrPage}&curPage=${curPage}")})
     public String websiteadd() {
         log.info("websiteadd");
-        if (website.getId()!=null){
+        if (website.getId()==null){
             String username = getCurrUsername();
             User user = new User();
             user.setUsername(username);
@@ -110,11 +110,12 @@ public class FavoriteAction extends BaseAction {
             password = EncryptUtil.encMD5(website.getUrl(), password);
             website.setPassword(password);
             website.setUser(user);
+            websiteService.saveOrUpdate(website);
         } else {
             Website website = websiteService.get(Website.class, this.website.getId());
             website.setTitle(this.website.getTitle());
+            websiteService.saveOrUpdate(website);
         }
-        websiteService.saveOrUpdate(website);
         return SUCCESS;
     }
 

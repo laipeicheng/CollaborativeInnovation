@@ -50,7 +50,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /logout = logout
-                /usercenter = authc
+                /userinfo = authc
                 /user/register = anon
                 /user/login = anon
                 /user/updatepwd = authc

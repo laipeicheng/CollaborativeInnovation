@@ -42,10 +42,10 @@
                                 <col>
                             </colgroup>
                             <tbody>
-                            <#list newsList! as news>
-                            <tr>
-                                <td><a href="${base}/news?news.id=${(news.id)!}">${(news.title)!}</a></td>
-                            </tr>
+                            <#list [0,1,2,3,4] as i>
+                                <tr>
+                                    <td><a href="${base}/news?news.id=${(newsList[i].id)!}">${(newsList[i].title)!"&nbsp;"}</a></td>
+                                </tr>
                             </#list>
                             </tbody>
                         </table>
@@ -63,13 +63,14 @@
                                 <col>
                             </colgroup>
                             <tbody>
-                            <#list needsList! as needs>
+                            <#--<#list needsList! as needs>-->
+                            <#list [0,1,2,3,4] as i>
                             <tr>
-                                <td><a href="${base}/needs?needs.id=${(needs.id)!}">${(needs.title)!} (
-                                <#switch (needs.status)>
+                                <td><a href="${base}/needs?needs.id=${(needsList[i].id)!}">${(needsList[i].title)!"&nbsp"}
+                                <#switch (needsList[i].status)!2>
                                     <#case 0>已结束<#break>
                                     <#case 1>进行中...<#break>
-                                </#switch>)</a></td>
+                                </#switch></a></td>
                             </tr>
                             </#list>
                             </tbody>
@@ -87,9 +88,10 @@
                                 <col>
                             </colgroup>
                             <tbody>
-                            <#list policyList! as policy>
+                            <#--<#list policyList! as policy>-->
+                            <#list [0,1,2,3,4] as i>
                             <tr>
-                                <td><a href="${base}/policy?policy.id=${(policy.id)!}">${(policy.title)!}</a></td>
+                                <td><a href="${base}/policy?policy.id=${(policyList[i].id)!}">${(policyList[i].title)!"&nbsp;"}</a></td>
                             </tr>
                             </#list>
                             </tbody>

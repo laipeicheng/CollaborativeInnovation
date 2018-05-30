@@ -26,8 +26,8 @@
                             <div class="layui-form-item">
                                 <label for="username" class="layui-form-label">用户名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="username" name="user.username" autocomplete="off"
-                                           class="layui-input" value="${(user.username)!}">
+                                    <input type="hidden" name="user.username" value="${(user.username)!}">
+                                    <input type="text" class="layui-input" disabled value="${(user.username)!}">
                                 </div>
                             </div>
                             <div class="layui-form-item">

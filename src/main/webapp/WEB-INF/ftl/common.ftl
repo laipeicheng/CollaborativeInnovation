@@ -17,7 +17,7 @@
 <#macro header>
 <div class="layui-header header" style="background-color: white">
     <div class="main" style="background-color: white">
-        <ul class="layui-nav layui-nav-left" lay-filter="filter">
+        <ul class="layui-nav" lay-filter="filter">
 
             <li class="layui-nav-item layui-this nav-left" pc>
                 <a class="logo" href="${base}/index" title="Fly">logo</a>
@@ -37,13 +37,13 @@
             <script>
                 layui.use(['form', 'layer'], function () {
                     var form = layui.form
-                            ,layer = layui.layer;
+                            , layer = layui.layer;
                     form.verify({
-                       keyword:function (value) {
-                           if(""==value){
-                               return "关键字不能为空";
-                           }
-                       }
+                        keyword: function (value) {
+                            if ("" == value) {
+                                return "关键字不能为空";
+                            }
+                        }
                     });
                 });
             </script>
@@ -52,7 +52,7 @@
 </div>
 <div class="layui-header header" style="margin-top: 65px;background-color: #1E9FFF">
     <div class="main" style="background-color: #1E9FFF">
-        <ul class="layui-nav layui-nav-left layui-bg-blue" lay-filter="filter">
+        <ul class="layui-nav layui-bg-blue" lay-filter="filter">
             <li class="layui-nav-item nav-left" pc>
                 <a href="${base}/index">首页</a>
             </li>
@@ -67,6 +67,26 @@
             </li>
             <li class="layui-nav-item">
                 <a href="${base}/about">关于我们</a>
+            </li>
+            <li class="layui-nav-item nav-right layui-layout-right">
+                <a href="javascript:;">
+                    <@shiro.guest>
+                        游客
+                    </@shiro.guest>
+                    <@shiro.user>
+                        ${(user.realname)!}
+                    </@shiro.user>
+                </a>
+                <dl class="layui-nav-child">
+                    <@shiro.guest>
+                        <dd><a href="${base}/login">登录</a></dd>
+                        <dd><a href="${base}/register">注册</a></dd>
+                    </@shiro.guest>
+                    <@shiro.user>
+                        <dd><a href="${base}/userinfo">个人中心</a></dd>
+                        <dd><a href="${base}/logout">注销</a></dd>
+                    </@shiro.user>
+                </dl>
             </li>
         </ul>
     </div>
