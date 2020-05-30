@@ -16,8 +16,8 @@ public class SMSUtil {
     private final static String product = "Dysmsapi";//短信API产品名称（短信产品名固定，无需修改）
     private final static String domain = "dysmsapi.aliyuncs.com";//短信API产品域名（接口地址固定，无需修改）
     //替换成你的AK
-    private final static String accessKeyId = "LTAIBh52leamk1lv";
-    private final static String accessKeySecret = "zbLUEbgvp4ZSW3EwcP8frCTc8c3DhV";
+    private final static String accessKeyId = "";
+    private final static String accessKeySecret = "";
 
     public static boolean sendCode(String phone, String code) {
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
